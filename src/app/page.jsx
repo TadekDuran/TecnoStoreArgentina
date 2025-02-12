@@ -1,27 +1,29 @@
-'use client'
-import React, { useState } from 'react';
-import { getProducts } from '@/utils/middlewares/getProducts'
+"use client";
+import React from "react";
+import useProducts from "@/hooks/useProducts";
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  const handleGetProducts = async () => {
-    try {
-      const data = await getProducts();
-      setProducts(data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+  const { data, loading, error, getProducts } = useProducts();
 
-  return <div>
-    <h1 className='bg-red-600 py-5 px-3' onClick={handleGetProducts}>GET PRODUCTS</h1>
+  return (
     <div>
-      {products.map((product) => (
-        <div key={product.id} className='p-10'>
-          <h2>{product.maker} {product.model}</h2>
-          <p>${product.price}</p>
-        </div>
-      ))}
+      <button className="w-full bg-blue-600 px-3 py-5" onClick={getProducts}>
+        GET PRODUCTS
+      </button>
+
+      {loading && <p>Cargando productos...</p>}
+      {error && <p>Error al obtener productos: {error.message}</p>}
+
+      <div>
+        {data.map((product) => (
+          <div key={product.id} className="p-10">
+            <h2>
+              {product.maker} {product.model}
+            </h2>
+            <p>${product.price}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
+  );
 }
