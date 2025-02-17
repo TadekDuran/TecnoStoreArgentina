@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import useProducts from "@/hooks/useProducts";
+import { useProducts } from "@/hooks";
 
 export default function Home() {
   const { data, loading, error, getProducts } = useProducts();
