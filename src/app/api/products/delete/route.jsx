@@ -1,19 +1,28 @@
 import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
-
+import { validateDeleteRequest } from '@/utils/middlewares/validateDeleteRequest';
 export async function DELETE(request) {
     try {
-        const { searchParams } = new URL(request.url);
-        const id = searchParams.get('id');
-        if (!id) return NextResponse.json({ status: 400, message: "Missing ID parameter." }, { status: 400 });
+        const validation = await validateDeleteRequest(request);
+        if(validation.error) return NextResponse.json({message: validation.error, status: validation.status}, { status: validation.status });
+        const { id, ids } = validation.data;
         const supabase = await createClient();
-        const { data, error } = await supabase.from("products").delete().eq("id", id).select();
-        if(error) return NextResponse.json({ status: 500, message: error.message }, { status: 500 });
-        if(data.length === 0) return NextResponse.json({ status: 404, message: "Product not found." }, { status: 404 });
-        return NextResponse.json({ message: "Product deleted correctly", status: 200, product: data[0]});
+        let response;
+        if(id)  {
+            const { data, error } = await supabase.from('products').delete().eq('id', id).select();
+            if(error) return NextResponse.json({ message: error.message, status: 500 }, { status: 500 });
+            if(!data || data.length === 0) return NextResponse.json({ message: 'No products found.', status: 404 }, { status: 404 });
+            response = { message: 'Product deleted correctly', status: 200, product: data[0] }
+        }   else if(ids)    {
+            const { data, error } = await supabase.from('products').delete().in('id', ids).select();
+            if(error) return NextResponse.json({ message: error.message, status: 500 }, { status: 500 });
+            if(!data || data.length === 0) return NextResponse.json({ message: 'No products found.', status: 404 }, { status: 404 });
+            response = { message: 'Products deleted correctly', status: 200, products: data }
+        }
+        return NextResponse.json(response);
     } catch (error) {
         return NextResponse.json(
-            { status: 500, message: error.message },
+            { message: error.message, status: 500 },
             { status: 500 }
         );
     }
