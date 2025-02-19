@@ -46,7 +46,7 @@ export const columns = [
               <span>Acciones</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent>
             <DropdownMenuLabel>Acciones</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Editar Producto</DropdownMenuItem>
