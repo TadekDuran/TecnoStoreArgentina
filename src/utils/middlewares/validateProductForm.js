@@ -5,7 +5,7 @@ export async function validateProductForm(formData) {
     category: z.string().min(1, "La categoría es obligatoria."),
     model: z.string().min(1, "El modelo es obligatorio."),
     maker: z.string().min(1, "El fabricante es obligatorio."),
-    price: z.number().positive("El precio debe ser un número positivo"),
+    price: z.coerce.number().positive("El precio debe ser un número positivo"),
     specs: z
       .array(
         z.object({
@@ -26,4 +26,10 @@ export async function validateProductForm(formData) {
       )
       .nonempty("Debe haber al menos un color."),
   });
+  try {
+    formSchema.parse(formData);
+    return { success: true, errors: {} };
+  } catch (error) {
+    return { success: false, errors: error.flatten().fieldErrors };
+  }
 }
