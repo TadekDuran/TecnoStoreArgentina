@@ -8,10 +8,11 @@ export async function validateProductForm(formData) {
     price: z.coerce.number().positive("El precio debe ser un número positivo"),
     specs: z
       .array(
-        z.object({
-          name: z.string().min(1, "La especificación debe tener un nombre."),
-          value: z.string().min(1, "La especificación debe tener un valor."),
-        }),
+        z.record(
+          z
+            .string()
+            .min(1, "La especificación debe tener un nombre y un valor."),
+        ),
       )
       .nonempty("Debe haber al menos una especificación"),
     featured: z.boolean(),
@@ -19,10 +20,9 @@ export async function validateProductForm(formData) {
     stock: z.boolean(),
     colors: z
       .array(
-        z.object({
-          name: z.string().min(1, "El color debe tener un nombre."),
-          value: z.string().min(1, "El color debe tener un enlace."),
-        }),
+        z.record(
+          z.string().min(1, "El color debe tener un nombre y un enlace."),
+        ),
       )
       .nonempty("Debe haber al menos un color."),
   });
