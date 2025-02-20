@@ -46,7 +46,10 @@ const ProductForm = () => {
   const { toast } = useToast()
 
   const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [field]: field === "price" ? parseInt(value) : value,
+    }));
   };
 
   const handleSubmit = async () => {
