@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-
+import React, { useState } from 'react'
+import { validateProductForm } from '@/utils/middlewares/validateProductForm';
 import {
   Sheet,
   SheetContent,
@@ -20,7 +20,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox"
-import ConfirmAlert from './ConfirmAlert';
+import ConfirmAlert from '@/components/product/ConfirmAlert';
+import { useToast } from "@/hooks/use-toast";
 
 const ProductForm = () => {
 
@@ -41,14 +42,31 @@ const ProductForm = () => {
   const [tempSpec, setTempSpec] = useState({ name: "", value: "" });
   const [tempColor, setTempColor] = useState({ name: "", value: "" });
   const [showConfirm, setShowConfirm] = useState(false);
+  const [errors, setErrors] = useState({});
+  const { toast } = useToast()
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
-    alert(`Producto enviado:\n${JSON.stringify(formData, null, 2)}`);
+  const handleSubmit = async () => {
+    const result = await validateProductForm(formData);
+    if (!result.success) {
+      setErrors(result.errors);
+      return;
+    }
+    setErrors({});
+    setShowConfirm(true);
   };
+
+  const handleRequest = async () => {
+    alert(`Producto enviado:\n${JSON.stringify(formData, null, 2)}`);
+    document.getElementById("sheet-close-btn")?.click();
+    toast({
+      title: "Producto subido con éxito",
+      description: "El producto se ha agregado correctamente.",
+    });
+  }
 
   const addSpec = () => {
     if (tempSpec.name && tempSpec.value) {
@@ -108,14 +126,17 @@ const ProductForm = () => {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.category && <p className="text-red-500 text-sm">{errors.category[0]}</p>}
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="model">Model</Label>
                 <Input id="model" type="text" value={formData.model} onChange={(e) => handleChange("model", e.target.value)} />
+                {errors.model && <p className="text-red-500 text-sm">{errors.model[0]}</p>}
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="price">Price</Label>
                 <Input id="price" type="number" value={formData.price} onChange={(e) => handleChange("price", e.target.value)} />
+                {errors.price && <p className="text-red-500 text-sm">{errors.price[0]}</p>}
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="maker">Maker</Label>
@@ -131,6 +152,7 @@ const ProductForm = () => {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.maker && <p className="text-red-500 text-sm">{errors.maker[0]}</p>}
               </div>
               <div className="flex flex-col gap-2">
                 <Label>Specifications</Label>
@@ -149,7 +171,7 @@ const ProductForm = () => {
                   />
                   <Button type="button" onClick={addSpec}>Agregar</Button>
                 </div>
-
+                {errors.specs && <p className="text-red-500 text-sm">{errors.specs[0]}</p>}
                 {/* Lista de especificaciones con scroll interno si crece demasiado */}
                 <div className="max-h-20 overflow-y-auto border rounded p-2">
                   {formData.specs.map((spec, index) => {
@@ -181,7 +203,7 @@ const ProductForm = () => {
                   />
                   <Button type="button" onClick={addColor}>Agregar</Button>
                 </div>
-
+                {errors.colors && <p className="text-red-500 text-sm">{errors.colors[0]}</p>}
                 {/* Lista de colores con scroll interno si crece demasiado */}
                 <div className="max-h-20 overflow-y-auto border rounded p-2">
                   {formData.colors.map((color, index) => {
@@ -208,16 +230,17 @@ const ProductForm = () => {
               </div>
             </div>
             <SheetFooter className="p-4 shadow-md">
-              <SheetClose asChild>
-                <Button type="button" onClick={() => setShowConfirm(true)}>
-                  Subir producto
-                </Button>
-              </SheetClose>
+              <Button type="button" onClick={handleSubmit}>
+                Subir producto
+              </Button>
+              <Button id="sheet-close-btn" className="hidden" asChild>
+                <SheetClose />
+              </Button>
             </SheetFooter>
           </form>
         </SheetContent>
       </Sheet>
-      {showConfirm && <ConfirmAlert onConfirm={handleSubmit} onCancel={() => setShowConfirm(false)} />}
+      {showConfirm && <ConfirmAlert onConfirm={handleRequest} onCancel={() => setShowConfirm(false)} />}
     </div>
   )
 }
