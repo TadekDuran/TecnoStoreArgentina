@@ -30,12 +30,13 @@ const ProductForm = () => {
   const [formData, setFormData] = useState({
     category: "",
     model: "",
-    price: "",
     maker: "",
+    price: "",
     specs: [],
+    featured: false,
+    used: false,
+    stock: true,
     colors: [],
-    isUsed: false,
-    isFeatured: false,
   });
   const [tempSpec, setTempSpec] = useState({ name: "", value: "" });
   const [tempColor, setTempColor] = useState({ name: "", value: "" });
@@ -197,12 +198,12 @@ const ProductForm = () => {
               <div className="flex gap-2">
                 <Label>Options</Label>
                 <div className="flex items-center gap-2">
-                  <Checkbox id="isUsed" checked={formData.isUsed} onCheckedChange={(value) => handleChange("isUsed", value)} />
-                  <Label htmlFor="isUsed">Used</Label>
+                  <Checkbox id="used" checked={formData.used} onCheckedChange={(value) => handleChange("used", value)} />
+                  <Label htmlFor="used">Used</Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Checkbox id="isFeatured" checked={formData.isFeatured} onCheckedChange={(value) => handleChange("isFeatured", value)} />
-                  <Label htmlFor="isFeatured">Featured</Label>
+                  <Checkbox id="featured" checked={formData.featured} onCheckedChange={(value) => handleChange("featured", value)} />
+                  <Label htmlFor="featured">Featured</Label>
                 </div>
               </div>
             </div>
