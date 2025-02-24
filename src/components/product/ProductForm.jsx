@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox"
 import ConfirmAlert from '@/components/product/ConfirmAlert';
 import { useToast } from "@/hooks/use-toast";
+import apiUrl from "@/utils/apiUrl";
 
 const ProductForm = () => {
 
@@ -63,7 +64,22 @@ const ProductForm = () => {
   };
 
   const handleRequest = async () => {
-    alert(`Producto enviado:\n${JSON.stringify(formData, null, 2)}`);
+    try {
+      const response = await fetch(`${apiUrl}/api/products/createOne`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error en la petición");
+      }
+    } catch (error) {
+      console.log(error);
+    }
     document.getElementById("sheet-close-btn")?.click();
     toast({
       title: "Producto subido con éxito",
