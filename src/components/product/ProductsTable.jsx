@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -15,9 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export function ProductsTable({ columns, data }) {
-
-  const [rowSelection, setRowSelection] = useState({});
+export function ProductsTable({ columns, data, rowSelection, setRowSelection }) {
 
   const table = useReactTable({
     data,
