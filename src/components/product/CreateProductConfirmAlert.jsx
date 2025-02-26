@@ -8,10 +8,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-const ConfirmAlert = ({ onConfirm, onCancel }) => {
+const CreateProductConfirmAlert = ({ onConfirm, onCancel }) => {
   return (
     <div>
       <AlertDialog open onOpenChange={onCancel}>
@@ -32,4 +31,4 @@ const ConfirmAlert = ({ onConfirm, onCancel }) => {
   )
 }
 
-export default ConfirmAlert
+export default CreateProductConfirmAlert

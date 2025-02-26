@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox"
-import ConfirmAlert from '@/components/product/ConfirmAlert';
+import CreateProductConfirmAlert from '@/components/product/CreateProductConfirmAlert';
 import { useToast } from "@/hooks/use-toast";
 import apiUrl from "@/utils/apiUrl";
 
@@ -259,7 +259,7 @@ const ProductForm = () => {
           </form>
         </SheetContent>
       </Sheet>
-      {showConfirm && <ConfirmAlert onConfirm={handleRequest} onCancel={() => setShowConfirm(false)} />}
+      {showConfirm && <CreateProductConfirmAlert onConfirm={handleRequest} onCancel={() => setShowConfirm(false)} />}
     </div>
   )
 }
