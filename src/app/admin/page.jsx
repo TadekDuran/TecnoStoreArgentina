@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { ProductsTable } from "@/components/product/ProductsTable";
 import { columns } from "@/components/product/columns";
-import ProductForm from "@/components/product/ProductForm"
+import CreateProductForm from "@/components/product/CreateProductForm"
 import { useProducts } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from 'lucide-react';
@@ -60,7 +60,7 @@ const Admin = () => {
   return (
     <div suppressHydrationWarning className="m-2 flex flex-col gap-2">
       <h1>Panel Administrador</h1>
-      <ProductForm />
+      <CreateProductForm />
       <Button variant="destructive" size="icon" disabled={selectedIds.length === 0} onClick={() => setShowConfirm(true)}><Trash2 /></Button>
       {error && <p>Error al obtener productos: {error.message}</p>}
       <ProductsTable
