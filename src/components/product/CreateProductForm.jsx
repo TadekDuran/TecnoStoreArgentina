@@ -23,8 +23,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import CreateProductConfirmAlert from '@/components/product/CreateProductConfirmAlert';
 import { useToast } from "@/hooks/use-toast";
 import apiUrl from "@/utils/apiUrl";
+import { Trash2 } from 'lucide-react';
 
-const ProductForm = () => {
+const CreateProductForm = () => {
 
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
   const makerList = ["Apple", "Samsung", "Xiaomi"];
@@ -198,7 +199,13 @@ const ProductForm = () => {
                     return (
                       <div key={index} className="flex justify-between items-center px-2 rounded">
                         <span>{key}: {spec[key]}</span>
-                        <Button type="button" size="sm" variant="ghost" onClick={() => removeSpec(index)}>Quitar</Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={() => removeSpec(index)}
+                        >
+                          <Trash2 />
+                        </Button>
                       </div>
                     );
                   })}
@@ -264,4 +271,4 @@ const ProductForm = () => {
   )
 }
 
-export default ProductForm
+export default CreateProductForm
