@@ -13,6 +13,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import DeleteProductConfirmAlert from "@/components/product/DeleteProductConfirmAlert";
+import EditProductForm from "@/components/product/EditProductForm"
 
 export const columns = (handleDelete) => [
   {
@@ -43,29 +44,36 @@ export const columns = (handleDelete) => [
     id: "actions",
     cell: ({ row }) => {
       const [showConfirm, setShowConfirm] = useState(false);
+      const [isSheetOpen, setIsSheetOpen] = useState(false);
       const product = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button>
-              <span>Acciones</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Editar Producto</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setShowConfirm(true)}>Eliminar Producto</DropdownMenuItem>
-          </DropdownMenuContent>
-          {showConfirm && (
-            <DeleteProductConfirmAlert
-              onConfirm={() => handleDelete(product.id)}
-              onCancel={() => setShowConfirm(false)}
-            />
-          )}
-        </DropdownMenu>
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button>
+                <span>Acciones</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setIsSheetOpen(true)}>Editar producto</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setShowConfirm(true)}>Eliminar Producto</DropdownMenuItem>
+            </DropdownMenuContent>
+            {showConfirm && (
+              <DeleteProductConfirmAlert
+                onConfirm={() => handleDelete(product.id)}
+                onCancel={() => setShowConfirm(false)}
+              />
+            )}
+          </DropdownMenu>
+          <EditProductForm
+            product={product}
+            isSheetOpen={isSheetOpen}
+            setIsSheetOpen={setIsSheetOpen} />
+        </>
       )
     }
   }
