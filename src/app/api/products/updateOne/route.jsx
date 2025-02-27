@@ -6,11 +6,12 @@ export async function PUT(request) {
         const { searchParams } = new URL(request.url);
         const id = searchParams.get('id');
         if (!id) return NextResponse.json({ status: 400, message: "Missing ID parameter." }, { status: 400 });
+        const body = await request.json();
         const updateData = {};
         const allowedFields = ["category", "model", "maker", "price", "specs", "featured", "used", "stock", "colors"];
         allowedFields.forEach((field) => {
-            if (searchParams.has(field)) {
-                updateData[field] = searchParams.get(field);
+            if (body[field] !== undefined) {
+                updateData[field] = body[field];
             }
         });
         const supabase = await createClient();
