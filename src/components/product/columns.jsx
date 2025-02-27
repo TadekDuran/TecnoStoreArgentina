@@ -1,5 +1,6 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox"
+import { useState } from "react";
 
 import {
   DropdownMenu,
@@ -11,8 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { Button } from "@/components/ui/button"
+import DeleteProductConfirmAlert from "@/components/product/DeleteProductConfirmAlert";
 
-export const columns = [
+export const columns = (handleDelete) => [
   {
     id: "select",
     header: ({ table }) => (
@@ -39,8 +41,12 @@ export const columns = [
   },
   {
     id: "actions",
-    cell: ({ row }) =>  (
-      <DropdownMenu>
+    cell: ({ row }) => {
+      const [showConfirm, setShowConfirm] = useState(false);
+      const product = row.original;
+
+      return (
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button>
               <span>Acciones</span>
@@ -50,8 +56,17 @@ export const columns = [
             <DropdownMenuLabel>Acciones</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Editar Producto</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setShowConfirm(true)}>Eliminar Producto</DropdownMenuItem>
           </DropdownMenuContent>
+          {showConfirm && (
+            <DeleteProductConfirmAlert
+              onConfirm={() => handleDelete(product.id)}
+              onCancel={() => setShowConfirm(false)}
+            />
+          )}
         </DropdownMenu>
-    )
+      )
+    }
   }
 ];

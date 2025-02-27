@@ -22,31 +22,40 @@ const Admin = () => {
     getProducts();
   }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = async (idOrIds) => {
+    const isSingleDelete = !Array.isArray(idOrIds);
+
     try {
       const response = await fetch(`${apiUrl}/api/products/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ids: selectedIds }),
+        body: JSON.stringify(isSingleDelete ? { id: idOrIds } : { ids: idOrIds }),
       });
+
       if (response.ok) {
         toast({
-          title: "Productos Eliminados",
-          description: "Productos eliminados correctamente.",
+          title: isSingleDelete ? "Producto Eliminado" : "Productos Eliminados",
+          description: isSingleDelete
+            ? "Producto eliminado correctamente."
+            : "Productos eliminados correctamente.",
         });
-        setRowSelection({});
+
+        if (!isSingleDelete) setRowSelection({});
+        getProducts();
       } else {
         toast({
           title: "ERROR",
-          description: "Error al eliminar productos.",
+          description: isSingleDelete
+            ? "Error al eliminar producto."
+            : "Error al eliminar productos.",
         });
       }
     } catch (error) {
       console.error("Error en la petición:", error);
     }
-  }
+  };
 
   return (
     <div suppressHydrationWarning className="m-2 flex flex-col gap-2">
@@ -54,8 +63,16 @@ const Admin = () => {
       <ProductForm />
       <Button variant="destructive" size="icon" disabled={selectedIds.length === 0} onClick={() => setShowConfirm(true)}><Trash2 /></Button>
       {error && <p>Error al obtener productos: {error.message}</p>}
-      <ProductsTable columns={columns} data={data} rowSelection={rowSelection} setRowSelection={setRowSelection} />
-      {showConfirm && <DeleteProductConfirmAlert onConfirm={handleDelete} onCancel={() => setShowConfirm(false)} />}
+      <ProductsTable
+        columns={columns(handleDelete)}
+        data={data}
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
+      />
+      {showConfirm && <DeleteProductConfirmAlert
+        onConfirm={() => handleDelete(selectedIds)}
+        onCancel={() => setShowConfirm(false)}
+      />}
     </div>
   );
 };
