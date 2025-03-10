@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ProductsTable } from "@/components/product/ProductsTable";
+import ProductsFilter from "@/components/product/ProductsFilter";
 import { columns } from "@/components/product/columns";
 import CreateProductForm from "@/components/product/CreateProductForm"
 import { useProducts } from "@/hooks";
@@ -12,6 +13,7 @@ import DeleteProductConfirmAlert from "@/components/product/DeleteProductConfirm
 
 const Admin = () => {
   const { data, error, getProducts } = useProducts();
+  const [queries, setQueries] = useState({});
   const [rowSelection, setRowSelection] = useState({});
   const [showConfirm, setShowConfirm] = useState(false);
   const { toast } = useToast()
@@ -19,8 +21,8 @@ const Admin = () => {
   const selectedIds = Object.keys(rowSelection).map((rowIndex) => data[rowIndex]?.id);
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(queries);
+  }, [queries]);
 
   const handleDelete = async (idOrIds) => {
     const isSingleDelete = !Array.isArray(idOrIds);
@@ -61,6 +63,7 @@ const Admin = () => {
     <div suppressHydrationWarning className="m-2 flex flex-col gap-2">
       <h1>Panel Administrador</h1>
       <CreateProductForm />
+      <ProductsFilter queries={queries} setQueries={setQueries}/>
       <Button variant="destructive" size="icon" disabled={selectedIds.length === 0} onClick={() => setShowConfirm(true)}><Trash2 /></Button>
       {error && <p>Error al obtener productos: {error.message}</p>}
       <ProductsTable
