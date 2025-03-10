@@ -34,11 +34,15 @@ export const columns = (handleDelete) => [
   },
   {
     accessorKey: "model",
-    header: "Model",
+    header: "Modelo",
   },
   {
     accessorKey: "price",
-    header: "Price",
+    header: "Precio",
+  },
+  {
+    accessorKey: "maker",
+    header: "Fabricante",
   },
   {
     id: "actions",
