@@ -14,9 +14,11 @@ export function useProducts() {
       const queryString = new URLSearchParams(queries).toString();
       const res = await fetch(`${apiUrl}/api/products?${queryString}`);
       const data = await res.json();
+      if (data.length === 0) throw new Error("Lo sentimos, no hay productos que correspondan con tu búsqueda.");
       setData(data);
     } catch (err) {
       setError(err);
+      setData([]);
     } finally {
       setLoading(false);
     }
