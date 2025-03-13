@@ -5,7 +5,7 @@ export async function POST(request) {
     const { category, model, maker, price, specs, featured, used, stock, colors } = await request.json();
     try {
         const supabase = await createClient();
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from("products")
             .insert([{ category, model, maker, price, specs, featured, used, stock, colors }])
             .single();

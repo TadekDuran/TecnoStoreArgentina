@@ -19,12 +19,20 @@ export async function validateProductForm(formData) {
     used: z.boolean(),
     stock: z.boolean(),
     colors: z
-      .array(
-        z.record(
-          z.string().min(1, "El color debe tener un nombre y un enlace."),
-        ),
-      )
-      .nonempty("Debe haber al menos un color."),
+    .array(
+      z.record(
+        z.array(z.string().min(1, "Cada enlace de imagen debe ser una cadena no vacía.")),
+      ),
+    )
+    .nonempty("Debe haber al menos un color.")
+    .refine(
+      (colors) =>
+        colors.every((color) => {
+          const key = Object.keys(color)[0];
+          return color[key].length > 0;
+        }),
+      "Cada color debe tener al menos un enlace de imagen.",
+    ),
   });
   try {
     formSchema.parse(formData);

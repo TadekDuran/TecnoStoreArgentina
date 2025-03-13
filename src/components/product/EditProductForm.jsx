@@ -21,8 +21,8 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast";
 import apiUrl from "@/utils/apiUrl";
-import { Trash2, CirclePlus } from 'lucide-react';
-import CreateProductConfirmAlert from '@/components/product/CreateProductConfirmAlert';
+import { Trash2, CirclePlus } from "lucide-react";
+import CreateProductConfirmAlert from "@/components/product/CreateProductConfirmAlert";
 
 const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
@@ -41,9 +41,10 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   });
 
   const [tempSpec, setTempSpec] = useState({ name: "", value: "" });
-  const [tempColor, setTempColor] = useState({ name: "", value: "" });
+  const [tempColor, setTempColor] = useState({ name: "", images: [] });
+  const [tempImage, setTempImage] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({
@@ -69,12 +70,38 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   };
 
   const addColor = () => {
-    if (tempColor.name && tempColor.value) {
-      setFormData((prev) => ({
-        ...prev,
-        colors: [...prev.colors, { [tempColor.name]: tempColor.value }],
-      }));
-      setTempColor({ name: "", value: "" });
+    if (tempColor.name && tempImage) {
+      const newImages = tempImage
+        .split(",")
+        .map((link) => link.trim())
+        .filter((link) => link.length > 0);
+      setFormData((prev) => {
+        const colorIndex = prev.colors.findIndex(
+          (color) => Object.keys(color)[0] === tempColor.name,
+        );
+        if (colorIndex !== -1) {
+          const updatedColors = [...prev.colors];
+          const existingImages = updatedColors[colorIndex][tempColor.name];
+          const uniqueNewImages = newImages.filter(
+            (link) => !existingImages.includes(link),
+          );
+          updatedColors[colorIndex][tempColor.name] = [
+            ...existingImages,
+            ...uniqueNewImages,
+          ];
+          return {
+            ...prev,
+            colors: updatedColors,
+          };
+        } else {
+          return {
+            ...prev,
+            colors: [...prev.colors, { [tempColor.name]: newImages }],
+          };
+        }
+      });
+      setTempColor({ name: "", images: [] });
+      setTempImage("");
     }
   };
   const removeColor = (index) => {
@@ -86,14 +113,15 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
 
   const handleRequest = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/products/updateOne?id=${product.id}`,
+      const response = await fetch(
+        `${apiUrl}/api/products/updateOne?id=${product.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-        }
+        },
       );
       if (!response.ok) {
         throw new Error(response.error);
@@ -106,7 +134,7 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
       title: "Producto editado con éxito",
       description: "El producto se ha editado correctamente.",
     });
-  }
+  };
 
   return (
     <div className="flex justify-between">
@@ -115,15 +143,14 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
           <form>
             <SheetHeader>
               <SheetTitle>Editar producto</SheetTitle>
-              <SheetDescription>
-                Editar producto
-              </SheetDescription>
+              <SheetDescription>Editar producto</SheetDescription>
             </SheetHeader>
             <div className="flex flex-col gap-4 py-4">
-
               <div className="flex flex-col gap-2">
                 <Label htmlFor="category">Categoría</Label>
-                <Select onValueChange={(value) => handleChange("category", value)}>
+                <Select
+                  onValueChange={(value) => handleChange("category", value)}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder={formData.category} />
                   </SelectTrigger>
@@ -139,12 +166,22 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="model">Modelo</Label>
-                <Input id="model" type="text" value={formData.model} onChange={(e) => handleChange("model", e.target.value)} />
+                <Input
+                  id="model"
+                  type="text"
+                  value={formData.model}
+                  onChange={(e) => handleChange("model", e.target.value)}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="price">Precio</Label>
-                <Input id="price" type="number" value={formData.price} onChange={(e) => handleChange("price", e.target.value)} />
+                <Input
+                  id="price"
+                  type="number"
+                  value={formData.price}
+                  onChange={(e) => handleChange("price", e.target.value)}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
@@ -170,25 +207,34 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     type="text"
                     placeholder="Nombre (Ej: RAM)"
                     value={tempSpec.name}
-                    onChange={(e) => setTempSpec({ ...tempSpec, name: e.target.value })}
+                    onChange={(e) =>
+                      setTempSpec({ ...tempSpec, name: e.target.value })
+                    }
                   />
                   <Input
                     type="text"
                     placeholder="Valor (Ej: 8GB)"
                     value={tempSpec.value}
-                    onChange={(e) => setTempSpec({ ...tempSpec, value: e.target.value })}
+                    onChange={(e) =>
+                      setTempSpec({ ...tempSpec, value: e.target.value })
+                    }
                   />
                   <Button type="button" onClick={addSpec}>
                     <CirclePlus />
                   </Button>
                 </div>
                 {/* Lista de especificaciones con scroll interno si crece demasiado */}
-                <div className="max-h-20 overflow-y-auto border rounded p-2">
+                <div className="max-h-20 overflow-y-auto rounded border p-2">
                   {formData.specs.map((spec, index) => {
                     const key = Object.keys(spec)[0];
                     return (
-                      <div key={index} className="flex justify-between items-center px-2 rounded">
-                        <span>{key}: {spec[key]}</span>
+                      <div
+                        key={index}
+                        className="flex items-center justify-between rounded px-2"
+                      >
+                        <span>
+                          {key}: {spec[key]}
+                        </span>
                         <Button
                           type="button"
                           variant="ghost"
@@ -209,32 +255,50 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     type="text"
                     placeholder="Nombre (Ej: Blanco)"
                     value={tempColor.name}
-                    onChange={(e) => setTempColor({ ...tempColor, name: e.target.value })}
+                    onChange={(e) =>
+                      setTempColor({ ...tempColor, name: e.target.value })
+                    }
                   />
                   <Input
                     type="text"
-                    placeholder="Enlace a la imagen"
-                    value={tempColor.value}
-                    onChange={(e) => setTempColor({ ...tempColor, value: e.target.value })}
+                    placeholder="Enlaces a las imágenes (separados por comas)"
+                    value={tempImage}
+                    onChange={(e) => setTempImage(e.target.value)}
                   />
                   <Button type="button" onClick={addColor}>
                     <CirclePlus />
                   </Button>
                 </div>
                 {/* Lista de colores con scroll interno si crece demasiado */}
-                <div className="max-h-20 overflow-y-auto border rounded p-2">
+                <div className="max-h-20 overflow-y-auto rounded border p-2">
                   {formData.colors.map((color, index) => {
                     const key = Object.keys(color)[0];
+                    const images = color[key];
                     return (
-                      <div key={index} className="flex justify-between items-center px-2 rounded">
-                        <span>{key}: {color[key]}</span>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          onClick={() => removeColor(index)}
-                        >
-                          <Trash2 />
-                        </Button>
+                      <div
+                        key={index}
+                        className="flex flex-col gap-1 rounded px-2"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{key}:</span>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => removeColor(index)}
+                          >
+                            <Trash2/>
+                          </Button>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          {Array.isArray(images) && (
+                            images.map((image, imgIndex) => (
+                              <span key={imgIndex} className="text-sm">
+                                - {image}
+                              </span>
+                            ))
+                          )}
+                        </div>
                       </div>
                     );
                   })}
@@ -245,7 +309,8 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                 <Label>Opciones</Label>
                 <div className="flex items-center gap-2">
                   <Checkbox
-                    id="used" checked={formData.used}
+                    id="used"
+                    checked={formData.used}
                     onCheckedChange={(value) => handleChange("used", value)}
                   />
                   <Label htmlFor="used">Usado</Label>
@@ -259,22 +324,32 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                   <Label htmlFor="featured">Destacado</Label>
                 </div>
               </div>
-
             </div>
             <SheetFooter>
               <Button type="button" onClick={() => setShowConfirm(true)}>
                 Confirmar edición
               </Button>
               <SheetClose>
-                <Button id="sheet-close-btn" onClick={() => setIsSheetOpen(false)} asChild>Cancelar</Button>
+                <Button
+                  id="sheet-close-btn"
+                  onClick={() => setIsSheetOpen(false)}
+                  asChild
+                >
+                  Cancelar
+                </Button>
               </SheetClose>
             </SheetFooter>
           </form>
         </SheetContent>
       </Sheet>
-      {showConfirm && <CreateProductConfirmAlert onConfirm={handleRequest} onCancel={() => setShowConfirm(false)} />}
+      {showConfirm && (
+        <CreateProductConfirmAlert
+          onConfirm={handleRequest}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default EditProductForm
+export default EditProductForm;
