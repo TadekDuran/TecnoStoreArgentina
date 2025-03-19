@@ -1,16 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
 
-const ThumbnailCarousel = ({
-  images,
-  emblaMain,
-  setEmblaThumbs,
-  selectedIndex,
-}) => {
+const ThumbnailCarousel = ({ images, emblaMain, setEmblaThumbs, selectedIndex, }) => {
   return (
     <Carousel
       className="relative mx-auto mt-4 max-w-md"
