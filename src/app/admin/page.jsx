@@ -1,15 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ProductsTable } from "@/components/product/ProductsTable";
-import ProductsFilter from "@/components/product/ProductsFilter";
-import { columns } from "@/components/product/columns";
-import CreateProductForm from "@/components/product/CreateProductForm"
+import { ProductsTable } from "@/components/admin/ProductsTable";
+import ProductsFilter from "@/components/catalog/ProductsFilter";
+import { columns } from "@/components/admin/columns";
+import CreateProductForm from "@/components/admin/CreateProductForm"
 import { useProducts } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from 'lucide-react';
 import apiUrl from "@/utils/apiUrl";
 import { useToast } from "@/hooks/use-toast";
-import DeleteProductConfirmAlert from "@/components/product/DeleteProductConfirmAlert";
+import DeleteProductConfirmAlert from "@/components/admin/DeleteProductConfirmAlert";
 
 const Admin = () => {
   const { data, error, getProducts } = useProducts();
