@@ -4,6 +4,7 @@ import apiUrl from "@/utils/apiUrl";
 import { useParams } from "next/navigation";
 import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
 import MainCarousel from "@/components/product_page/MainCarousel";
+import PaymentMethodList from "@/components/product_page/PaymentMethodList";
 import useDolarBlue from "@/hooks/useDolarBlue";
 
 const ProductPage = () => {
@@ -99,6 +100,8 @@ const ProductPage = () => {
             <p className="text-xl font-bold text-gray-700">
               Valor dolar blue: {dolarBlue}
             </p>
+
+          <PaymentMethodList />
 
             <h3 className="font-medium">Colores disponibles:</h3>
             <div className="flex gap-4">
