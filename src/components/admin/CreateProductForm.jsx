@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { validateProductForm } from "@/utils/middlewares/validateProductForm";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetTrigger,
   SheetFooter,
   SheetClose,
-  SheetDescription
 } from "@/components/ui/sheet";
 import {
   Select,
@@ -14,36 +15,36 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
+import CreateProductConfirmAlert from "@/components/admin/CreateProductConfirmAlert";
 import { useToast } from "@/hooks/use-toast";
 import apiUrl from "@/utils/apiUrl";
 import { Trash2, CirclePlus } from "lucide-react";
-import CreateProductConfirmAlert from "@/components/product/CreateProductConfirmAlert";
 
-const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
+const CreateProductForm = () => {
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
   const makerList = ["Apple", "Samsung", "Xiaomi"];
 
   const [formData, setFormData] = useState({
-    category: product.category,
-    model: product.model,
-    maker: product.maker,
-    price: product.price,
-    specs: product.specs,
-    featured: product.featured,
-    used: product.used,
-    stock: product.stock,
-    colors: product.colors,
+    category: "",
+    model: "",
+    maker: "",
+    price: "",
+    specs: [],
+    featured: false,
+    used: false,
+    stock: true,
+    colors: [],
   });
-
   const [tempSpec, setTempSpec] = useState({ name: "", value: "" });
   const [tempColor, setTempColor] = useState({ name: "", images: [] });
   const [tempImage, setTempImage] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
+  const [errors, setErrors] = useState({});
   const { toast } = useToast();
 
   const handleChange = (field, value) => {
@@ -51,6 +52,38 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
       ...prev,
       [field]: field === "price" ? parseInt(value) : value,
     }));
+  };
+
+  const handleSubmit = async () => {
+    const result = await validateProductForm(formData);
+    if (!result.success) {
+      setErrors(result.errors);
+      return;
+    }
+    setErrors({});
+    setShowConfirm(true);
+  };
+
+  const handleRequest = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/api/products/createOne`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error("Error en la petición");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    document.getElementById("sheet-close-btn")?.click();
+    toast({
+      title: "Producto subido con éxito",
+      description: "El producto se ha agregado correctamente.",
+    });
   };
 
   const addSpec = () => {
@@ -111,39 +144,16 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
     }));
   };
 
-  const handleRequest = async () => {
-    try {
-      const response = await fetch(
-        `${apiUrl}/api/products/updateOne?id=${product.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        },
-      );
-      if (!response.ok) {
-        throw new Error(response.error);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    document.getElementById("sheet-close-btn")?.click();
-    toast({
-      title: "Producto editado con éxito",
-      description: "El producto se ha editado correctamente.",
-    });
-  };
-
   return (
     <div className="flex justify-between">
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent>
+      <Sheet>
+        <SheetTrigger>
+          <Button type="button">Agregar producto</Button>
+        </SheetTrigger>
+        <SheetContent className="max-h-screen overflow-y-auto">
           <form>
             <SheetHeader>
-              <SheetTitle>Editar producto</SheetTitle>
-              <SheetDescription>Editar producto</SheetDescription>
+              <SheetTitle>Agregar producto</SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-4 py-4">
               <div className="flex flex-col gap-2">
@@ -152,7 +162,7 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                   onValueChange={(value) => handleChange("category", value)}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder={formData.category} />
+                    <SelectValue placeholder="Selecciona una categoría" />
                   </SelectTrigger>
                   <SelectContent>
                     {categoryList.map((category, index) => (
@@ -162,16 +172,23 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.category && (
+                  <p className="text-sm text-red-500">{errors.category[0]}</p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="model">Modelo</Label>
+                <Label htmlFor="model">Model</Label>
                 <Input
                   id="model"
                   type="text"
                   value={formData.model}
+                  placeholder="Ingresa el modelo"
                   onChange={(e) => handleChange("model", e.target.value)}
                 />
+                {errors.model && (
+                  <p className="text-sm text-red-500">{errors.model[0]}</p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -180,15 +197,19 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                   id="price"
                   type="number"
                   value={formData.price}
+                  placeholder="Ingresa un precio"
                   onChange={(e) => handleChange("price", e.target.value)}
                 />
+                {errors.price && (
+                  <p className="text-sm text-red-500">{errors.price[0]}</p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="maker">Fabricante</Label>
+                <Label htmlFor="maker">Marca</Label>
                 <Select onValueChange={(value) => handleChange("maker", value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder={formData.maker} />
+                    <SelectValue placeholder="Selecciona una marca" />
                   </SelectTrigger>
                   <SelectContent>
                     {makerList.map((maker, index) => (
@@ -198,6 +219,9 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.maker && (
+                  <p className="text-sm text-red-500">{errors.maker[0]}</p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -223,6 +247,9 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     <CirclePlus />
                   </Button>
                 </div>
+                {errors.specs && (
+                  <p className="text-sm text-red-500">{errors.specs[0]}</p>
+                )}
                 {/* Lista de especificaciones con scroll interno si crece demasiado */}
                 <div className="max-h-20 overflow-y-auto rounded border p-2">
                   {formData.specs.map((spec, index) => {
@@ -269,6 +296,9 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     <CirclePlus />
                   </Button>
                 </div>
+                {errors.colors && (
+                  <p className="text-sm text-red-500">{errors.colors[0]}</p>
+                )}
                 {/* Lista de colores con scroll interno si crece demasiado */}
                 <div className="max-h-20 overflow-y-auto rounded border p-2">
                   {formData.colors.map((color, index) => {
@@ -287,17 +317,15 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                             variant="ghost"
                             onClick={() => removeColor(index)}
                           >
-                            <Trash2/>
+                            <Trash2 />
                           </Button>
                         </div>
                         <div className="flex flex-col gap-1">
-                          {Array.isArray(images) && (
-                            images.map((image, imgIndex) => (
-                              <span key={imgIndex} className="text-sm">
-                                - {image}
-                              </span>
-                            ))
-                          )}
+                          {images.map((image, imgIndex) => (
+                            <span key={imgIndex} className="text-sm">
+                              - {image}
+                            </span>
+                          ))}
                         </div>
                       </div>
                     );
@@ -325,19 +353,13 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                 </div>
               </div>
             </div>
-            <SheetFooter>
-              <Button type="button" onClick={() => setShowConfirm(true)}>
-                Confirmar edición
+            <SheetFooter className="p-4 shadow-md">
+              <Button type="button" onClick={handleSubmit}>
+                Subir producto
               </Button>
-              <SheetClose>
-                <Button
-                  id="sheet-close-btn"
-                  onClick={() => setIsSheetOpen(false)}
-                  asChild
-                >
-                  Cancelar
-                </Button>
-              </SheetClose>
+              <Button id="sheet-close-btn" className="hidden" asChild>
+                <SheetClose />
+              </Button>
             </SheetFooter>
           </form>
         </SheetContent>
@@ -352,4 +374,4 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   );
 };
 
-export default EditProductForm;
+export default CreateProductForm;

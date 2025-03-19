@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { Button } from "@/components/ui/button"
-import DeleteProductConfirmAlert from "@/components/product/DeleteProductConfirmAlert";
-import EditProductForm from "@/components/product/EditProductForm"
+import DeleteProductConfirmAlert from "@/components/admin/DeleteProductConfirmAlert";
+import EditProductForm from "@/components/admin/EditProductForm"
 
 export const columns = (handleDelete) => [
   {

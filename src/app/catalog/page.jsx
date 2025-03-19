@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useProducts } from "@/hooks";
-import ProductsFilter from "@/components/product/ProductsFilter";
+import ProductsFilter from "@/components/catalog/ProductsFilter";
 import { LoaderCircle } from "lucide-react";
-import ProductCard from "@/components/product/ProductCard";
+import ProductCard from "@/components/catalog/ProductCard";
 
 const Catalog = () => {
   const { data, loading, error, getProducts } = useProducts();
@@ -18,12 +18,10 @@ const Catalog = () => {
       <h1 className="mb-8 text-3xl font-bold text-white">Catálogo</h1>
 
       <div className="flex w-full max-w-screen-2xl gap-12">
-        {/* Filtros (Altura independiente) */}
         <div className="w-1/4 self-start rounded-lg bg-[#1a1a1a] p-5 shadow-lg">
           <ProductsFilter queries={queries} setQueries={setQueries} />
         </div>
 
-        {/* Contenedor de productos (No depende de los filtros) */}
         <div className="relative flex-grow overflow-hidden rounded-lg bg-[#1a1a1a] p-6 shadow-lg">
           {loading && (
             <LoaderCircle className="mx-auto animate-spin text-white" />
