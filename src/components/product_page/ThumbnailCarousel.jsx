@@ -8,7 +8,7 @@ const ThumbnailCarousel = ({ images, emblaMain, setEmblaThumbs, selectedIndex, }
   const basisClass = `basis-1/${images.length}`
   return (
     <Carousel
-      className="mt-4"
+      className="mt-4 grid place-items-center overflow-hidden"
       setApi={setEmblaThumbs}
       opts={{ align: "start" }}
     >
@@ -20,7 +20,7 @@ const ThumbnailCarousel = ({ images, emblaMain, setEmblaThumbs, selectedIndex, }
             onClick={() => emblaMain && emblaMain.scrollTo(index)}
           >
             <div
-              className={`h-20 w-20 mx-auto rounded-lg border-2 transition-all duration-300 ${
+              className={`h-20 w-20 rounded-lg border-2 transition-all duration-300 ${
                 selectedIndex === index
                   ? "border-blue-500 shadow-lg"
                   : "border-transparent"
