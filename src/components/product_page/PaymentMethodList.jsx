@@ -23,7 +23,7 @@ const PaymentMethodList = () => {
     { icon: Wallet, text: "AirTM / Wise (+5%)" },
   ];
   return (
-    <Accordion type="single" collapsible>
+    <Accordion type="single" collapsible className="w-fit min-w-[300px]">
       <AccordionItem value="item-1">
         <AccordionTrigger>Métodos de pago disponibles</AccordionTrigger>
         <AccordionContent>

@@ -9,7 +9,7 @@ import {
 
 const MainCarousel = ({ selectedColor, product, setEmblaMain }) => {
   return (
-    <Carousel className="mx-auto max-w-lg" setApi={setEmblaMain}>
+    <Carousel className="mx-auto max-w-[400px] sm:max-w-[500px] md:max-w-[600px]" setApi={setEmblaMain}>
       <CarouselContent>
         {selectedColor &&
           product.colors
@@ -19,7 +19,7 @@ const MainCarousel = ({ selectedColor, product, setEmblaMain }) => {
                 <img
                   src={imageUrl}
                   alt={`Imagen ${index + 1} del color ${selectedColor}`}
-                  className="h-auto max-w-full rounded-lg shadow-lg"
+                  className="h-auto w-full max-w-[400px] sm:max-w-[600px] md:max-w-[800px] rounded-lg shadow-lg"
                 />
               </CarouselItem>
             ))}
