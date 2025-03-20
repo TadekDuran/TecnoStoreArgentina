@@ -6,6 +6,7 @@ import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
 import MainCarousel from "@/components/product_page/MainCarousel";
 import PaymentMethodList from "@/components/product_page/PaymentMethodList";
 import useDolarBlue from "@/hooks/useDolarBlue";
+import { Separator } from "@/components/ui/separator";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -73,7 +74,7 @@ const ProductPage = () => {
   if (product) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto_1fr]">
           <div>
             <MainCarousel
               selectedColor={selectedColor}
@@ -92,16 +93,23 @@ const ProductPage = () => {
             />
           </div>
 
-          <div className="flex flex-col space-y-4">
-            <h1 className="text-3xl font-semibold">{product.model}</h1>
-            <p className="text-xl font-bold text-gray-700">
-              {product.price} USD
-            </p>
-            <p className="text-xl font-bold text-gray-700">
+          <Separator
+            orientation="horizontal"
+            className="my-4 md:hidden"
+          />
+          <Separator
+            orientation="vertical"
+            className="mx-4 hidden md:block"
+          />
+
+          <div className="flex flex-col space-y-4 items-center md:items-start">
+            <h1 className="text-2xl text-slate-300">{product.model}</h1>
+            <p className="text-3xl font-semibold text-slate-200">U$D {product.price}</p>
+            <p className="text-2xl font-bold text-emerald-300">
               Valor dolar blue: {dolarBlue}
             </p>
 
-          <PaymentMethodList />
+            <PaymentMethodList />
 
             <h3 className="font-medium">Colores disponibles:</h3>
             <div className="flex gap-4">
