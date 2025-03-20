@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import ContactButtons from "@/components/product_page/ContactButtons";
 import MainCarousel from "@/components/product_page/MainCarousel";
 import PaymentMethodList from "@/components/product_page/PaymentMethodList";
+import SpecsTable from "@/components/product_page/SpecsTable";
 import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
 import useDolarBlue from "@/hooks/useDolarBlue";
 import { Separator } from "@/components/ui/separator";
@@ -75,7 +76,7 @@ const ProductPage = () => {
   if (product) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto_1fr]">
+        <div className="pb-4 grid place-items-center md:place-items-start grid-cols-1 gap-4 md:grid-cols-[1fr_auto_1fr]">
           <div>
             <MainCarousel
               selectedColor={selectedColor}
@@ -94,18 +95,14 @@ const ProductPage = () => {
             />
           </div>
 
-          <Separator
-            orientation="horizontal"
-            className="my-4 md:hidden"
-          />
-          <Separator
-            orientation="vertical"
-            className="mx-4 hidden md:block"
-          />
+          <Separator orientation="horizontal" className="my-4 md:hidden" />
+          <Separator orientation="vertical" className="mx-4 hidden md:block" />
 
-          <div className="flex flex-col space-y-4 items-center md:items-start">
+          <div className="flex flex-col items-center space-y-4 md:items-start">
             <h1 className="text-2xl text-slate-300">{product.model}</h1>
-            <p className="text-3xl font-semibold text-slate-200">U$D {product.price}</p>
+            <p className="text-3xl font-semibold text-slate-200">
+              U$D {product.price}
+            </p>
             <p className="text-2xl font-bold text-emerald-300">
               Valor dolar blue: {dolarBlue}
             </p>
@@ -128,10 +125,11 @@ const ProductPage = () => {
                 </button>
               ))}
             </div>
-
             <ContactButtons />
           </div>
         </div>
+          <Separator className="w-full" />
+          <SpecsTable specs={product.specs} />
       </div>
     );
   }
