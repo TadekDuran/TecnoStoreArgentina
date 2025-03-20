@@ -2,9 +2,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import apiUrl from "@/utils/apiUrl";
 import { useParams } from "next/navigation";
-import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
+import ContactButtons from "@/components/product_page/ContactButtons";
 import MainCarousel from "@/components/product_page/MainCarousel";
 import PaymentMethodList from "@/components/product_page/PaymentMethodList";
+import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
 import useDolarBlue from "@/hooks/useDolarBlue";
 import { Separator } from "@/components/ui/separator";
 
@@ -127,6 +128,8 @@ const ProductPage = () => {
                 </button>
               ))}
             </div>
+
+            <ContactButtons />
           </div>
         </div>
       </div>
