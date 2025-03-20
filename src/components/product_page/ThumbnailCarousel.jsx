@@ -5,21 +5,22 @@ import {
 } from "@/components/ui/carousel";
 
 const ThumbnailCarousel = ({ images, emblaMain, setEmblaThumbs, selectedIndex, }) => {
+  const basisClass = `basis-1/${images.length}`
   return (
     <Carousel
-      className="relative mx-auto mt-4 max-w-md"
+      className="mt-4"
       setApi={setEmblaThumbs}
-      opts={{ containScroll: false, align: "start" }}
+      opts={{ align: "start" }}
     >
-      <CarouselContent className="flex gap-2">
+      <CarouselContent>
         {images.map((imageUrl, index) => (
           <CarouselItem
             key={index}
-            className="basis-1/4 cursor-pointer"
+            className={`${basisClass} cursor-pointer`}
             onClick={() => emblaMain && emblaMain.scrollTo(index)}
           >
             <div
-              className={`h-20 w-20 rounded-lg border-2 transition-all duration-300 ${
+              className={`h-20 w-20 mx-auto rounded-lg border-2 transition-all duration-300 ${
                 selectedIndex === index
                   ? "border-blue-500 shadow-lg"
                   : "border-transparent"
@@ -28,7 +29,7 @@ const ThumbnailCarousel = ({ images, emblaMain, setEmblaThumbs, selectedIndex, }
               <img
                 src={imageUrl}
                 alt={`Miniatura ${index + 1}`}
-                className="h-full w-full rounded-lg object-cover"
+                className="h-full w-full rounded-lg"
               />
             </div>
           </CarouselItem>
