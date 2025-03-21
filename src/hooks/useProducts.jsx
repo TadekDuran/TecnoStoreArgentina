@@ -6,13 +6,15 @@ export const useProducts = () => {
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
 
-  const getProducts = async ({ page, limit, ...filters }) => {
+  const getProducts = async ({ page, limit, sortBy, order, ...filters }) => {
     setLoading(true);
     setError(null);
     try {
       const query = new URLSearchParams({
         page: page.toString(),
         limit: limit.toString(),
+        sortBy: sortBy || "price",
+        order: order || "asc",
         ...filters,
       });
       const response = await fetch(`/api/products?${query.toString()}`);

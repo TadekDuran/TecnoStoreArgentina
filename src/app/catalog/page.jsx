@@ -11,9 +11,22 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from "@/components/ui/pagination";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 const Catalog = () => {
-  const [queries, setQueries] = useState({ featured: true, page: 1, limit: 8 });
+  const [queries, setQueries] = useState({
+    featured: true,
+    page: 1,
+    limit: 5,
+    sortBy: "price",
+    order: "asc",
+  });
   const { data, loading, error, getProducts, totalPages } = useProducts();
 
   useEffect(() => {
@@ -24,12 +37,50 @@ const Catalog = () => {
     setQueries((prev) => ({ ...prev, page }));
   };
 
+  const handleSortChange = (value) => {
+    let sortBy = "price";
+    let order = "asc";
+    if (value === "priceAsc") {
+      sortBy = "price";
+      order = "asc";
+    } else if (value === "priceDesc") {
+      sortBy = "price";
+      order = "desc";
+    } else if (value === "featured") {
+      sortBy = "featured";
+      order = "desc";
+    }
+    setQueries((prev) => ({ ...prev, sortBy, order, page: 1 }));
+  };
+
+  const selectValue =
+    queries.sortBy === "price"
+      ? queries.order === "asc"
+        ? "priceAsc"
+        : "priceDesc"
+      : "featured";
+
   return (
     <div className="flex min-h-screen flex-col items-center bg-[#121212] px-20 py-10">
       <h1 className="mb-8 text-3xl font-bold text-white">Catálogo</h1>
 
       <div className="flex w-full max-w-screen-2xl gap-12">
         <div className="w-1/4 self-start rounded-lg bg-[#1a1a1a] p-5 shadow-lg">
+          <div className="mt-4">
+            <label className="mr-2 text-white" htmlFor="sort">
+              Ordenar por:
+            </label>
+            <Select onValueChange={handleSortChange} value={selectValue}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Selecciona orden" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="priceAsc">Precio: Menor a mayor</SelectItem>
+                <SelectItem value="priceDesc">Precio: Mayor a menor</SelectItem>
+                <SelectItem value="featured">Destacados</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <ProductsFilter queries={queries} setQueries={setQueries} />
         </div>
 
