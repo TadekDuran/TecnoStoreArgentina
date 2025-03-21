@@ -76,7 +76,7 @@ const ProductPage = () => {
   if (product) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="pb-4 grid place-items-center md:place-items-start grid-cols-1 gap-4 md:grid-cols-[1fr_auto_1fr]">
+        <div className="grid grid-cols-1 place-items-center gap-4 pb-4 md:grid-cols-[1fr_auto_1fr] md:place-items-start">
           <div>
             <MainCarousel
               selectedColor={selectedColor}
@@ -111,25 +111,30 @@ const ProductPage = () => {
 
             <h3 className="font-medium">Colores disponibles:</h3>
             <div className="flex gap-4">
-              {product.colors.map((color, index) => (
-                <button
-                  key={index}
-                  className={`rounded px-4 py-2 ${
-                    selectedColor === Object.keys(color)[0]
-                      ? "bg-blue-500 text-white"
-                      : "bg-slate-600 text-white"
-                  }`}
-                  onClick={() => handleColorChange(Object.keys(color)[0])}
-                >
-                  {Object.keys(color)[0]}
-                </button>
-              ))}
+              {product.colors.map((color, index) => {
+                const colorName = Object.keys(color)[0];
+
+                return (
+                  <button
+                    key={index}
+                    className={`rounded border-2 px-4 py-2 transition-all duration-200 ${
+                      selectedColor === colorName
+                        ? "border-slate-800 bg-slate-800 text-white"
+                        : "border-slate-600 bg-slate-400 text-slate-800 hover:bg-slate-600"
+                    }`}
+                    onClick={() => handleColorChange(colorName)}
+                  >
+                    {colorName}
+                  </button>
+                );
+              })}
             </div>
+
             <ContactButtons />
           </div>
         </div>
-          <Separator className="w-full" />
-          <SpecsTable specs={product.specs} />
+        <Separator className="w-full" />
+        <SpecsTable specs={product.specs} />
       </div>
     );
   }
