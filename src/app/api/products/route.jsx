@@ -2,6 +2,10 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
+
+  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
+  const limit = searchParams.get("limit") ? Number(searchParams.get("limit")) : 5;
+
   const filters = {
     category: searchParams.get("category") || null,
     model: searchParams.get("model") || null,
@@ -12,8 +16,31 @@ export async function GET(request) {
     used: searchParams.get("used") === "true",
     stock: searchParams.get("stock") === "true",
   };
+
   try {
     const supabase = await createClient();
+
+    let countQuery = supabase
+      .from("products")
+      .select('*', { count: 'exact', head: true });
+    
+    if (filters.category) countQuery = countQuery.eq("category", filters.category);
+    if (filters.model) countQuery = countQuery.ilike("model", `%${filters.model}%`);
+    if (filters.maker) countQuery = countQuery.eq("maker", filters.maker);
+    if (filters.minPrice !== null) countQuery = countQuery.gte("price", filters.minPrice);
+    if (filters.maxPrice !== null) countQuery = countQuery.lte("price", filters.maxPrice);
+    if (filters.featured) countQuery = countQuery.eq("featured", true);
+    if (filters.used) countQuery = countQuery.eq("used", true);
+    if (filters.stock) countQuery = countQuery.eq("stock", true);
+    
+    const { count: totalProducts, error: countError } = await countQuery;
+    if (countError) {
+      throw new Error(`Error al contar productos: ${countError.message}`);
+    }
+
+    const start = (page - 1) * limit;
+    const end = (page * limit) - 1;
+
     let query = supabase.from("products").select();
     if (filters.category) query = query.eq("category", filters.category);
     if (filters.model) query = query.ilike("model", `%${filters.model}%`);
@@ -23,17 +50,34 @@ export async function GET(request) {
     if (filters.featured) query = query.eq("featured", true);
     if (filters.used) query = query.eq("used", true);
     if (filters.stock) query = query.eq("stock", true);
+    
+    query = query.range(start, end);
+
     const { data, error } = await query;
     if (error) {
       throw new Error(`Error al consultar la base de datos: ${error.message}`);
     }
-    return new Response(JSON.stringify(data));
+    
+    const totalPages = Math.ceil(totalProducts / limit);
+    
+    const responseBody = {
+      totalProducts,
+      totalPages,
+      currentPage: page,
+      data,
+    };
+
+    return new Response(JSON.stringify(responseBody), {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
   } catch (error) {
     return new Response(JSON.stringify({ message: error.message }), {
       status: 500,
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     });
   }
 }
