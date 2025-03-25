@@ -61,11 +61,11 @@ const Catalog = () => {
       : "featured";
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-[#121212] px-20 py-10">
+    <div className="flex min-h-screen flex-col items-center bg-background-primario px-20 py-10">
       <h1 className="mb-8 text-3xl font-bold text-white">Catálogo</h1>
 
       <div className="flex w-full max-w-screen-2xl gap-12">
-        <div className="w-1/4 self-start rounded-lg bg-[#1a1a1a] p-5 shadow-lg">
+        <div className="w-1/4 self-start rounded-lg bg-background-secundario p-5 shadow-lg">
           <div className="mt-4">
             <label className="mr-2 text-white" htmlFor="sort">
               Ordenar por:
@@ -84,7 +84,7 @@ const Catalog = () => {
           <ProductsFilter queries={queries} setQueries={setQueries} />
         </div>
 
-        <div className="relative flex-grow overflow-hidden rounded-lg bg-[#1a1a1a] p-6 shadow-lg">
+        <div className="relative flex-grow overflow-hidden rounded-lg bg-background-secundario p-6 shadow-lg">
           {loading && (
             <LoaderCircle className="mx-auto animate-spin text-white" />
           )}
@@ -114,7 +114,7 @@ const Catalog = () => {
                       className={`rounded-md px-3 py-1 ${
                         queries.page === 1
                           ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer hover:bg-slate-700"
+                          : "cursor-pointer hover:bg-background-terciario-hover"
                       }`}
                     />
                     {Array.from({ length: totalPages }, (_, index) => {
@@ -125,8 +125,8 @@ const Catalog = () => {
                           onClick={() => handlePageChange(pageNumber)}
                           className={`rounded-md px-4 py-2 ${
                             queries.page === pageNumber
-                              ? "cursor-default bg-slate-700 text-white hover:bg-slate-700"
-                              : "cursor-pointer bg-slate-200 text-black hover:bg-slate-300"
+                              ? "cursor-default text-white"
+                              : "cursor-pointer bg-background-terciario text-gray-200 hover:bg-background-terciario-hover"
                           }`}
                         >
                           {pageNumber}
@@ -143,7 +143,7 @@ const Catalog = () => {
                       className={`rounded-md px-3 py-1 ${
                         queries.page === totalPages
                           ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer hover:bg-slate-700"
+                          : "cursor-pointer hover:bg-background-terciario-hover"
                       }`}
                     />
                   </PaginationContent>

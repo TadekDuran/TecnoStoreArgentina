@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const firstImage = product.colors[0][firstColorKey][0];
 
   return (
-    <div className="flex h-80 w-64 transform cursor-pointer flex-col items-center justify-between rounded-lg bg-[#1a1a1a] p-4 shadow-lg hover:bg-[#252525]">
+    <div className="flex h-80 w-64 transform cursor-pointer flex-col items-center justify-between rounded-lg bg-background-terciario p-4 shadow-lg hover:bg-background-terciario-hover">
       <Link
         href={`/catalog/${product.id}`}
         className="flex w-full flex-col items-center"

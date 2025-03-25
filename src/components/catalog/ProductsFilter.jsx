@@ -43,7 +43,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4 rounded-lg bg-[#1a1a1a] p-4 shadow-md">
+    <div className="flex w-full flex-col gap-4 rounded-lg bg-background-secundario p-4 shadow-md">
       <CategoryFilter handleChange={handleChange} />
 
       {!localFilters.category && (
