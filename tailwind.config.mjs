@@ -9,6 +9,10 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			'background-primario': '#020617',
+			'background-secundario': '#18181b',
+			'background-terciario': '#27272a',
+			'background-terciario-hover': '#3f3f46',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
