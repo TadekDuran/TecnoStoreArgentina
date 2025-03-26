@@ -38,7 +38,16 @@ const ProductsFilter = ({ queries, setQueries }) => {
 
   const clearFilters = () => {
     setLocalFilters((prev) => {
-      return prev.category ? { category: prev.category } : {};
+      return prev.category
+        ? {
+            category: prev.category,
+            featured: true,
+            page: 1,
+            limit: 5,
+            sortBy: "price",
+            order: "asc",
+          }
+        : { featured: true, page: 1, limit: 5, sortBy: "price", order: "asc" };
     });
   };
 
