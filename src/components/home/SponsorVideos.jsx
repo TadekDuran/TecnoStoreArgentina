@@ -33,16 +33,16 @@ const SponsorVideos = () => {
 
   return (
     <div className="mt-12 px-4 text-center">
-      <h2 className="mb-4 text-3xl font-bold text-slate-400 sm:text-4xl">
-        Conoce a nuestro sponsor
+      <h2 className="mb-4 text-3xl font-bold text-primary-text sm:text-4xl">
+        Conocé a nuestro sponsor
       </h2>
-      <p className="mx-auto max-w-2xl text-lg text-gray-400">
-        Explora los últimos videos de SupraPixel
+      <p className="mx-auto max-w-2xl text-lg text-secondary-text">
+        Explorá los últimos videos de SupraPixel
       </p>
 
       {loading && (
         <div className="flex h-24 items-center justify-center">
-          <LoaderCircle className="h-12 w-12 animate-spin text-white" />
+          <LoaderCircle className="h-12 w-12 animate-spin text-primary-text" />
         </div>
       )}
 

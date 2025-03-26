@@ -43,11 +43,11 @@ const ProductsFilter = ({ queries, setQueries }) => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4 rounded-lg bg-background-secundario p-4 shadow-md">
+    <div className="flex w-full flex-col gap-4 rounded-lg bg-secondary-background p-4 shadow-md">
       <CategoryFilter handleChange={handleChange} />
 
       {!localFilters.category && (
-        <p className="rounded-md bg-[#252525] p-3 text-center text-sm text-gray-400">
+        <p className="bg-emphasy-background rounded-md p-3 text-center text-sm font-bold text-pri-text">
           🔒 Selecciona una categoría para desbloquear más filtros.
         </p>
       )}
@@ -55,7 +55,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
       {localFilters.category && (
         <>
           <div className="flex flex-col gap-3">
-            <Label htmlFor="model" className="font-medium text-white">
+            <Label htmlFor="model" className="font-medium text-primary-text">
               Modelo
             </Label>
             <Input
@@ -64,12 +64,14 @@ const ProductsFilter = ({ queries, setQueries }) => {
               value={localFilters.model || ""}
               placeholder="Filtrar por modelo"
               onChange={(e) => handleChange("model", e.target.value)}
-              className="h-10 rounded-md bg-[#252525] px-3 text-base text-white placeholder-gray-400"
+              className="h-10 rounded-md bg-tertiary-background px-3 text-base text-primary-text placeholder-gray-400"
             />
           </div>
 
           <div className="flex flex-col gap-3">
-            <Label className="font-medium text-white">Rango de Precio</Label>
+            <Label className="font-medium text-primary-text">
+              Rango de Precio
+            </Label>
             <div className="flex items-center gap-3">
               <Input
                 type="number"
@@ -77,7 +79,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
                 value={localFilters.minPrice || ""}
                 placeholder="Mínimo"
                 onChange={(e) => handleChange("minPrice", e.target.value)}
-                className="h-10 w-1/2 rounded-md bg-[#252525] px-3 text-base text-white placeholder-gray-400"
+                className="h-10 w-1/2 rounded-md bg-tertiary-background px-3 text-base text-primary-text placeholder-gray-400"
               />
               <Input
                 type="number"
@@ -85,28 +87,28 @@ const ProductsFilter = ({ queries, setQueries }) => {
                 value={localFilters.maxPrice || ""}
                 placeholder="Máximo"
                 onChange={(e) => handleChange("maxPrice", e.target.value)}
-                className="h-10 w-1/2 rounded-md bg-[#252525] px-3 text-base text-white placeholder-gray-400"
+                className="h-10 w-1/2 rounded-md bg-tertiary-background px-3 text-base text-primary-text placeholder-gray-400"
               />
             </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            <Label htmlFor="maker" className="font-medium text-white">
+            <Label htmlFor="maker" className="font-medium text-primary-text">
               Fabricante
             </Label>
             <Select
               value={localFilters.maker || ""}
               onValueChange={(value) => handleChange("maker", value)}
             >
-              <SelectTrigger className="h-10 rounded-md bg-[#252525] px-3 text-white">
+              <SelectTrigger className="hover:bg-tertiary-background-hover h-10 rounded-md bg-tertiary-background px-3 text-primary-text">
                 <SelectValue placeholder="Selecciona un fabricante" />
               </SelectTrigger>
-              <SelectContent className="bg-[#252525] text-white">
+              <SelectContent className="bg-tertiary-background text-primary-text">
                 {makerList.map((maker, index) => (
                   <SelectItem
                     key={index}
                     value={maker}
-                    className="hover:bg-[#333]"
+                    className="hover:bg-tertiary-background-hover"
                   >
                     {maker}
                   </SelectItem>
@@ -123,7 +125,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
                 onCheckedChange={(value) => handleChange("used", value)}
                 className="h-5 w-5"
               />
-              <Label htmlFor="used" className="text-white">
+              <Label htmlFor="used" className="text-primary-text">
                 Usado
               </Label>
             </div>
@@ -135,7 +137,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
                 onCheckedChange={(value) => handleChange("featured", value)}
                 className="h-5 w-5"
               />
-              <Label htmlFor="featured" className="text-white">
+              <Label htmlFor="featured" className="text-primary-text">
                 Destacado
               </Label>
             </div>
@@ -146,7 +148,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
       <Button
         variant="destructive"
         onClick={clearFilters}
-        className="w-full rounded-md bg-red-600 py-2 text-lg font-semibold text-white hover:bg-red-700"
+        className="w-full rounded-md bg-red-600 py-2 text-lg font-semibold text-primary-text hover:bg-red-700"
       >
         Limpiar Filtros
       </Button>

@@ -36,12 +36,12 @@ export default function Home() {
       {!loading && !error && (
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-slate-400 sm:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold text-primary-text sm:text-4xl">
               Productos Destacados
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-gray-400">
-              Descubre nuestras selecciones especiales cuidadosamente elegidas
-              para ti
+            <p className="mx-auto max-w-2xl text-lg text-secondary-text">
+              Descubrí nuestras selecciones especiales cuidadosamente elegidas
+              para vos
             </p>
           </div>
 

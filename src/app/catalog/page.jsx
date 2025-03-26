@@ -61,13 +61,12 @@ const Catalog = () => {
       : "featured";
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-background-primario px-20 py-10">
-      <h1 className="mb-8 text-3xl font-bold text-white">Catálogo</h1>
-
+    <div className="flex min-h-screen flex-col items-center bg-primary-background px-20 py-10">
+      <h1 className="mb-8 text-3xl font-bold text-primary-text">Catálogo</h1>
       <div className="flex w-full max-w-screen-2xl gap-12">
-        <div className="w-1/4 self-start rounded-lg bg-background-secundario p-5 shadow-lg">
-          <div className="mt-4">
-            <label className="mr-2 text-white" htmlFor="sort">
+        <div className="w-1/4 self-start rounded-lg bg-secondary-background p-5 shadow-lg">
+          <div className="mt-4 text-primary-text">
+            <label className="mr-2" htmlFor="sort">
               Ordenar por:
             </label>
             <Select onValueChange={handleSortChange} value={selectValue}>
@@ -84,9 +83,9 @@ const Catalog = () => {
           <ProductsFilter queries={queries} setQueries={setQueries} />
         </div>
 
-        <div className="relative flex-grow overflow-hidden rounded-lg bg-background-secundario p-6 shadow-lg">
+        <div className="relative flex-grow overflow-hidden rounded-lg bg-secondary-background p-6 shadow-lg">
           {loading && (
-            <LoaderCircle className="mx-auto animate-spin text-white" />
+            <LoaderCircle className="mx-auto animate-spin text-primary-text" />
           )}
           {error && <p className="text-center text-red-500">{error.message}</p>}
           {!loading && !error && (
@@ -114,7 +113,7 @@ const Catalog = () => {
                       className={`rounded-md px-3 py-1 ${
                         queries.page === 1
                           ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer hover:bg-background-terciario-hover"
+                          : "cursor-pointer hover:bg-tertiary-background-hover"
                       }`}
                     />
                     {Array.from({ length: totalPages }, (_, index) => {
@@ -125,8 +124,8 @@ const Catalog = () => {
                           onClick={() => handlePageChange(pageNumber)}
                           className={`rounded-md px-4 py-2 ${
                             queries.page === pageNumber
-                              ? "cursor-default text-white"
-                              : "cursor-pointer bg-background-terciario text-gray-200 hover:bg-background-terciario-hover"
+                              ? "cursor-not-allowed text-button-text"
+                              : "cursor-pointer bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
                           }`}
                         >
                           {pageNumber}
@@ -143,7 +142,7 @@ const Catalog = () => {
                       className={`rounded-md px-3 py-1 ${
                         queries.page === totalPages
                           ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer hover:bg-background-terciario-hover"
+                          : "cursor-pointer hover:bg-tertiary-background-hover"
                       }`}
                     />
                   </PaginationContent>

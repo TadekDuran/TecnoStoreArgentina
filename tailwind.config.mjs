@@ -9,10 +9,14 @@ export default {
   theme: {
   	extend: {
   		colors: {
-			'background-primario': '#020617',
-			'background-secundario': '#18181b',
-			'background-terciario': '#27272a',
-			'background-terciario-hover': '#3f3f46',
+			'primary-background': '#020617',
+			'secondary-background': '#18181b',
+			'tertiary-background': '#27272a',
+			'tertiary-background-hover': '#3f3f46',
+			'emphasy-background': '#60a5fa',
+			'primary-text': '#e4e4e7',
+			'secondary-text': '#a1a1aa',
+			'button-text': '#ffffff',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

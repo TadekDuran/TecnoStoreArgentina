@@ -4,7 +4,7 @@ import { FaInstagram, FaTelegramPlane, FaFacebookMessenger } from "react-icons/f
 
 const ContactButtons = () => {
   return (
-    <div className="flex flex-col gap-4 text-slate-300">
+    <div className="flex flex-col gap-4 text-button-text">
       {/* Instagram */}
       <a
         href="https://www.instagram.com/tecnostorearg"

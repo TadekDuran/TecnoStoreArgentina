@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const firstImage = product.colors[0][firstColorKey][0];
 
   return (
-    <div className="flex h-80 w-64 transform cursor-pointer flex-col items-center justify-between rounded-lg bg-background-terciario p-4 shadow-lg hover:bg-background-terciario-hover">
+    <div className="hover:bg-tertiary-background-hover flex h-80 w-64 transform cursor-pointer flex-col items-center justify-between gap-2 rounded-lg bg-tertiary-background p-4 shadow-lg">
       <Link
         href={`/catalog/${product.id}`}
         className="flex w-full flex-col items-center"
@@ -19,8 +19,10 @@ const ProductCard = ({ product }) => {
           />
         </div>
         <div className="mt-3 text-center">
-          <p className="text-lg font-semibold text-white">{product.model}</p>
-          <p className="text-md text-gray-400">{product.price}</p>
+          <p className="text-xl font-bold text-primary-text">
+            {product.model}
+          </p>
+          <p className="text-lg text-secondary-text font-semibold">{product.price} USD</p>
         </div>
       </Link>
     </div>

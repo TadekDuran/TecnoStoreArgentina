@@ -75,7 +75,7 @@ const ProductPage = () => {
 
   if (product) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto bg-primary-background px-4 py-8">
         <div className="grid grid-cols-1 place-items-center gap-4 pb-4 md:grid-cols-[1fr_auto_1fr] md:place-items-start">
           <div>
             <MainCarousel
@@ -99,8 +99,10 @@ const ProductPage = () => {
           <Separator orientation="vertical" className="mx-4 hidden md:block" />
 
           <div className="flex flex-col items-center space-y-4 md:items-start">
-            <h1 className="text-2xl text-slate-300">{product.model}</h1>
-            <p className="text-3xl font-semibold text-slate-200">
+            <h1 className="text-2xl font-semibold text-secondary-text">
+              {product.model}
+            </h1>
+            <p className="text-3xl font-bold text-primary-text">
               U$D {product.price}
             </p>
             <p className="text-2xl font-bold text-emerald-300">
@@ -109,7 +111,9 @@ const ProductPage = () => {
 
             <PaymentMethodList />
 
-            <h3 className="font-medium">Colores disponibles:</h3>
+            <h3 className="font-medium text-primary-text">
+              Colores disponibles:
+            </h3>
             <div className="flex gap-4">
               {product.colors.map((color, index) => {
                 const colorName = Object.keys(color)[0];
@@ -119,8 +123,8 @@ const ProductPage = () => {
                     key={index}
                     className={`rounded border-2 px-4 py-2 transition-all duration-200 ${
                       selectedColor === colorName
-                        ? "border-slate-800 bg-slate-800 text-white"
-                        : "border-slate-600 bg-slate-400 text-slate-800 hover:bg-slate-600"
+                        ? "bg-emphasy-background cursor-not-allowed font-semibold text-primary-text"
+                        : "text-button-text hover:bg-tertiary-background-hover bg-tertiary-background"
                     }`}
                     onClick={() => handleColorChange(colorName)}
                   >
