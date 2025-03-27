@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background-primario px-4 py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-primary-background px-4 py-12 sm:px-6 lg:px-8">
       {loading && (
         <div className="flex h-full items-center justify-center">
           <LoaderCircle className="h-12 w-12 animate-spin text-white" />
