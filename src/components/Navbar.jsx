@@ -11,7 +11,6 @@ const Navbar = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList className="relative flex w-screen items-center justify-between bg-secondary-background p-4 text-primary-text">
-        {/* Contenedor izquierdo */}
         <div className="flex gap-4">
           <NavigationMenuItem>
             <Button
@@ -31,19 +30,17 @@ const Navbar = () => {
           </NavigationMenuItem>
         </div>
 
-        {/* Título centrado */}
         <h1 className="absolute left-1/2 -translate-x-1/2 text-lg font-bold text-primary-text">
           TecnoStore Argentina
         </h1>
 
-        {/* Contenedor derecho */}
         <div className="flex gap-4 pr-4">
           <NavigationMenuItem>
             <Button
               asChild
               className="text-button-text hover:bg-tertiary-background-hover bg-tertiary-background"
             >
-              <Link href="/">Preguntas Frecuentes</Link>
+              <Link href="/faq">Preguntas Frecuentes</Link>
             </Button>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -51,7 +48,7 @@ const Navbar = () => {
               asChild
               className="text-button-text hover:bg-tertiary-background-hover bg-tertiary-background"
             >
-              <Link href="/">Contacto</Link>
+              <Link href="/contact">Contacto</Link>
             </Button>
           </NavigationMenuItem>
         </div>
