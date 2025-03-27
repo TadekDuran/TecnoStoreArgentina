@@ -9,7 +9,7 @@ export default {
   theme: {
   	extend: {
   		colors: {
-			'primary-background': '#020617',
+			'primary-background': '#09090b',
 			'secondary-background': '#18181b',
 			'tertiary-background': '#27272a',
 			'tertiary-background-hover': '#3f3f46',
