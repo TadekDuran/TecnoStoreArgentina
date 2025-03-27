@@ -12,8 +12,13 @@ import { useToast } from "@/hooks/use-toast";
 import DeleteProductConfirmAlert from "@/components/admin/DeleteProductConfirmAlert";
 
 const Admin = () => {
-  const { data, error, getProducts } = useProducts();
-  const [queries, setQueries] = useState({});
+  const { data, loading, error, getProducts, totalPages } = useProducts();
+  const [queries, setQueries] = useState({
+    page: 1,
+    limit: 5,
+    sortBy: "price",
+    order: "asc",
+  });
   const [rowSelection, setRowSelection] = useState({});
   const [showConfirm, setShowConfirm] = useState(false);
   const { toast } = useToast()
