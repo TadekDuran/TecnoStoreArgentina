@@ -29,6 +29,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
 
         if (field === "category") {
           delete updatedFilters.featured;
+          updatedFilters.limit = 8;
         }
 
         return updatedFilters;

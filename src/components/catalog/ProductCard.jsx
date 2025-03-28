@@ -6,12 +6,12 @@ const ProductCard = ({ product }) => {
   const firstImage = product.colors[0][firstColorKey][0];
 
   return (
-    <div className="hover:bg-tertiary-background-hover flex h-80 w-64 transform cursor-pointer flex-col items-center justify-between gap-2 rounded-lg bg-tertiary-background p-4 shadow-lg">
+    <div className="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-tertiary-background p-4 shadow-lg hover:bg-tertiary-background-hover">
       <Link
         href={`/catalog/${product.id}`}
         className="flex w-full flex-col items-center"
       >
-        <div className="flex h-48 w-full items-center justify-center overflow-hidden rounded-md">
+        <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-md">
           <img
             className="h-full w-full object-cover"
             src={firstImage}
@@ -19,10 +19,10 @@ const ProductCard = ({ product }) => {
           />
         </div>
         <div className="mt-3 text-center">
-          <p className="text-xl font-bold text-primary-text">
-            {product.model}
+          <p className="text-xl font-bold text-primary-text">{product.model}</p>
+          <p className="text-lg font-semibold text-secondary-text">
+            {product.price} USD
           </p>
-          <p className="text-lg text-secondary-text font-semibold">{product.price} USD</p>
         </div>
       </Link>
     </div>

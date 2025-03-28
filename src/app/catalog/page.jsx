@@ -17,7 +17,7 @@ const Catalog = () => {
   const [queries, setQueries] = useState({
     featured: true,
     page: 1,
-    limit: 5,
+    limit: 3,
     sortBy: "price",
     order: "asc",
   });
@@ -80,11 +80,16 @@ const Catalog = () => {
           {error && <p className="text-center text-red-500">{error.message}</p>}
           {!loading && !error && (
             <>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div
+                className="grid justify-center gap-6"
+                style={{
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                }}
+              >
                 {data.map((product) => (
                   <div
-                    className="transition-transform duration-300 hover:scale-105"
                     key={product.id}
+                    className="transition-transform duration-300 hover:scale-105"
                   >
                     <ProductCard product={product} />
                   </div>
