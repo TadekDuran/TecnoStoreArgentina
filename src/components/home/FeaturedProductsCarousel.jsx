@@ -22,14 +22,7 @@ const FeaturedProductsCarousel = ({ data }) => {
           {data.map((product) => (
             <CarouselItem
               key={product.id}
-              className="
-                pl-4 
-                basis-full
-                max-[600px]:basis-full 
-                max-[875px]:basis-1/2 
-                max-[1175px]:basis-1/3 
-                min-[1176px]:basis-1/4
-              "
+              className="basis-full pl-4 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
             >
               <ProductCard product={product} />
             </CarouselItem>
