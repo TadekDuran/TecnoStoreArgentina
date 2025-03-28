@@ -58,6 +58,11 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+		screens:	{
+			sm: '37.5rem',
+			md: '54.75rem',
+			lg: '73.25rem',
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
