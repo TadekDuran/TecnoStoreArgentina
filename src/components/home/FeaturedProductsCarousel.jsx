@@ -12,7 +12,7 @@ const FeaturedProductsCarousel = ({ data }) => {
   return (
     <div className="flex justify-center px-4">
       <Carousel
-        className="w-full max-w-[90vw]"
+        className="w-full max-w-[75vw]"
         opts={{
           align: "start",
           containScroll: "trimSnaps",
