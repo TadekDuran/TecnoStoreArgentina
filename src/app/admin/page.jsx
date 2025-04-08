@@ -1,19 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ProductsTable } from "@/components/admin/ProductsTable";
-import ProductsFilter from "@/components/catalog/ProductsFilter";
 import { columns } from "@/components/admin/columns";
 import CreateProductForm from "@/components/admin/CreateProductForm";
 import { useProducts } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import apiUrl from "@/utils/apiUrl";
 import { useToast } from "@/hooks/use-toast";
 import DeleteProductConfirmAlert from "@/components/admin/DeleteProductConfirmAlert";
 import ProductPagination from "@/components/ProductPagination";
+import { deleteProductAction } from "@/app/admin/actions/admin-actions"
 
 const Admin = () => {
-  const { data, loading, error, getProducts, totalPages } = useProducts();
+  const { data, error, getProducts, totalPages } = useProducts();
   const [queries, setQueries] = useState({
     page: 1,
     limit: 5,
@@ -34,40 +33,27 @@ const Admin = () => {
 
   const handleDelete = async (idOrIds) => {
     const isSingleDelete = !Array.isArray(idOrIds);
-
+  
     try {
-      const response = await fetch(`${apiUrl}/api/products/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(
-          isSingleDelete ? { id: idOrIds } : { ids: idOrIds },
-        ),
+      const payload = isSingleDelete ? { id: idOrIds } : { ids: idOrIds };
+      const {message} = await deleteProductAction(payload);
+  
+      toast({
+        title: isSingleDelete ? "Producto Eliminado" : "Productos Eliminados",
+        description: message,
       });
-
-      if (response.ok) {
-        toast({
-          title: isSingleDelete ? "Producto Eliminado" : "Productos Eliminados",
-          description: isSingleDelete
-            ? "Producto eliminado correctamente."
-            : "Productos eliminados correctamente.",
-        });
-
-        if (!isSingleDelete) setRowSelection({});
-        getProducts();
-      } else {
-        toast({
-          title: "ERROR",
-          description: isSingleDelete
-            ? "Error al eliminar producto."
-            : "Error al eliminar productos.",
-        });
-      }
+  
+      if (!isSingleDelete) setRowSelection({});
+      getProducts();
     } catch (error) {
-      console.error("Error en la petición:", error);
+      toast({
+        title: "ERROR",
+        description: error.message || "Ocurrió un error al eliminar.",
+        variant: "destructive",
+      });
+      console.error("Error al eliminar producto(s):", error);
     }
-  };
+  }
 
   return (
     <div suppressHydrationWarning className="m-2 flex flex-col gap-2">

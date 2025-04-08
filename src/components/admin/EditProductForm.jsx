@@ -20,9 +20,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast";
-import apiUrl from "@/utils/apiUrl";
 import { Trash2, CirclePlus } from "lucide-react";
 import CreateProductConfirmAlert from "@/components/admin/CreateProductConfirmAlert";
+import { updateProductAction } from '@/app/admin/actions/admin-actions';
 
 const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
@@ -113,27 +113,20 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
 
   const handleRequest = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/api/products/updateOne?id=${product.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        },
-      );
-      if (!response.ok) {
-        throw new Error(response.error);
-      }
+      const { message } = await updateProductAction(product.id, formData);
+      toast({
+        title: "Producto editado con éxito",
+        description: message,
+      });
+      document.getElementById("sheet-close-btn")?.click();
     } catch (error) {
+      toast({
+        title: "Error al editar el producto",
+        description: error.message,
+        variant: "destructive",
+      });
       console.log(error);
     }
-    document.getElementById("sheet-close-btn")?.click();
-    toast({
-      title: "Producto editado con éxito",
-      description: "El producto se ha editado correctamente.",
-    });
   };
 
   return (

@@ -22,13 +22,12 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import CreateProductConfirmAlert from "@/components/admin/CreateProductConfirmAlert";
 import { useToast } from "@/hooks/use-toast";
-import apiUrl from "@/utils/apiUrl";
 import { Trash2, CirclePlus } from "lucide-react";
+import { createProductAction } from "@/app/admin/actions/admin-actions";
 
 const CreateProductForm = () => {
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
   const makerList = ["Apple", "Samsung", "Xiaomi"];
-
   const [formData, setFormData] = useState({
     category: "",
     model: "",
@@ -66,24 +65,31 @@ const CreateProductForm = () => {
 
   const handleRequest = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/products/createOne`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const { message } = await createProductAction(formData);
+      toast({
+        title: "Producto subido con éxito",
+        description: message,
       });
-      if (!response.ok) {
-        throw new Error("Error en la petición");
-      }
+      document.getElementById("sheet-close-btn")?.click();
+      setFormData({
+        category: "",
+        model: "",
+        maker: "",
+        price: "",
+        specs: [],
+        featured: false,
+        used: false,
+        stock: true,
+        colors: [],
+      });
     } catch (error) {
+      toast({
+        title: "Error al subir el producto",
+        description: error.message,
+        variant: "destructive",
+      });
       console.log(error);
     }
-    document.getElementById("sheet-close-btn")?.click();
-    toast({
-      title: "Producto subido con éxito",
-      description: "El producto se ha agregado correctamente.",
-    });
   };
 
   const addSpec = () => {
