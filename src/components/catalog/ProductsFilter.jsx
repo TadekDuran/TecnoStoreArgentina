@@ -42,7 +42,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
       return prev.category
         ? {
             category: prev.category,
-            featured: true,
+            featured: false,
             page: 1,
             limit: 5,
             sortBy: "price",
