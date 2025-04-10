@@ -12,6 +12,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import ProductPagination from "@/components/ProductPagination";
+import CatalogDrawerFilters from "@/components/catalog/CatalogDrawerFilters";
 
 const Catalog = () => {
   const [queries, setQueries] = useState({
@@ -51,10 +52,18 @@ const Catalog = () => {
       : "featured";
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-primary-background px-20 py-10">
+    <div className="flex min-h-screen flex-col items-center bg-primary-background px-4 py-10 lg:px-20">
       <h1 className="mb-8 text-3xl font-bold text-primary-text">Catálogo</h1>
-      <div className="flex w-full max-w-screen-2xl gap-12">
-        <div className="w-1/4 self-start rounded-lg bg-secondary-background p-5 shadow-lg">
+
+      <CatalogDrawerFilters
+        handleSortChange={handleSortChange}
+        selectValue={selectValue}
+        queries={queries}
+        setQueries={setQueries}
+      />
+
+      <div className="flex w-full max-w-screen-2xl gap-6">
+        <div className="hidden w-1/4 self-start rounded-lg bg-secondary-background p-5 shadow-lg md:block">
           <div className="mt-4 text-primary-text">
             <label className="mr-2" htmlFor="sort">
               Ordenar por:
