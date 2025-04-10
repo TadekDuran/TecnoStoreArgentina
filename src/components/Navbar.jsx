@@ -6,30 +6,27 @@ import {
 } from "@/components/ui/navigation-menu";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
+import headerLogo from "@/app/header_logo.png";
+import logoWide from "@/app/logo_wide.png";
 
 const Navbar = () => {
   return (
     <NavigationMenu className="sticky top-0 z-50">
-      <NavigationMenuList className="relative hidden w-screen items-center justify-between bg-secondary-background p-4 text-primary-text md:flex">
-        <div className="flex gap-4">
+      <NavigationMenuList className="relative hidden w-screen items-center justify-between bg-secondary-background px-8 py-4 text-primary-text md:flex">
+        <div className="ml-4 flex items-center gap-8">
           <NavigationMenuItem>
-            <Button
-              asChild
-              className="bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-            >
-              <Link href="/">FUTURO LOGO</Link>
-            </Button>
+            <Link href="/">
+              <Image src={headerLogo} alt="Logo TS Header" />
+            </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Button
@@ -41,9 +38,11 @@ const Navbar = () => {
           </NavigationMenuItem>
         </div>
 
-        <h1 className="absolute left-1/2 -translate-x-1/2 text-lg font-bold text-primary-text">
-          TecnoStore Argentina
-        </h1>
+        <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/">
+            <Image src={logoWide} alt="Logo TS Middle" />
+          </Link>
+        </NavigationMenuItem>
 
         <div className="flex gap-4 pr-4">
           <NavigationMenuItem>
@@ -98,14 +97,15 @@ const Navbar = () => {
             </div>
           </SheetContent>
         </Sheet>
-        <Button
-          asChild
-          className="absolute left-1/2 -translate-x-1/2 bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-        >
+        <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2">
           <Link href="/">
-            <p className="h-8 w-auto">FUTURO TS LOGO</p>
+            <Image
+              src={logoWide}
+              alt="Logo TS Header"
+              height={60}
+            />
           </Link>
-        </Button>
+        </NavigationMenuItem>
         <div className="h-8 w-8" />
       </NavigationMenuList>
     </NavigationMenu>
