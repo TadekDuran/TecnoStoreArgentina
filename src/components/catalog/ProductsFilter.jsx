@@ -14,7 +14,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import CategoryFilter from "@/components/catalog/CategoryFilter";
 
 const ProductsFilter = ({ queries, setQueries }) => {
-  const makerList = ["Apple", "Samsung", "Xiaomi"];
+  const brandList = ["Apple", "Samsung", "Xiaomi"];
   const [localFilters, setLocalFilters] = useState(queries);
   const debouncedFilters = useDebounce(localFilters, 1000);
 
@@ -103,24 +103,24 @@ const ProductsFilter = ({ queries, setQueries }) => {
           </div>
 
           <div className="flex flex-col gap-3">
-            <Label htmlFor="maker" className="font-medium text-primary-text">
-              Fabricante
+            <Label htmlFor="brand" className="font-medium text-primary-text">
+              Marca
             </Label>
             <Select
-              value={localFilters.maker || ""}
-              onValueChange={(value) => handleChange("maker", value)}
+              value={localFilters.brand || ""}
+              onValueChange={(value) => handleChange("brand", value)}
             >
               <SelectTrigger className="hover:bg-tertiary-background-hover h-10 rounded-md bg-tertiary-background px-3 text-primary-text">
-                <SelectValue placeholder="Selecciona un fabricante" />
+                <SelectValue placeholder="Selecciona una marca" />
               </SelectTrigger>
               <SelectContent className="bg-tertiary-background text-primary-text">
-                {makerList.map((maker, index) => (
+                {brandList.map((brand, index) => (
                   <SelectItem
                     key={index}
-                    value={maker}
+                    value={brand}
                     className="hover:bg-tertiary-background-hover"
                   >
-                    {maker}
+                    {brand}
                   </SelectItem>
                 ))}
               </SelectContent>

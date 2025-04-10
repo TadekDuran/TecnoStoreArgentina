@@ -4,7 +4,7 @@ export async function validateProductForm(formData) {
   const formSchema = z.object({
     category: z.string().min(1, "La categoría es obligatoria."),
     model: z.string().min(1, "El modelo es obligatorio."),
-    maker: z.string().min(1, "El fabricante es obligatorio."),
+    brand: z.string().min(1, "La marca es obligatoria."),
     price: z.coerce.number().positive("El precio debe ser un número positivo"),
     specs: z
       .array(

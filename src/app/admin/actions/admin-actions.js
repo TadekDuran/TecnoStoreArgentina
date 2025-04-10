@@ -27,7 +27,7 @@ export async function updateProductAction(id, formData) {
   const allowedFields = [
     "category",
     "model",
-    "maker",
+    "brand",
     "price",
     "specs",
     "featured",

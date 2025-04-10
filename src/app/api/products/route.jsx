@@ -13,7 +13,7 @@ export async function GET(request) {
   const filters = {
     category: searchParams.get("category") || null,
     model: searchParams.get("model") || null,
-    maker: searchParams.get("maker") || null,
+    brand: searchParams.get("brand") || null,
     minPrice: searchParams.get("minPrice")
       ? Number(searchParams.get("minPrice"))
       : null,
@@ -36,7 +36,7 @@ export async function GET(request) {
       countQuery = countQuery.eq("category", filters.category);
     if (filters.model)
       countQuery = countQuery.ilike("model", `%${filters.model}%`);
-    if (filters.maker) countQuery = countQuery.eq("maker", filters.maker);
+    if (filters.brand) countQuery = countQuery.eq("brand", filters.brand);
     if (filters.minPrice !== null)
       countQuery = countQuery.gte("price", filters.minPrice);
     if (filters.maxPrice !== null)
@@ -56,7 +56,7 @@ export async function GET(request) {
     let query = supabase.from("products").select();
     if (filters.category) query = query.eq("category", filters.category);
     if (filters.model) query = query.ilike("model", `%${filters.model}%`);
-    if (filters.maker) query = query.eq("maker", filters.maker);
+    if (filters.brand) query = query.eq("brand", filters.brand);
     if (filters.minPrice !== null) query = query.gte("price", filters.minPrice);
     if (filters.maxPrice !== null) query = query.lte("price", filters.maxPrice);
     if (filters.featured) query = query.eq("featured", true);

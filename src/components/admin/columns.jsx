@@ -41,8 +41,8 @@ export const columns = (handleDelete) => [
     header: "Precio",
   },
   {
-    accessorKey: "maker",
-    header: "Fabricante",
+    accessorKey: "brand",
+    header: "Marca",
   },
   {
     id: "actions",

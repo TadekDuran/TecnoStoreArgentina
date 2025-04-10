@@ -27,11 +27,11 @@ import { createProductAction } from "@/app/admin/actions/admin-actions";
 
 const CreateProductForm = () => {
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
-  const makerList = ["Apple", "Samsung", "Xiaomi"];
+  const brandList = ["Apple", "Samsung", "Xiaomi"];
   const [formData, setFormData] = useState({
     category: "",
     model: "",
-    maker: "",
+    brand: "",
     price: "",
     specs: [],
     featured: false,
@@ -74,7 +74,7 @@ const CreateProductForm = () => {
       setFormData({
         category: "",
         model: "",
-        maker: "",
+        brand: "",
         price: "",
         specs: [],
         featured: false,
@@ -212,21 +212,21 @@ const CreateProductForm = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="maker">Marca</Label>
-                <Select onValueChange={(value) => handleChange("maker", value)}>
+                <Label htmlFor="brand">Marca</Label>
+                <Select onValueChange={(value) => handleChange("brand", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecciona una marca" />
                   </SelectTrigger>
                   <SelectContent>
-                    {makerList.map((maker, index) => (
-                      <SelectItem key={index} value={maker}>
-                        {maker}
+                    {brandList.map((brand, index) => (
+                      <SelectItem key={index} value={brand}>
+                        {brand}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.maker && (
-                  <p className="text-sm text-red-500">{errors.maker[0]}</p>
+                {errors.brand && (
+                  <p className="text-sm text-red-500">{errors.brand[0]}</p>
                 )}
               </div>
 

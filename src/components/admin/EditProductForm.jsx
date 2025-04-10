@@ -26,12 +26,12 @@ import { updateProductAction } from '@/app/admin/actions/admin-actions';
 
 const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   const categoryList = ["Smartphone", "Tablet", "Notebook"];
-  const makerList = ["Apple", "Samsung", "Xiaomi"];
+  const brandList = ["Apple", "Samsung", "Xiaomi"];
 
   const [formData, setFormData] = useState({
     category: product.category,
     model: product.model,
-    maker: product.maker,
+    brand: product.brand,
     price: product.price,
     specs: product.specs,
     featured: product.featured,
@@ -178,15 +178,15 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="maker">Fabricante</Label>
-                <Select onValueChange={(value) => handleChange("maker", value)}>
+                <Label htmlFor="brand">Marca</Label>
+                <Select onValueChange={(value) => handleChange("brand", value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder={formData.maker} />
+                    <SelectValue placeholder={formData.brand} />
                   </SelectTrigger>
                   <SelectContent>
-                    {makerList.map((maker, index) => (
-                      <SelectItem key={index} value={maker}>
-                        {maker}
+                    {brandList.map((brand, index) => (
+                      <SelectItem key={index} value={brand}>
+                        {brand}
                       </SelectItem>
                     ))}
                   </SelectContent>
