@@ -2,8 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 const ProductCard = ({ product }) => {
-  const firstColorKey = Object.keys(product.colors[0])[0];
-  const firstImage = product.colors[0][firstColorKey][0];
+  const firstImage = product.image_list[0];
 
   return (
     <div className="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-tertiary-background p-4 shadow-lg hover:bg-tertiary-background-hover">

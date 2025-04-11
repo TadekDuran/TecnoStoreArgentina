@@ -33,7 +33,8 @@ export async function updateProductAction(id, formData) {
     "featured",
     "used",
     "stock",
-    "colors",
+    "image_list",
+    "available_colors"
   ];
 
   allowedFields.forEach((field) => {
