@@ -58,8 +58,6 @@ const ProductPage = () => {
           if (Array.isArray(data) && data.length > 0) {
             const productData = data[0];
             setProduct(productData);
-            const firstColorKey = Object.keys(productData.colors[0])[0];
-            setSelectedColor(firstColorKey);
           } else {
             console.warn("Producto no encontrado");
             setProduct(null);
@@ -78,17 +76,9 @@ const ProductPage = () => {
       <div className="container mx-auto bg-primary-background px-4 py-8">
         <div className="grid grid-cols-1 place-items-center gap-4 pb-4 md:grid-cols-[1fr_auto_1fr] md:place-items-start">
           <div>
-            <MainCarousel
-              selectedColor={selectedColor}
-              product={product}
-              setEmblaMain={setEmblaMain}
-            />
+            <MainCarousel product={product} setEmblaMain={setEmblaMain} />
             <ThumbnailCarousel
-              images={
-                product.colors.find(
-                  (color) => Object.keys(color)[0] === selectedColor,
-                )[selectedColor]
-              }
+              images={product.image_list || []}
               emblaMain={emblaMain}
               setEmblaThumbs={setEmblaThumbs}
               selectedIndex={selectedIndex}
@@ -115,21 +105,14 @@ const ProductPage = () => {
               Colores disponibles:
             </h3>
             <div className="flex gap-4">
-              {product.colors.map((color, index) => {
-                const colorName = Object.keys(color)[0];
-
+              {product.available_colors.map((color, index) => {
                 return (
-                  <button
+                  <p
                     key={index}
-                    className={`rounded border-2 px-4 py-2 transition-all duration-200 ${
-                      selectedColor === colorName
-                        ? "bg-emphasy-background cursor-not-allowed font-semibold text-primary-text"
-                        : "text-button-text hover:bg-tertiary-background-hover bg-tertiary-background"
-                    }`}
-                    onClick={() => handleColorChange(colorName)}
+                    className="bg-tertiary-background text-primary-text"
                   >
-                    {colorName}
-                  </button>
+                    {color}
+                  </p>
                 );
               })}
             </div>

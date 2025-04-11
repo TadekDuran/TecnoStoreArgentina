@@ -6,8 +6,7 @@ export async function validateProductForm(formData) {
     model: z.string().min(1, "El modelo es obligatorio."),
     brand: z.string().min(1, "La marca es obligatoria."),
     price: z.coerce.number().positive("El precio debe ser un número positivo"),
-    specs: z
-      .array(
+    specs: z.array(
         z.record(
           z
             .string()
@@ -15,24 +14,17 @@ export async function validateProductForm(formData) {
         ),
       )
       .nonempty("Debe haber al menos una especificación"),
-    featured: z.boolean(),
+    available_colors: z.array(z.string().min(1, "Cada color debe tener un nombre válido"))
+      .min(1, "Debe haber al menos un color disponible"),
+    image_list: z.array(
+        z
+          .string()
+          .url("Debe ser una URL válida")
+          .min(1, "La URL no puede estar vacía"),
+      )
+      .min(1, "Debe haber al menos una imagen"),
     used: z.boolean(),
-    stock: z.boolean(),
-    colors: z
-    .array(
-      z.record(
-        z.array(z.string().min(1, "Cada enlace de imagen debe ser una cadena no vacía.")),
-      ),
-    )
-    .nonempty("Debe haber al menos un color.")
-    .refine(
-      (colors) =>
-        colors.every((color) => {
-          const key = Object.keys(color)[0];
-          return color[key].length > 0;
-        }),
-      "Cada color debe tener al menos un enlace de imagen.",
-    ),
+    featured: z.boolean(),
   });
   try {
     formSchema.parse(formData);

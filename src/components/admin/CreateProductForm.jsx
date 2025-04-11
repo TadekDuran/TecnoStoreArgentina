@@ -37,10 +37,11 @@ const CreateProductForm = () => {
     featured: false,
     used: false,
     stock: true,
-    colors: [],
+    image_list: [],
+    available_colors: [],
   });
   const [tempSpec, setTempSpec] = useState({ name: "", value: "" });
-  const [tempColor, setTempColor] = useState({ name: "", images: [] });
+  const [tempColor, setTempColor] = useState("");
   const [tempImage, setTempImage] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [errors, setErrors] = useState({});
@@ -80,7 +81,8 @@ const CreateProductForm = () => {
         featured: false,
         used: false,
         stock: true,
-        colors: [],
+        image_list: [],
+        available_colors: [],
       });
     } catch (error) {
       toast({
@@ -92,62 +94,29 @@ const CreateProductForm = () => {
     }
   };
 
-  const addSpec = () => {
-    if (tempSpec.name && tempSpec.value) {
-      setFormData((prev) => ({
-        ...prev,
-        specs: [...prev.specs, { [tempSpec.name]: tempSpec.value }],
-      }));
-      setTempSpec({ name: "", value: "" });
-    }
-  };
-  const removeSpec = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      specs: prev.specs.filter((_, i) => i !== index),
-    }));
-  };
-
-  const addColor = () => {
-    if (tempColor.name && tempImage) {
-      const newImages = tempImage
-        .split(",")
-        .map((link) => link.trim())
-        .filter((link) => link.length > 0);
-      setFormData((prev) => {
-        const colorIndex = prev.colors.findIndex(
-          (color) => Object.keys(color)[0] === tempColor.name,
-        );
-        if (colorIndex !== -1) {
-          const updatedColors = [...prev.colors];
-          const existingImages = updatedColors[colorIndex][tempColor.name];
-          const uniqueNewImages = newImages.filter(
-            (link) => !existingImages.includes(link),
-          );
-          updatedColors[colorIndex][tempColor.name] = [
-            ...existingImages,
-            ...uniqueNewImages,
-          ];
+  const handleArrayUpdate = (
+    action,
+    field,
+    value,
+    index = null,
+    tempSetter = null,
+  ) => {
+    setFormData((prev) => {
+      switch (action) {
+        case "add":
           return {
             ...prev,
-            colors: updatedColors,
+            [field]: [...prev[field], value],
           };
-        } else {
+        case "remove":
           return {
             ...prev,
-            colors: [...prev.colors, { [tempColor.name]: newImages }],
+            [field]: prev[field].filter((_, i) => i !== index),
           };
-        }
-      });
-      setTempColor({ name: "", images: [] });
-      setTempImage("");
-    }
-  };
-  const removeColor = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      colors: prev.colors.filter((_, i) => i !== index),
-    }));
+        default:
+          return prev;
+      }
+    });
   };
 
   return (
@@ -249,7 +218,16 @@ const CreateProductForm = () => {
                       setTempSpec({ ...tempSpec, value: e.target.value })
                     }
                   />
-                  <Button type="button" onClick={addSpec}>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      handleArrayUpdate("add", "specs", {
+                        [tempSpec.name]: tempSpec.value,
+                      });
+                      setTempSpec({ name: "", value: "" });
+                    }}
+                    disabled={!tempSpec.name || !tempSpec.value}
+                  >
                     <CirclePlus />
                   </Button>
                 </div>
@@ -271,7 +249,9 @@ const CreateProductForm = () => {
                         <Button
                           type="button"
                           variant="ghost"
-                          onClick={() => removeSpec(index)}
+                          onClick={() =>
+                            handleArrayUpdate("remove", "specs", null, index)
+                          }
                         >
                           <Trash2 />
                         </Button>
@@ -287,51 +267,109 @@ const CreateProductForm = () => {
                   <Input
                     type="text"
                     placeholder="Nombre (Ej: Blanco)"
-                    value={tempColor.name}
-                    onChange={(e) =>
-                      setTempColor({ ...tempColor, name: e.target.value })
-                    }
+                    value={tempColor}
+                    onChange={(e) => setTempColor(e.target.value)}
                   />
-                  <Input
-                    type="text"
-                    placeholder="Enlaces a las imágenes (separados por comas)"
-                    value={tempImage}
-                    onChange={(e) => setTempImage(e.target.value)}
-                  />
-                  <Button type="button" onClick={addColor}>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      handleArrayUpdate(
+                        "add",
+                        "available_colors",
+                        tempColor,
+                        null,
+                      );
+                      setTempColor("");
+                    }}
+                    disabled={!tempColor}
+                  >
                     <CirclePlus />
                   </Button>
                 </div>
-                {errors.colors && (
-                  <p className="text-sm text-red-500">{errors.colors[0]}</p>
+                {errors.available_colors && (
+                  <p className="text-sm text-red-500">
+                    {errors.available_colors[0]}
+                  </p>
                 )}
-                {/* Lista de colores con scroll interno si crece demasiado */}
                 <div className="max-h-20 overflow-y-auto rounded border p-2">
-                  {formData.colors.map((color, index) => {
-                    const key = Object.keys(color)[0];
-                    const images = color[key];
+                  {formData.available_colors.map((color, index) => {
                     return (
                       <div
                         key={index}
                         className="flex flex-col gap-1 rounded px-2"
                       >
                         <div className="flex items-center justify-between">
-                          <span>{key}:</span>
+                          <span>{color}</span>
                           <Button
                             type="button"
                             size="sm"
                             variant="ghost"
-                            onClick={() => removeColor(index)}
+                            onClick={() =>
+                              handleArrayUpdate(
+                                "remove",
+                                "available_colors",
+                                null,
+                                index,
+                              )
+                            }
                           >
                             <Trash2 />
                           </Button>
                         </div>
-                        <div className="flex flex-col gap-1">
-                          {images.map((image, imgIndex) => (
-                            <span key={imgIndex} className="text-sm">
-                              - {image}
-                            </span>
-                          ))}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label>Imágenes</Label>
+                <div className="flex gap-2">
+                  <Input
+                    type="text"
+                    placeholder="Enlace a la imagen"
+                    value={tempImage}
+                    onChange={(e) => setTempImage(e.target.value)}
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      handleArrayUpdate("add", "image_list", tempImage, null);
+                      setTempImage("");
+                    }}
+                    disabled={!tempImage}
+                  >
+                    <CirclePlus />
+                  </Button>
+                </div>
+                {errors.image_list && (
+                  <p className="text-sm text-red-500">{errors.image_list[0]}</p>
+                )}
+                {/* Lista de colores con scroll interno si crece demasiado */}
+                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                  {formData.image_list.map((image, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col gap-1 rounded px-2"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{image}</span>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="ghost"
+                            onClick={() =>
+                              handleArrayUpdate(
+                                "remove",
+                                "image_list",
+                                null,
+                                index,
+                              )
+                            }
+                          >
+                            <Trash2 />
+                          </Button>
                         </div>
                       </div>
                     );
