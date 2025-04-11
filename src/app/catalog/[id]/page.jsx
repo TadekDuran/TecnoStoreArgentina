@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import apiUrl from "@/utils/apiUrl";
 import { useParams } from "next/navigation";
 import ContactButtons from "@/components/product_page/ContactButtons";
 import MainCarousel from "@/components/product_page/MainCarousel";
@@ -38,17 +37,12 @@ const ProductPage = () => {
     return () => emblaMain.off("select", onSelect);
   }, [emblaMain, onSelect]);
 
-  const handleColorChange = (color) => {
-    setSelectedColor(color);
-    emblaMain.scrollTo(0);
-  };
-
   useEffect(() => {
     if (id) {
       const fetchProduct = async () => {
         try {
           const response = await fetch(
-            `${apiUrl}/api/products/getOne?id=${id}`,
+            `/api/products/getOne?id=${id}`,
           );
           if (!response.ok) {
             throw new Error("Error al obtener el producto");
