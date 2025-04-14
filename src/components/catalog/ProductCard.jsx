@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
       >
         <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-md">
           <img
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             src={firstImage}
             alt={product.model}
           />
