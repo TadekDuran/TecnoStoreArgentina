@@ -98,7 +98,7 @@ const Catalog = () => {
                 {data.map((product) => (
                   <div
                     key={product.id}
-                    className="transition-transform duration-300 hover:scale-105"
+                    className="mx-auto w-full max-w-sm transition-transform duration-300 hover:scale-105"
                   >
                     <ProductCard product={product} />
                   </div>
