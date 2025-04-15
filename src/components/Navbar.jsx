@@ -7,8 +7,10 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetClose,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
@@ -74,36 +76,41 @@ const Navbar = () => {
           <SheetContent side="left" className="p-6">
             <SheetHeader>
               <SheetTitle>Menú</SheetTitle>
+              <SheetDescription className="hidden">
+                Menú de navegación del sitio
+              </SheetDescription>
             </SheetHeader>
             <div className="mt-4 flex flex-col gap-4">
               <Button
                 asChild
                 className="w-full bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
               >
-                <Link href="/catalog">Catálogo</Link>
+                <SheetClose asChild>
+                  <Link href="/catalog">Catálogo</Link>
+                </SheetClose>
               </Button>
               <Button
                 asChild
                 className="w-full bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
               >
-                <Link href="/faq">Preguntas Frecuentes</Link>
+                <SheetClose asChild>
+                  <Link href="/faq">Preguntas Frecuentes</Link>
+                </SheetClose>
               </Button>
               <Button
                 asChild
                 className="w-full bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
               >
-                <Link href="/contact">Contacto</Link>
+                <SheetClose asChild>
+                  <Link href="/contact">Contacto</Link>
+                </SheetClose>
               </Button>
             </div>
           </SheetContent>
         </Sheet>
         <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2">
           <Link href="/">
-            <Image
-              src={logoWide}
-              alt="Logo TS Header"
-              height={60}
-            />
+            <Image src={logoWide} alt="Logo TS Header" height={60} />
           </Link>
         </NavigationMenuItem>
         <div className="h-8 w-8" />
