@@ -8,6 +8,7 @@ const Footer = () => {
       <h1>Buenos Aires, Argentina</h1>
       <Link
         href="/contact"
+        target="_blank"
         className="flex items-center gap-2 text-xl font-bold underline"
       >
         Contacto
