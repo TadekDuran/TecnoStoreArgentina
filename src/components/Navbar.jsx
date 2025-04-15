@@ -20,7 +20,7 @@ import logoWide from "@/app/logo_wide.png";
 
 const Navbar = () => {
   return (
-    <NavigationMenu className="sticky top-0 z-50">
+    <NavigationMenu className="sticky top-0 z-50 border-b border-white/10">
       <NavigationMenuList className="relative hidden w-screen items-center justify-between bg-secondary-background px-8 py-4 text-primary-text md:flex">
         <div className="ml-4 flex items-center gap-8">
           <NavigationMenuItem>
