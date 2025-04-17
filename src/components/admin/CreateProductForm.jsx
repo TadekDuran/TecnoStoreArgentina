@@ -122,8 +122,8 @@ const CreateProductForm = () => {
   return (
     <div className="flex justify-between">
       <Sheet>
-        <SheetTrigger>
-          <Button type="button">Agregar producto</Button>
+        <SheetTrigger className="bg-tertiary-background px-4 py-2 rounded-md text-button-text">
+          Agregar producto
         </SheetTrigger>
         <SheetContent className="max-h-screen overflow-y-auto">
           <form>
