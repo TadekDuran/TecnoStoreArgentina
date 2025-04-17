@@ -21,7 +21,7 @@ export const columns = (handleDelete) => [
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllRowsSelected()}
-        indeterminate={table.getIsSomeRowsSelected()}
+        indeterminate={table.getIsSomeRowsSelected() ? true : undefined}
         onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
       />
     ),
