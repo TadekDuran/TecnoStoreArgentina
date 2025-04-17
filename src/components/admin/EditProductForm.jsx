@@ -92,7 +92,7 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
   return (
     <div className="flex justify-between">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent>
+        <SheetContent className="overflow-scroll">
           <form>
             <SheetHeader>
               <SheetTitle>Editar producto</SheetTitle>
@@ -185,7 +185,7 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     <CirclePlus />
                   </Button>
                 </div>
-                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                <div className="max-h-48 overflow-y-auto rounded border p-2">
                   {formData.specs.map((spec, index) => {
                     const key = Object.keys(spec)[0];
                     return (
@@ -236,7 +236,7 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     <CirclePlus />
                   </Button>
                 </div>
-                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                <div className="max-h-32 overflow-y-auto rounded border p-2">
                   {formData.available_colors.map((color, index) => {
                     return (
                       <div
@@ -287,7 +287,7 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
                     <CirclePlus />
                   </Button>
                 </div>
-                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                <div className="max-h-32 overflow-y-auto rounded border p-2">
                   {formData.image_list.map((image, index) => {
                     return (
                       <div
