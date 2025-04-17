@@ -235,7 +235,7 @@ const CreateProductForm = () => {
                   <p className="text-sm text-red-500">{errors.specs[0]}</p>
                 )}
                 {/* Lista de especificaciones con scroll interno si crece demasiado */}
-                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                <div className="max-h-48 overflow-y-auto rounded border p-2">
                   {formData.specs.map((spec, index) => {
                     const key = Object.keys(spec)[0];
                     return (
@@ -291,7 +291,7 @@ const CreateProductForm = () => {
                     {errors.available_colors[0]}
                   </p>
                 )}
-                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                <div className="max-h-32 overflow-y-auto rounded border p-2">
                   {formData.available_colors.map((color, index) => {
                     return (
                       <div
@@ -345,8 +345,7 @@ const CreateProductForm = () => {
                 {errors.image_list && (
                   <p className="text-sm text-red-500">{errors.image_list[0]}</p>
                 )}
-                {/* Lista de colores con scroll interno si crece demasiado */}
-                <div className="max-h-20 overflow-y-auto rounded border p-2">
+                <div className="max-h-32 overflow-y-auto rounded border p-2">
                   {formData.image_list.map((image, index) => {
                     return (
                       <div
