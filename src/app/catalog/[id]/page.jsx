@@ -12,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
   const [emblaMain, setEmblaMain] = useState(null);
   const [emblaThumbs, setEmblaThumbs] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -68,21 +67,24 @@ const ProductPage = () => {
   if (product) {
     return (
       <div className="container mx-auto bg-primary-background px-4 py-8">
-        <div className="grid grid-cols-1 place-items-center gap-4 pb-4 md:grid-cols-[1fr_auto_1fr] md:place-items-start">
-          <div>
-            <MainCarousel product={product} setEmblaMain={setEmblaMain} />
-            <ThumbnailCarousel
-              images={product.image_list || []}
-              emblaMain={emblaMain}
-              setEmblaThumbs={setEmblaThumbs}
-              selectedIndex={selectedIndex}
-            />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          <div className="md:col-span-7 flex flex-col items-center">
+            <div className="w-full max-w-[500px]">
+              <MainCarousel product={product} setEmblaMain={setEmblaMain} />
+              <ThumbnailCarousel
+                images={product.image_list || []}
+                emblaMain={emblaMain}
+                setEmblaThumbs={setEmblaThumbs}
+                selectedIndex={selectedIndex}
+              />
+            </div>
           </div>
 
-          <Separator orientation="horizontal" className="my-4 md:hidden" />
-          <Separator orientation="vertical" className="mx-4 hidden md:block" />
+          <div className="hidden md:flex items-center justify-center col-span-1">
+            <Separator orientation="vertical" className="h-full" />
+          </div>
 
-          <div className="flex flex-col items-center space-y-4 md:items-start">
+          <div className="md:col-span-4 flex flex-col items-center space-y-4 md:items-start">
             <h1 className="text-2xl font-semibold text-secondary-text">
               {product.model}
             </h1>
@@ -98,23 +100,22 @@ const ProductPage = () => {
             <h3 className="font-medium text-primary-text">
               Colores disponibles:
             </h3>
-            <div className="flex gap-4">
-              {product.available_colors.map((color, index) => {
-                return (
-                  <p
-                    key={index}
-                    className="bg-tertiary-background text-primary-text"
-                  >
-                    {color}
-                  </p>
-                );
-              })}
+            <div className="flex flex-wrap gap-4">
+              {product.available_colors.map((color, index) => (
+                <p
+                  key={index}
+                  className="bg-tertiary-background px-3 py-1 rounded text-primary-text"
+                >
+                  {color}
+                </p>
+              ))}
             </div>
 
             <ContactButtons />
           </div>
         </div>
-        <Separator className="w-full" />
+
+        <Separator className="w-full my-8" />
         <SpecsTable specs={product.specs} />
       </div>
     );
