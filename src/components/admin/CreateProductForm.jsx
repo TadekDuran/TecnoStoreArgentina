@@ -26,8 +26,38 @@ import { Trash2, CirclePlus } from "lucide-react";
 import { createProductAction } from "@/app/admin/actions/admin-actions";
 
 const CreateProductForm = () => {
-  const categoryList = ["Smartphone", "Tablet", "Notebook"];
-  const brandList = ["Apple", "Samsung", "Xiaomi"];
+  const categoryList = [
+    "Smartphone",
+    "Tablet",
+    "Notebook",
+    "Laptop",
+    "Smartwatch",
+    "Auriculares",
+    "Accesorios",
+    "Audio",
+    "Consola",
+    "Cámara",
+    "Lente",
+    "Drone",
+  ];
+  const brandList = [
+    "Apple",
+    "Samsung",
+    "Xiaomi",
+    "Motorola",
+    "Realme",
+    "SONOS",
+    "Sony",
+    "Nintendo",
+    "Lenovo",
+    "ASUS",
+    "HP",
+    "Nikon",
+    "Sigma",
+    "DJI",
+    "Infinix",
+    "TECNO",
+  ];
   const [formData, setFormData] = useState({
     category: "",
     model: "",
@@ -122,7 +152,7 @@ const CreateProductForm = () => {
   return (
     <div className="flex justify-between">
       <Sheet>
-        <SheetTrigger className="bg-tertiary-background px-4 py-2 rounded-md text-button-text">
+        <SheetTrigger className="rounded-md bg-tertiary-background px-4 py-2 text-button-text">
           Agregar producto
         </SheetTrigger>
         <SheetContent className="max-h-screen overflow-y-auto">
@@ -141,7 +171,11 @@ const CreateProductForm = () => {
                   </SelectTrigger>
                   <SelectContent>
                     {categoryList.map((category, index) => (
-                      <SelectItem key={index} value={category}>
+                      <SelectItem
+                        key={index}
+                        value={category}
+                        className="hover:bg-tertiary-background-hover"
+                      >
                         {category}
                       </SelectItem>
                     ))}
@@ -188,7 +222,11 @@ const CreateProductForm = () => {
                   </SelectTrigger>
                   <SelectContent>
                     {brandList.map((brand, index) => (
-                      <SelectItem key={index} value={brand}>
+                      <SelectItem
+                        key={index}
+                        value={brand}
+                        className="hover:bg-tertiary-background-hover"
+                      >
                         {brand}
                       </SelectItem>
                     ))}
