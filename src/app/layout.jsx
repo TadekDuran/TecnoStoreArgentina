@@ -3,7 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
           <Footer />
           <Toaster />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
