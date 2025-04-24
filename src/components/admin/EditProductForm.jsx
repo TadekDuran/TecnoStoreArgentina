@@ -25,8 +25,38 @@ import CreateProductConfirmAlert from "@/components/admin/CreateProductConfirmAl
 import { updateProductAction } from "@/app/admin/actions/admin-actions";
 
 const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
-  const categoryList = ["Smartphone", "Tablet", "Notebook"];
-  const brandList = ["Apple", "Samsung", "Xiaomi"];
+  const categoryList = [
+    "Smartphone",
+    "Tablet",
+    "Notebook",
+    "Laptop",
+    "Smartwatch",
+    "Auriculares",
+    "Accesorios",
+    "Audio",
+    "Consola",
+    "Cámara",
+    "Lente",
+    "Drone",
+  ];
+  const brandList = [
+    "Apple",
+    "Samsung",
+    "Xiaomi",
+    "Motorola",
+    "Realme",
+    "SONOS",
+    "Sony",
+    "Nintendo",
+    "Lenovo",
+    "ASUS",
+    "HP",
+    "Nikon",
+    "Sigma",
+    "DJI",
+    "Infinix",
+    "TECNO",
+  ];
   const [formData, setFormData] = useState({
     category: product.category,
     model: product.model,
