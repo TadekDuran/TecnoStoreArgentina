@@ -63,13 +63,13 @@ const Catalog = () => {
       />
 
       <div className="flex w-full max-w-screen-2xl gap-6">
-        <div className="hidden w-1/4 self-start rounded-lg bg-secondary-background p-5 shadow-lg md:block">
-          <div className="mt-4 text-primary-text">
-            <label className="mr-2" htmlFor="sort">
+        <div className="hidden w-1/5 rounded-lg bg-secondary-background p-5 shadow-lg md:block">
+          <div className="text-primary-text">
+            <p htmlFor="sort">
               Ordenar por:
-            </label>
+            </p>
             <Select onValueChange={handleSortChange} value={selectValue}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="bg-tertiary-background w-fit hover:bg-tertiary-background-hover border-none">
                 <SelectValue placeholder="Selecciona orden" />
               </SelectTrigger>
               <SelectContent>

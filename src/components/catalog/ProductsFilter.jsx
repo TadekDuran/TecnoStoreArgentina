@@ -14,7 +14,24 @@ import { useDebounce } from "@/hooks/useDebounce";
 import CategoryFilter from "@/components/catalog/CategoryFilter";
 
 const ProductsFilter = ({ queries, setQueries }) => {
-  const brandList = ["Apple", "Samsung", "Xiaomi"];
+  const brandList = [
+    "Apple",
+    "Samsung",
+    "Xiaomi",
+    "Motorola",
+    "Realme",
+    "SONOS",
+    "Sony",
+    "Nintendo",
+    "Lenovo",
+    "ASUS",
+    "HP",
+    "Nikon",
+    "Sigma",
+    "DJI",
+    "Infinix",
+    "TECNO",
+  ];
   const [localFilters, setLocalFilters] = useState(queries);
   const debouncedFilters = useDebounce(localFilters, 1000);
 
@@ -29,7 +46,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
 
         if (field === "category") {
           delete updatedFilters.featured;
-          updatedFilters.limit = 8;
+          updatedFilters.limit = 10;
         }
 
         return updatedFilters;
@@ -44,7 +61,7 @@ const ProductsFilter = ({ queries, setQueries }) => {
             category: prev.category,
             featured: false,
             page: 1,
-            limit: 5,
+            limit: 10,
             sortBy: "price",
             order: "asc",
           }
@@ -54,10 +71,10 @@ const ProductsFilter = ({ queries, setQueries }) => {
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-secondary-background p-4 shadow-md">
-      <CategoryFilter handleChange={handleChange} />
+      <CategoryFilter handleChange={handleChange} localFilters={localFilters} />
 
       {!localFilters.category && (
-        <p className="bg-emphasy-background rounded-md p-3 text-center text-sm font-bold text-pri-text">
+        <p className="text-primary-text rounded-md bg-emphasy-background p-3 text-center text-sm font-bold">
           🔒 Selecciona una categoría para desbloquear más filtros.
         </p>
       )}
@@ -110,10 +127,10 @@ const ProductsFilter = ({ queries, setQueries }) => {
               value={localFilters.brand || ""}
               onValueChange={(value) => handleChange("brand", value)}
             >
-              <SelectTrigger className="hover:bg-tertiary-background-hover h-10 rounded-md bg-tertiary-background px-3 text-primary-text">
+              <SelectTrigger className="h-10 rounded-md bg-tertiary-background px-3 text-primary-text hover:bg-tertiary-background-hover">
                 <SelectValue placeholder="Selecciona una marca" />
               </SelectTrigger>
-              <SelectContent className="bg-tertiary-background text-primary-text">
+              <SelectContent className="text-primary-text">
                 {brandList.map((brand, index) => (
                   <SelectItem
                     key={index}
