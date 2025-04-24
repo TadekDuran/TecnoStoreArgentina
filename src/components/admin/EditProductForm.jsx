@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Sheet,
+  SheetTrigger,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -125,7 +126,10 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
 
   return (
     <div className="flex justify-between">
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+      <Sheet>
+        <SheetTrigger className="rounded-md bg-tertiary-background px-4 py-2 text-xs text-button-text hover:bg-tertiary-background-hover">
+          Editar producto
+        </SheetTrigger>
         <SheetContent className="overflow-scroll">
           <form>
             <SheetHeader>
@@ -377,11 +381,7 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
                 Confirmar edición
               </Button>
               <SheetClose>
-                <Button
-                  id="sheet-close-btn"
-                  onClick={() => setIsSheetOpen(false)}
-                  asChild
-                >
+                <Button onClick={() => setIsSheetOpen(false)} asChild>
                   Cancelar
                 </Button>
               </SheetClose>

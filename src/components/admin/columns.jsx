@@ -1,21 +1,11 @@
 "use client";
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
-
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuSeparator
-} from "@/components/ui/dropdown-menu"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import DeleteProductConfirmAlert from "@/components/admin/DeleteProductConfirmAlert";
-import EditProductForm from "@/components/admin/EditProductForm"
+import EditProductForm from "@/components/admin/EditProductForm";
 
-export const columns = (handleDelete) => [
+export const columns = (handleDelete, setQueries) => [
   {
     id: "select",
     header: ({ table }) => (
@@ -50,39 +40,30 @@ export const columns = (handleDelete) => [
   },
   {
     id: "actions",
+    header: "Acciones",
     cell: ({ row }) => {
       const [showConfirm, setShowConfirm] = useState(false);
-      const [isSheetOpen, setIsSheetOpen] = useState(false);
       const product = row.original;
 
       return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button>
-                <span>Acciones</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setIsSheetOpen(true)}>Editar producto</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setShowConfirm(true)}>Eliminar Producto</DropdownMenuItem>
-            </DropdownMenuContent>
-            {showConfirm && (
-              <DeleteProductConfirmAlert
-                onConfirm={() => handleDelete(product.id)}
-                onCancel={() => setShowConfirm(false)}
-              />
-            )}
-          </DropdownMenu>
-          <EditProductForm
-            product={product}
-            isSheetOpen={isSheetOpen}
-            setIsSheetOpen={setIsSheetOpen} />
-        </>
-      )
-    }
-  }
+        <div className="flex gap-1">
+          <EditProductForm product={product} setQueries={setQueries} />
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => setShowConfirm(true)}
+            className="w-fit"
+          >
+            Eliminar Producto
+          </Button>
+          {showConfirm && (
+            <DeleteProductConfirmAlert
+              onConfirm={() => handleDelete(product.id)}
+              onCancel={() => setShowConfirm(false)}
+            />
+          )}
+        </div>
+      );
+    },
+  },
 ];
