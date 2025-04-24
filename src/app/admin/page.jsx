@@ -50,7 +50,7 @@ const Admin = () => {
         description: message,
       });
       if (!isSingleDelete) setRowSelection({});
-      getProducts();
+      setQueries(prev => ({ ...prev, page: prev.page, forceRefresh: Date.now() }));
     } catch (error) {
       toast({
         title: "ERROR",
@@ -79,7 +79,7 @@ const Admin = () => {
                 Acciones
               </h2>
               <div className="flex items-center space-x-4">
-                <CreateProductForm />
+                <CreateProductForm setQueries={setQueries} />
                 <Button
                   variant="destructive"
                   size="icon"
@@ -130,7 +130,7 @@ const Admin = () => {
               )}
 
               <ProductsTable
-                columns={columns(handleDelete)}
+                columns={columns(handleDelete, setQueries)}
                 data={data}
                 rowSelection={rowSelection}
                 setRowSelection={setRowSelection}

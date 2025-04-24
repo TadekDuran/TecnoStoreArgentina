@@ -24,7 +24,7 @@ import { Trash2, CirclePlus } from "lucide-react";
 import CreateProductConfirmAlert from "@/components/admin/CreateProductConfirmAlert";
 import { updateProductAction } from "@/app/admin/actions/admin-actions";
 
-const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
+const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
   const categoryList = [
     "Smartphone",
     "Tablet",
@@ -108,7 +108,11 @@ const EditProductForm = ({ product, isSheetOpen, setIsSheetOpen }) => {
         title: "Producto editado con éxito",
         description: message,
       });
-      document.getElementById("sheet-close-btn")?.click();
+      setQueries((prev) => ({
+        ...prev,
+        page: prev.page,
+        forceRefresh: Date.now(),
+      }));
     } catch (error) {
       toast({
         title: "Error al editar el producto",

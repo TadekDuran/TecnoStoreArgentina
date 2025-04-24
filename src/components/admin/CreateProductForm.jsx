@@ -25,7 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Trash2, CirclePlus } from "lucide-react";
 import { createProductAction } from "@/app/admin/actions/admin-actions";
 
-const CreateProductForm = () => {
+const CreateProductForm = ({ setQueries }) => {
   const categoryList = [
     "Smartphone",
     "Tablet",
@@ -114,6 +114,7 @@ const CreateProductForm = () => {
         image_list: [],
         available_colors: [],
       });
+      setQueries(prev => ({ ...prev, page: prev.page, forceRefresh: Date.now() }));
     } catch (error) {
       toast({
         title: "Error al subir el producto",
