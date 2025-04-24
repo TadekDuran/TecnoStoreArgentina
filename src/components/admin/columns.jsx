@@ -33,6 +33,10 @@ export const columns = (handleDelete) => [
     ),
   },
   {
+    accessorKey: "category",
+    header: "Categoría",
+  },
+  {
     accessorKey: "model",
     header: "Modelo",
   },
