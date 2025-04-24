@@ -62,48 +62,96 @@ const Admin = () => {
   };
 
   return (
-    <div className="m-2 flex flex-col gap-2">
-      <h1>Panel Administrador</h1>
-      <CreateProductForm />
-      <Button
-        variant="destructive"
-        size="icon"
-        disabled={selectedIds.length === 0}
-        onClick={() => setShowConfirm(true)}
-      >
-        <Trash2 />
-      </Button>
-      <div className="flex flex-col gap-3 w-1/4">
-        <Label htmlFor="model" className="text-xl text-primary-text">
-          Filtrar por modelo
-        </Label>
-        <Input
-          type="text"
-          id="model"
-          value={queries.model || ""}
-          placeholder="Filtrar por modelo"
-          onChange={(e) => handleChange("model", e.target.value)}
-          className="h-10 rounded-md bg-tertiary-background px-3 text-base text-primary-text placeholder-gray-400"
-        />
+    <div className="min-h-screen bg-primary-background p-6">
+      <div className="mx-auto max-w-7xl">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold text-primary-text">
+            Panel Administrador
+          </h1>
+          <div className="mt-4 w-full border-b border-secondary-background"></div>
+        </header>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Sección izquierda - Filtros y acciones */}
+          <div className="space-y-6">
+            <div className="rounded-lg bg-secondary-background p-6 shadow-sm">
+              <h2 className="mb-4 text-xl font-semibold text-primary-text">
+                Acciones
+              </h2>
+              <div className="flex items-center space-x-4">
+                <CreateProductForm />
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  disabled={selectedIds.length === 0}
+                  onClick={() => setShowConfirm(true)}
+                  aria-label="Eliminar productos seleccionados"
+                  className="hover:bg-destructive/90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <Trash2 />
+                </Button>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-secondary-background p-6 shadow-sm">
+              <h2 className="mb-4 text-xl font-semibold text-primary-text">
+                Filtros
+              </h2>
+              <div className="space-y-3">
+                <Label
+                  htmlFor="model"
+                  className="text-base font-medium text-primary-text"
+                >
+                  Filtrar por modelo
+                </Label>
+                <Input
+                  type="text"
+                  id="model"
+                  value={queries.model || ""}
+                  placeholder="Ej: iPhone 12"
+                  onChange={(e) => handleChange("model", e.target.value)}
+                  className="h-10 rounded-md border-secondary-background bg-tertiary-background text-primary-text placeholder-gray-400 focus:border-accent focus:ring-accent"
+                  aria-describedby="modelHelp"
+                />
+                <p id="modelHelp" className="text-sm text-secondary-text">
+                  Escribe el nombre del modelo que deseas buscar
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Sección principal - Tabla */}
+          <div className="lg:col-span-2 flex">
+            <div className="rounded-lg bg-secondary-background p-6 shadow-sm">
+              {error && (
+                <div className="mb-4 rounded-md bg-destructive/10 p-4 text-destructive-foreground">
+                  <p>Error al obtener productos: {error.message}</p>
+                </div>
+              )}
+
+              <ProductsTable
+                columns={columns(handleDelete)}
+                data={data}
+                rowSelection={rowSelection}
+                setRowSelection={setRowSelection}
+              />
+
+                <ProductPagination
+                  queries={queries}
+                  setQueries={setQueries}
+                  totalPages={totalPages}
+                />
+            </div>
+          </div>
+        </div>
       </div>
-      {error && <p>Error al obtener productos: {error.message}</p>}
-      <ProductsTable
-        columns={columns(handleDelete)}
-        data={data}
-        rowSelection={rowSelection}
-        setRowSelection={setRowSelection}
-      />
+
       {showConfirm && (
         <DeleteProductConfirmAlert
           onConfirm={() => handleDelete(selectedIds)}
           onCancel={() => setShowConfirm(false)}
         />
       )}
-      <ProductPagination
-        queries={queries}
-        setQueries={setQueries}
-        totalPages={totalPages}
-      />
     </div>
   );
 };
