@@ -33,7 +33,7 @@ const CreateProductForm = ({ setQueries }) => {
     "Laptop",
     "Smartwatch",
     "Auriculares",
-    "Accesorios",
+    "Accesorio",
     "Audio",
     "Consola",
     "Cámara",
