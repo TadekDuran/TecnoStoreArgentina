@@ -18,9 +18,12 @@ const ProductCard = ({ product }) => {
           />
         </div>
         <div className="mt-3 text-center">
+          <p className="text-xl font-light text-primary-text">
+            {product.brand}
+          </p>
           <p className="text-xl font-bold text-primary-text">{product.model}</p>
           <p className="text-lg font-semibold text-secondary-text">
-            {product.price} USD
+            USD {product.price}
           </p>
         </div>
       </Link>
