@@ -9,7 +9,7 @@ import {
 
 const SpecsTable = ({ specs }) => {
   return (
-    <Table className="mx-auto my-6 max-w-md overflow-hidden rounded-lg pt-4">
+    <Table className="mx-auto my-6 w-2/3 overflow-hidden rounded-lg pt-4">
       <TableHeader>
         <TableRow>
           <TableHead colSpan="2" className="bg-secondary-background text-primary-text text-center hover:bg-secondary-background">
@@ -29,8 +29,8 @@ const SpecsTable = ({ specs }) => {
                   : "bg-secondary-background hover:bg-secondary-background"
               }
             >
-              <TableCell className="font-medium text-center text-primary-text">{key}</TableCell>
-              <TableCell className="text-primary-text text-center">{value}</TableCell>
+              <TableCell className="w-1/3 font-bold text-center text-primary-text">{key}</TableCell>
+              <TableCell className="w-2/3 font-extralight text-primary-text text-center">{value}</TableCell>
             </TableRow>
           );
         })}
