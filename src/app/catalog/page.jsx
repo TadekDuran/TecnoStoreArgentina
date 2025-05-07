@@ -22,7 +22,7 @@ const Catalog = () => {
     sortBy: "price",
     order: "asc",
   });
-  const { data, loading, error, getProducts, totalPages } = useProducts();
+  const { data, loading, error, getProducts, totalPages, brandList } = useProducts();
 
   useEffect(() => {
     getProducts(queries);
@@ -79,7 +79,7 @@ const Catalog = () => {
               </SelectContent>
             </Select>
           </div>
-          <ProductsFilter queries={queries} setQueries={setQueries} />
+          <ProductsFilter queries={queries} setQueries={setQueries} brandList={brandList} />
         </div>
 
         <div className="relative flex-grow overflow-hidden rounded-lg bg-secondary-background p-6 shadow-lg">

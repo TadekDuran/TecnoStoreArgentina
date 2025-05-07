@@ -13,25 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useDebounce } from "@/hooks/useDebounce";
 import CategoryFilter from "@/components/catalog/CategoryFilter";
 
-const ProductsFilter = ({ queries, setQueries }) => {
-  const brandList = [
-    "Apple",
-    "Samsung",
-    "Xiaomi",
-    "Motorola",
-    "Realme",
-    "SONOS",
-    "Sony",
-    "Nintendo",
-    "Lenovo",
-    "ASUS",
-    "HP",
-    "Nikon",
-    "Sigma",
-    "DJI",
-    "Infinix",
-    "TECNO",
-  ];
+const ProductsFilter = ({ queries, setQueries, brandList }) => {
   const [localFilters, setLocalFilters] = useState(queries);
   const debouncedFilters = useDebounce(localFilters, 1000);
 

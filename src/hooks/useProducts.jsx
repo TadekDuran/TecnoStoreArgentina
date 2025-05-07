@@ -5,6 +5,7 @@ export const useProducts = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
+  const [brandList, setBrandList] = useState([]);
 
   const getProducts = async ({ page, limit, sortBy, order, ...filters }) => {
     setLoading(true);
@@ -22,6 +23,7 @@ export const useProducts = () => {
       if (result.data.length === 0) throw new Error("Lo sentimos, no hay productos que correspondan con tu búsqueda.");
       setData(result.data);
       setTotalPages(result.totalPages);
+      setBrandList(result.brandList)
     } catch (err) {
       setError(err);
     } finally {
@@ -29,5 +31,5 @@ export const useProducts = () => {
     }
   };
 
-  return { data, loading, error, getProducts, totalPages };
+  return { data, loading, error, getProducts, totalPages, brandList };
 };

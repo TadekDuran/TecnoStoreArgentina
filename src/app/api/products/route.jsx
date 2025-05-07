@@ -74,11 +74,24 @@ export async function GET(request) {
 
     const totalPages = Math.ceil(totalProducts / limit);
 
+    let uniqueBrands = [];
+    if (filters.category) {
+      const { data: brandsData, error: brandsError } = await supabase
+        .from("products")
+        .select("brand", { distinct: true })
+        .eq("category", filters.category);
+      if (brandsError) {
+        throw new Error(`Error al obtener marcas únicas: ${brandsError.message}`);
+      }
+      uniqueBrands = [...new Set(brandsData.map((item) => item.brand).filter(Boolean))];
+    }
+
     const responseBody = {
       totalProducts,
       totalPages,
       currentPage: page,
       data,
+      brandList: uniqueBrands
     };
 
     return new Response(JSON.stringify(responseBody), {
