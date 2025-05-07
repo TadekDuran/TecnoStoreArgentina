@@ -22,6 +22,7 @@ const CatalogDrawerFilters = ({
   selectValue,
   queries,
   setQueries,
+  brandList
 }) => {
   return (
     <div className="mb-6 w-full md:hidden">
@@ -53,7 +54,7 @@ const CatalogDrawerFilters = ({
             </Select>
           </div>
 
-          <ProductsFilter queries={queries} setQueries={setQueries} />
+          <ProductsFilter queries={queries} setQueries={setQueries} brandList={brandList} />
 
           <DrawerClose asChild>
             <button className="mt-6 w-full rounded-md bg-red-600 p-2 font-semibold text-primary-text hover:bg-red-700">
