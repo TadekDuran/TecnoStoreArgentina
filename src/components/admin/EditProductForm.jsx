@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, CirclePlus } from "lucide-react";
+import { Trash2, Pencil, Check, CirclePlus } from "lucide-react";
 import CreateProductConfirmAlert from "@/components/admin/CreateProductConfirmAlert";
 import { updateProductAction } from "@/app/admin/actions/admin-actions";
 
@@ -71,6 +71,8 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
     available_colors: product.available_colors,
   });
   const [tempSpec, setTempSpec] = useState({ name: "", value: "" });
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedSpec, setEditedSpec] = useState({ name: "", value: "" });
   const [tempColor, setTempColor] = useState("");
   const [tempImage, setTempImage] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -95,6 +97,13 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
           return {
             ...prev,
             [field]: prev[field].filter((_, i) => i !== index),
+          };
+        case "edit":
+          const updatedSpecs = [...prev[field]];
+          updatedSpecs[index] = value;
+          return {
+            ...prev,
+            [field]: updatedSpecs,
           };
         default:
           return prev;
@@ -223,26 +232,77 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
                     <CirclePlus />
                   </Button>
                 </div>
-                <div className="max-h-48 overflow-y-auto rounded border p-2">
+                <div className="flex flex-col gap-1 max-h-48 overflow-y-auto rounded border p-2">
                   {formData.specs.map((spec, index) => {
                     const key = Object.keys(spec)[0];
+                    const value = spec[key];
+                    const isEditing = editingIndex === index;
                     return (
                       <div
                         key={index}
-                        className="flex items-center justify-between rounded px-2"
+                        className="flex items-center gap-4 rounded px-2"
                       >
-                        <span>
-                          {key}: {spec[key]}
-                        </span>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          onClick={() =>
-                            handleArrayUpdate("remove", "specs", null, index)
-                          }
-                        >
-                          <Trash2 />
-                        </Button>
+                        <div className="flex gap-1">
+                          {isEditing ? (
+                            <Button
+                              type="button"
+                              onClick={() => {
+                                handleArrayUpdate("edit", "specs", { [editedSpec.name]: editedSpec.value }, index);
+                                setEditingIndex(null);
+                                setEditedSpec({ name: "", value: "" });
+                              }}
+                              className="size-8"
+                              variant="secondary"
+                            >
+                              <Check size={12} />
+                            </Button>
+                          ) : (
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              onClick={() => {
+                                setEditingIndex(index);
+                                setEditedSpec({ name: key, value: value });
+                              }}
+                              className="size-8"
+                            >
+                              <Pencil size={12} />
+                            </Button>
+                          )}
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            onClick={() => handleArrayUpdate("remove", "specs", null, index)}
+                            className="size-8"
+                          >
+                            <Trash2 size={12} />
+                          </Button>
+                        </div>
+
+                        <div className="flex flex-col flex-grow gap-1">
+                          {isEditing ? (
+                            <div className="flex gap-2">
+                              <Input
+                                value={editedSpec.name}
+                                onChange={(e) =>
+                                  setEditedSpec({ ...editedSpec, name: e.target.value })
+                                }
+                                placeholder={key}
+                              />
+                              <Input
+                                value={editedSpec.value}
+                                onChange={(e) =>
+                                  setEditedSpec({ ...editedSpec, value: e.target.value })
+                                }
+                                placeholder={value}
+                              />
+                            </div>
+                          ) : (
+                            <p className="text-sm">
+                              <span className="font-medium">{key}:</span> {value}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     );
                   })}
@@ -274,19 +334,17 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
                     <CirclePlus />
                   </Button>
                 </div>
-                <div className="max-h-32 overflow-y-auto rounded border p-2">
+                <div className="max-h-32 overflow-y-auto rounded border p-2 flex flex-col gap-1">
                   {formData.available_colors.map((color, index) => {
                     return (
                       <div
                         key={index}
                         className="flex flex-col gap-1 rounded px-2"
                       >
-                        <div className="flex items-center justify-between">
-                          <span>{color}</span>
+                        <div className="flex items-center gap-4">
                           <Button
                             type="button"
-                            size="sm"
-                            variant="ghost"
+                            variant="destructive"
                             onClick={() =>
                               handleArrayUpdate(
                                 "remove",
@@ -295,9 +353,11 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
                                 index,
                               )
                             }
+                            className="size-8"
                           >
-                            <Trash2 />
+                            <Trash2 size={12} />
                           </Button>
+                          <span>{color}</span>
                         </div>
                       </div>
                     );
@@ -325,19 +385,17 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
                     <CirclePlus />
                   </Button>
                 </div>
-                <div className="max-h-32 overflow-y-auto rounded border p-2">
+                <div className="flex flex-col gap-1 max-h-32 overflow-y-auto rounded border p-2">
                   {formData.image_list.map((image, index) => {
                     return (
                       <div
                         key={index}
                         className="flex flex-col gap-1 rounded px-2"
                       >
-                        <div className="flex items-center justify-between">
-                          <span>{image}</span>
+                        <div className="flex items-center gap-4">
                           <Button
                             type="button"
-                            size="sm"
-                            variant="ghost"
+                            variant="destructive"
                             onClick={() =>
                               handleArrayUpdate(
                                 "remove",
@@ -346,9 +404,11 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
                                 index,
                               )
                             }
+                            className="size-8"
                           >
-                            <Trash2 />
+                            <Trash2 size={12} />
                           </Button>
+                          <span>{image}</span>
                         </div>
                       </div>
                     );
