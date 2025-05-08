@@ -18,7 +18,7 @@ const Catalog = () => {
   const [queries, setQueries] = useState({
     featured: true,
     page: 1,
-    limit: 3,
+    limit: 10,
     sortBy: "price",
     order: "asc",
   });
