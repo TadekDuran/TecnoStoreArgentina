@@ -1,8 +1,8 @@
 import React from "react";
 
-const SponsorVideos = () => {
+const SuprapixelSponsorVideos = () => {
 
-  const sponsorVideos = [
+  const youtubeSponsorVideos = [
     {
       id: "P4B3sxF9MFk",
       title: "POCO X7 Pro: edición IRON MAN!",
@@ -10,7 +10,7 @@ const SponsorVideos = () => {
     {
       id: "XTovBpbCyF0",
       title: "TODO sobre #NintendoSwitch2, resumido",
-    }, 
+    },
     {
       id: "tCvP2sb8sr8",
       title: "Información del Xiaomi 14 Ultra!",
@@ -18,30 +18,30 @@ const SponsorVideos = () => {
   ];
 
   return (
-    <div className="mt-12 px-4 text-center">
-      <h2 className="mb-4 text-3xl font-bold text-primary-text sm:text-4xl">
+    <div className="w-2/3 mt-12 px-4 text-center">
+      <h2 className="mb-4 text-xl md:text-3xl font-bold text-primary-text sm:text-4xl">
         Conocé a nuestro sponsor
       </h2>
-      <p className="mx-auto max-w-2xl text-lg text-secondary-text">
+      <p className="mx-auto max-w-2xl text-sm md:text-xl text-secondary-text">
         Explorá los últimos videos de SupraPixel
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {sponsorVideos.map((video) => (
+        {youtubeSponsorVideos.map((video) => (
           <a
             key={video.id}
             href={`https://www.youtube.com/watch?v=${video.id}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="block overflow-hidden rounded-lg border border-slate-700 transition hover:border-slate-500"
+            className="block overflow-hidden rounded-lg border border-slate-700 transition hover:border-slate-500 bg-secondary-background hover:bg-tertiary-background"
           >
             <img
-              src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+              src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
               alt={video.title}
               className="h-48 w-full object-cover"
             />
             <div className="p-4">
-              <h3 className="text-lg font-semibold text-primary-text">
+              <h3 className="text-sm md:text-lg font-semibold text-primary-text">
                 {video.title}
               </h3>
             </div>
@@ -53,4 +53,4 @@ const SponsorVideos = () => {
   );
 };
 
-export default SponsorVideos;
+export default SuprapixelSponsorVideos;

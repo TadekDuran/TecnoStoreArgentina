@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useProducts } from "@/hooks";
 import { LoaderCircle } from "lucide-react";
 import FeaturedProductsCarousel from "@/components/home/FeaturedProductsCarousel";
-import SponsorVideos from "@/components/home/SponsorVideos";
+import SuprapixelSponsorVideos from "@/components/home/SuprapixelSponsorVideos";
 
 export default function Home() {
   const queries = {
@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-primary-background px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col items-center min-h-screen bg-primary-background px-4 py-12 sm:px-6 lg:px-8">
       {loading && (
         <div className="flex h-full items-center justify-center">
           <LoaderCircle className="h-12 w-12 animate-spin text-white" />
@@ -36,10 +36,10 @@ export default function Home() {
       {!loading && !error && (
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-primary-text sm:text-4xl">
+            <h2 className="mb-4 text-lg md:text-3xl font-bold text-primary-text sm:text-4xl">
               Productos Destacados
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-secondary-text">
+            <p className="text-md md:text-lg text-secondary-text">
               Descubrí nuestras selecciones especiales cuidadosamente elegidas
               para vos
             </p>
@@ -51,7 +51,7 @@ export default function Home() {
         </div>
       )}
 
-      <SponsorVideos/>
+      <SuprapixelSponsorVideos />
     </div>
   );
 }
