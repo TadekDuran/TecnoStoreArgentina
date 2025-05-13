@@ -19,11 +19,8 @@ const SuprapixelSponsorVideos = () => {
 
   return (
     <div className="w-2/3 mt-12 px-4 text-center">
-      <h2 className="mb-4 text-xl md:text-3xl font-bold text-primary-text sm:text-4xl">
-        Conocé a nuestro sponsor
-      </h2>
-      <p className="mx-auto max-w-2xl text-sm md:text-xl text-secondary-text">
-        Explorá los últimos videos de SupraPixel
+      <p className="mx-auto font-bold max-w-2xl text-sm md:text-xl text-primary-text">
+        ¡Explorá los mejores videos de SupraPixel!
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
