@@ -30,7 +30,6 @@ const Catalog = () => {
   const isFirstLoad = useRef(true);
 
   const parseQueriesFromURL = () => {
-    if (typeof window === "undefined") return defaultQueries;
     const params = new URLSearchParams(window.location.search);
     if (!params.toString()) return defaultQueries;
 
