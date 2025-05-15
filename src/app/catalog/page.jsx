@@ -26,9 +26,6 @@ const Catalog = () => {
     order: "asc",
   };
 
-  const [queries, setQueries] = useState(defaultQueries);
-  const isFirstLoad = useRef(true);
-
   const parseQueriesFromURL = () => {
     const params = new URLSearchParams(window.location.search);
     if (!params.toString()) return defaultQueries;
@@ -55,16 +52,24 @@ const Catalog = () => {
     return URLQueries;
   };
 
+  const [queries, setQueries] = useState(defaultQueries);
+  const [queriesReady, setQueriesReady] = useState(false);
+  const isFirstLoad = useRef(true);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const initialQueries = parseQueriesFromURL();
     setQueries(initialQueries);
+    setQueriesReady(true);
   }, []);
 
   useEffect(() => {
-    if (!queries) return;
+    if (!queriesReady) return;
+
     if (isFirstLoad.current) {
       isFirstLoad.current = false;
+      getProducts(queries); // Primera carga real
       return;
     }
 
@@ -78,7 +83,7 @@ const Catalog = () => {
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, "", newUrl);
     getProducts(queries);
-  }, [queries]);
+  }, [queries, queriesReady]);
 
   const handleSortChange = (value) => {
     const sortBy = "price";
