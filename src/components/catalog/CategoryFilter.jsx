@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
-const CategoryFilter = ({ handleChange, localFilters }) => {
+const CategoryFilter = ({ handleFilterChange, localFilters }) => {
   const categoryList = [
     "Smartphone",
     "Tablet",
@@ -31,7 +31,7 @@ const CategoryFilter = ({ handleChange, localFilters }) => {
       </Label>
       <Select
         value={localFilters.category || ""}
-        onValueChange={(value) => handleChange("category", value)}
+        onValueChange={(value) => handleFilterChange("category", value)}
       >
         <SelectTrigger className="h-10 rounded-md bg-tertiary-background px-3 text-primary-text hover:bg-tertiary-background-hover">
           <SelectValue placeholder="Selecciona una categoría" />
