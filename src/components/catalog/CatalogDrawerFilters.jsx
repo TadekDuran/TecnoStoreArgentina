@@ -49,7 +49,6 @@ const CatalogDrawerFilters = ({
               <SelectContent>
                 <SelectItem value="priceAsc">Precio: Menor a mayor</SelectItem>
                 <SelectItem value="priceDesc">Precio: Mayor a menor</SelectItem>
-                <SelectItem value="featured">Destacados</SelectItem>
               </SelectContent>
             </Select>
           </div>
