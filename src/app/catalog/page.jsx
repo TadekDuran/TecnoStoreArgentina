@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useProducts } from "@/hooks";
 import ProductsFilter from "@/components/catalog/ProductsFilter";
 import { LoaderCircle } from "lucide-react";
@@ -15,6 +15,9 @@ import ProductPagination from "@/components/ProductPagination";
 import CatalogDrawerFilters from "@/components/catalog/CatalogDrawerFilters";
 
 const Catalog = () => {
+  const { data, loading, error, getProducts, totalPages, brandList } =
+    useProducts();
+
   const defaultQueries = {
     featured: true,
     page: 1,
@@ -23,78 +26,63 @@ const Catalog = () => {
     order: "asc",
   };
 
-  const [queries, setQueries] = useState(() => {
+  const [queries, setQueries] = useState(defaultQueries);
+  const isFirstLoad = useRef(true);
+
+  const parseQueriesFromURL = () => {
+    if (typeof window === "undefined") return defaultQueries;
     const params = new URLSearchParams(window.location.search);
-    const initialQueries = { ...defaultQueries };
-    if ([...params.entries()].length > 0) {
-      for (const [key, value] of params.entries()) {
-        if (value === "true") initialQueries[key] = true;
-        else if (value === "false") initialQueries[key] = false;
-        else if (!isNaN(value)) initialQueries[key] = Number(value);
-        else initialQueries[key] = value;
-      }
-    } else {
-      const savedQueries = sessionStorage.getItem("catalogQueries");
-      if (savedQueries) {
-        try {
-          const parsed = JSON.parse(savedQueries);
-          return { ...initialQueries, ...parsed };
-        } catch (e) {
-          console.error("Error al parsear queries guardadas:", e);
-        }
-      }
+    if (!params.toString()) return defaultQueries;
+
+    const URLQueries = { ...defaultQueries };
+    const hasFilterParams = Array.from(params.keys()).some(
+      (key) =>
+        key !== "page" &&
+        key !== "limit" &&
+        key !== "sortBy" &&
+        key !== "order",
+    );
+
+    if (hasFilterParams && !params.has("featured")) {
+      URLQueries.featured = false;
     }
-    return initialQueries;
-  });
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      sessionStorage.setItem('catalogQueries', JSON.stringify(queries));
-      sessionStorage.setItem('catalogScrollY', window.scrollY.toString());
-    };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    window.addEventListener('pagehide', handleBeforeUnload);
-    return () => {
-      handleBeforeUnload();
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      window.removeEventListener('pagehide', handleBeforeUnload);
-    };
-  }, [queries]);
-
-  useEffect(() => {
-    const scrollY = sessionStorage.getItem('catalogScrollY');
-    if (scrollY) {
-      window.scrollTo(0, parseInt(scrollY));
+    for (const [key, value] of params.entries()) {
+      if (value === "true") URLQueries[key] = true;
+      else if (value === "false") URLQueries[key] = false;
+      else if (!isNaN(Number(value))) URLQueries[key] = Number(value);
+      else URLQueries[key] = value;
     }
-  }, []);
-
-  const {
-    data,
-    loading,
-    error,
-    getProducts,
-    totalPages,
-    brandList
-  } = useProducts();
+    return URLQueries;
+  };
 
   useEffect(() => {
-    getProducts(queries);
+    if (typeof window === "undefined") return;
+    const initialQueries = parseQueriesFromURL();
+    setQueries(initialQueries);
   }, []);
 
   useEffect(() => {
+    if (!queries) return;
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false;
+      return;
+    }
+
     const params = new URLSearchParams();
     Object.entries(queries).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== "") {
+      if (!(key in defaultQueries)) {
         params.set(key, value);
       }
     });
+
     const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState({}, '', newUrl);
+    window.history.replaceState({}, "", newUrl);
     getProducts(queries);
   }, [queries]);
 
   const handleSortChange = (value) => {
-    let sortBy = "price";
+    const sortBy = "price";
     let order = "asc";
     if (value === "priceDesc") {
       order = "desc";
@@ -102,9 +90,7 @@ const Catalog = () => {
     setQueries((prev) => ({ ...prev, sortBy, order, page: 1 }));
   };
 
-  const selectValue = queries.order === "asc"
-    ? "priceAsc"
-    : "priceDesc"
+  const selectValue = queries?.order === "asc" ? "priceAsc" : "priceDesc";
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-primary-background px-4 py-10 lg:px-20">
@@ -119,11 +105,9 @@ const Catalog = () => {
       <div className="flex w-full max-w-screen-2xl gap-6">
         <div className="hidden w-1/5 rounded-lg bg-secondary-background p-5 shadow-lg md:block">
           <div className="text-primary-text">
-            <p htmlFor="sort">
-              Ordenar por:
-            </p>
+            <p htmlFor="sort">Ordenar por:</p>
             <Select onValueChange={handleSortChange} value={selectValue}>
-              <SelectTrigger className="bg-tertiary-background w-fit hover:bg-tertiary-background-hover border-none">
+              <SelectTrigger className="w-fit border-none bg-tertiary-background hover:bg-tertiary-background-hover">
                 <SelectValue placeholder="Selecciona orden" />
               </SelectTrigger>
               <SelectContent>
@@ -132,12 +116,13 @@ const Catalog = () => {
               </SelectContent>
             </Select>
           </div>
-          <ProductsFilter queries={queries} setQueries={setQueries} brandList={brandList} />
+          <ProductsFilter
+            queries={queries}
+            setQueries={setQueries}
+            brandList={brandList}
+          />
         </div>
         <div className="relative flex-grow overflow-hidden rounded-lg bg-secondary-background p-6 shadow-lg">
-          {loading && (
-            <LoaderCircle className="mx-auto animate-spin text-primary-text" />
-          )}
           {error && <p className="text-center text-red-500">{error.message}</p>}
           {!loading && !error && (
             <>
@@ -162,6 +147,14 @@ const Catalog = () => {
                 totalPages={totalPages}
               />
             </>
+          )}
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-secondary-background bg-opacity-70">
+              <LoaderCircle
+                className="animate-spin text-primary-text"
+                size={40}
+              />
+            </div>
           )}
         </div>
       </div>
