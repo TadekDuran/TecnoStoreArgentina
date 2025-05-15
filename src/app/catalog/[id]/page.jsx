@@ -40,9 +40,7 @@ const ProductPage = () => {
     if (id) {
       const fetchProduct = async () => {
         try {
-          const response = await fetch(
-            `/api/products/getOne?id=${id}`,
-          );
+          const response = await fetch(`/api/products/getOne?id=${id}`);
           if (!response.ok) {
             throw new Error("Error al obtener el producto");
           }
@@ -68,7 +66,7 @@ const ProductPage = () => {
     return (
       <div className="container mx-auto bg-primary-background px-4 py-8">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-          <div className="md:col-span-7 flex flex-col items-center">
+          <div className="flex flex-col items-center md:col-span-7">
             <div className="w-full max-w-[500px]">
               <MainCarousel product={product} setEmblaMain={setEmblaMain} />
               <ThumbnailCarousel
@@ -80,11 +78,11 @@ const ProductPage = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex items-center justify-center col-span-1">
+          <div className="col-span-1 hidden items-center justify-center md:flex">
             <Separator orientation="vertical" className="h-full" />
           </div>
 
-          <div className="md:col-span-4 flex flex-col items-center space-y-4 md:items-start">
+          <div className="flex flex-col items-center space-y-4 md:col-span-4 md:items-start">
             <h1 className="text-2xl font-semibold text-secondary-text">
               {product.model}
             </h1>
@@ -104,7 +102,7 @@ const ProductPage = () => {
               {product.available_colors.map((color, index) => (
                 <p
                   key={index}
-                  className="bg-tertiary-background px-3 py-1 rounded text-primary-text"
+                  className="rounded bg-tertiary-background px-3 py-1 text-primary-text"
                 >
                   {color}
                 </p>
@@ -115,7 +113,7 @@ const ProductPage = () => {
           </div>
         </div>
 
-        <Separator className="w-full my-8" />
+        <Separator className="my-8 w-full" />
         <SpecsTable specs={product.specs} />
       </div>
     );
