@@ -1,8 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";4
+import NetworksButtons from "@/components/layout/NetworksButtons";
 import { Toaster } from "@/components/ui/toaster";
 import Script from 'next/script';
 
@@ -51,6 +52,7 @@ export default function RootLayout({ children }) {
         >
           <Navbar />
           {children}
+          <NetworksButtons/>
           <Footer />
           <Toaster />
         </ThemeProvider>
