@@ -37,9 +37,9 @@ const ProductsFilter = ({ queries, setQueries, brandList }) => {
         category: prev.category,
         featured: false,
         page: 1,
-        limit: 10,
+        limit: 8,
         sortBy: "price",
-        order: "asc",
+        order: "desc",
       };
     });
   };

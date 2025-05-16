@@ -21,9 +21,9 @@ const Catalog = () => {
   const defaultQueries = {
     featured: true,
     page: 1,
-    limit: 10,
+    limit: 8,
     sortBy: "price",
-    order: "asc",
+    order: "desc",
   };
 
   const parseQueriesFromURL = () => {
