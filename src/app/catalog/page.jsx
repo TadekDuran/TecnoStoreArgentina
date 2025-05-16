@@ -130,12 +130,7 @@ const Catalog = () => {
           {error && <p className="text-center text-red-500">{error.message}</p>}
           {!loading && !error && (
             <>
-              <div
-                className="grid justify-center gap-6"
-                style={{
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                }}
-              >
+              <div className="grid grid-cols-1 justify-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {data.map((product) => (
                   <div
                     key={product.id}
