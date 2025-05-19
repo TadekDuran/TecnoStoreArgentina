@@ -1,8 +1,5 @@
-"use client";
-import React, { useEffect } from "react";
-import { useProducts } from "@/hooks";
-import { LoaderCircle } from "lucide-react";
-import FeaturedProductsCarousel from "@/components/home/FeaturedProductsCarousel";
+import React from "react";
+import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import SuprapixelSponsorVideos from "@/components/home/SuprapixelSponsorVideos";
 
 export default function Home() {
@@ -20,36 +17,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-primary-background px-4 py-12 sm:px-6 lg:px-8">
-      {loading && (
-        <div className="flex h-full items-center justify-center">
-          <LoaderCircle className="h-12 w-12 animate-spin text-white" />
-        </div>
-      )}
+    <div className="flex min-h-screen flex-col items-center bg-primary-background py-4 sm:py-6 lg:py-8">
+      <FeaturedProductsSection />
 
-      {error && (
-        <div className="mx-auto max-w-2xl rounded-lg border border-red-500 bg-red-900/30 p-4 text-center">
-          <p className="font-medium text-red-300">{error.message}</p>
-        </div>
-      )}
-
-      {!loading && !error && (
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-lg md:text-3xl font-bold text-primary-text sm:text-4xl">
-              Productos Destacados
-            </h2>
-            <p className="text-md md:text-lg text-secondary-text">
-              Descubrí nuestras selecciones especiales cuidadosamente elegidas
-              para vos
-            </p>
-          </div>
-
-          <div className="px-4">
-            <FeaturedProductsCarousel data={data} />
-          </div>
-        </div>
-      )}
 
       <SuprapixelSponsorVideos />
     </div>
