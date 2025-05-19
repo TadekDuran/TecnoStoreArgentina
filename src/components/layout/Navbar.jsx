@@ -17,8 +17,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import headerLogo from "@/app/header_logo.png";
-import logoWide from "@/app/logo_wide.png";
+import headerLogo from "@/assets/header_logo.png";
+import logoWide from "@/assets/logo_wide.png";
 
 const Navbar = () => {
   return (
