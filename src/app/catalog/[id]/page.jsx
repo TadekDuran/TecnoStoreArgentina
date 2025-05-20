@@ -8,6 +8,7 @@ import SpecsTable from "@/components/product_page/SpecsTable";
 import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
 import useDolarBlue from "@/hooks/useDolarBlue";
 import { Separator } from "@/components/ui/separator";
+import { TriangleAlert } from "lucide-react";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -107,6 +108,15 @@ const ProductPage = () => {
                   {color}
                 </p>
               ))}
+              <div className="mt-2 flex w-4/5 items-center gap-2 rounded-md bg-tertiary-background px-2 py-2 text-primary-text sm:px-4">
+                <TriangleAlert className="h-5 w-5 flex-shrink-0 text-red-500" />
+                <p className="flex-1 text-center text-sm font-medium md:text-base">
+                  COLORES SUJETOS A DISPONIBILIDAD
+                  <br />
+                  CONSULTAR STOCK POR PRIVADO
+                </p>
+                <TriangleAlert className="h-5 w-5 flex-shrink-0 text-red-500" />
+              </div>
             </div>
 
             <ContactButtons />
