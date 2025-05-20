@@ -1,138 +1,48 @@
-"use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams } from "next/navigation";
-import ContactButtons from "@/components/product_page/ContactButtons";
-import MainCarousel from "@/components/product_page/MainCarousel";
-import PaymentMethodList from "@/components/product_page/PaymentMethodList";
-import SpecsTable from "@/components/product_page/SpecsTable";
-import ThumbnailCarousel from "@/components/product_page/ThumbnailCarousel";
-import useDolarBlue from "@/hooks/useDolarBlue";
-import { Separator } from "@/components/ui/separator";
-import { TriangleAlert } from "lucide-react";
+import { cache } from "react"
+import { headers } from "next/headers";
+import ProductClient from "@/components/product_page/ProductClient";
 
-const ProductPage = () => {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [emblaMain, setEmblaMain] = useState(null);
-  const [emblaThumbs, setEmblaThumbs] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const dolarBlue = useDolarBlue();
+async function getProduct(id) {
+  try {
+    const headersList = await headers()
+    const host = headersList.get("host")
+    const protocol = host?.includes("localhost") ? "http" : "https"
 
-  const onSelect = useCallback(() => {
-    if (!emblaMain) return;
-    const index = emblaMain.selectedScrollSnap();
-    setSelectedIndex(index);
-    if (emblaThumbs) {
-      const visibleIndexes = emblaThumbs.slidesInView();
-      if (!visibleIndexes.includes(index)) {
-        emblaThumbs.scrollTo(index, true);
-      }
-    }
-  }, [emblaMain, emblaThumbs]);
+    const res = await fetch(`${protocol}://${host}/api/products/getOne?id=${id}`, {
+      cache: "no-store",
+    })
 
-  useEffect(() => {
-    if (!emblaMain) return;
-    onSelect();
-    emblaMain.on("select", onSelect);
-    return () => emblaMain.off("select", onSelect);
-  }, [emblaMain, onSelect]);
-
-  useEffect(() => {
-    if (id) {
-      const fetchProduct = async () => {
-        try {
-          const response = await fetch(`/api/products/getOne?id=${id}`);
-          if (!response.ok) {
-            throw new Error("Error al obtener el producto");
-          }
-          const data = await response.json();
-
-          if (Array.isArray(data) && data.length > 0) {
-            const productData = data[0];
-            setProduct(productData);
-          } else {
-            console.warn("Producto no encontrado");
-            setProduct(null);
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          setProduct(null);
-        }
-      };
-      fetchProduct();
-    }
-  }, [id]);
-
-  if (product) {
-    return (
-      <div className="container mx-auto bg-primary-background px-4 py-8">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-          <div className="flex flex-col items-center md:col-span-7">
-            <div className="w-full max-w-[500px]">
-              <MainCarousel product={product} setEmblaMain={setEmblaMain} />
-              <ThumbnailCarousel
-                images={product.image_list || []}
-                emblaMain={emblaMain}
-                setEmblaThumbs={setEmblaThumbs}
-                selectedIndex={selectedIndex}
-              />
-            </div>
-          </div>
-
-          <div className="col-span-1 hidden items-center justify-center md:flex">
-            <Separator orientation="vertical" className="h-full" />
-          </div>
-
-          <div className="flex flex-col items-center space-y-4 md:col-span-4 md:items-start">
-            <h1 className="text-lg font-semibold text-secondary-text md:text-2xl">
-              {product.model}
-            </h1>
-            <p className="text-xl font-bold text-primary-text md:text-3xl">
-              U$D {product.price}
-            </p>
-            <p className="text-lg font-bold text-emerald-300 md:text-2xl">
-              Valor dolar blue: {dolarBlue}
-            </p>
-
-            <PaymentMethodList />
-
-            <h3 className="font-medium text-primary-text lg:text-xl">
-              Colores disponibles:
-            </h3>
-            <div className="flex flex-wrap justify-center gap-4 pb-2 lg:justify-normal">
-              {product.available_colors.map((color, index) => (
-                <p
-                  key={index}
-                  className="rounded bg-tertiary-background px-1 py-1 text-sm font-semibold text-primary-text lg:px-4 lg:py-2 lg:text-base"
-                >
-                  {color}
-                </p>
-              ))}
-              <div className="mt-2 flex w-4/5 items-center gap-2 rounded-md bg-tertiary-background px-2 py-2 text-primary-text sm:px-4">
-                <TriangleAlert className="h-5 w-5 flex-shrink-0 text-red-500" />
-                <p className="flex-1 text-center text-sm font-medium md:text-base">
-                  COLORES SUJETOS A DISPONIBILIDAD
-                  <br />
-                  CONSULTAR STOCK POR PRIVADO
-                </p>
-                <TriangleAlert className="h-5 w-5 flex-shrink-0 text-red-500" />
-              </div>
-            </div>
-
-            <ContactButtons />
-          </div>
-        </div>
-
-        <Separator className="my-8 w-full" />
-        <SpecsTable specs={product.specs} />
-      </div>
-    );
+    const data = await res.json()
+    return data[0]
+  } catch (error) {
+    console.error("Error fetching product:", error)
+    return null
   }
-  return (
-    <div>
-      <p>Buscando producto...</p>
-    </div>
-  );
-};
+}
 
-export default ProductPage;
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params
+  const product = await getProduct(resolvedParams.id)
+
+  if (!product) {
+    return {
+      title: "Producto no encontrado - TecnoStore Argentina",
+    }
+  }
+
+  return {
+    title: `${product.model} - TecnoStore Argentina`,
+    description: `Conocé el ${product.model} en TecnoStore. ¡Aprovechá nuestras promociones!`,
+  }
+}
+
+export default async function ProductPage({ params }) {
+  const resolvedParams = await params
+  const product = await getProduct(resolvedParams.id)
+
+  if (!product) {
+    return <p className="p-8 text-center text-lg">Producto no encontrado.</p>;
+  }
+
+  return <ProductClient product={product} />;
+}
