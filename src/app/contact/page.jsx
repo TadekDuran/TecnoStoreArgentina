@@ -1,6 +1,12 @@
 import React from "react";
 import ContactButtons from "@/components/product_page/ContactButtons";
 
+export const metadata = {
+  title: "Contacto - TecnoStore Argentina",
+  description:
+    "Ponete en contacto con nosotros a través de nuestras redes sociales.",
+};
+
 const Contact = () => {
   return (
     <div className="mx-auto max-w-xl bg-primary-background px-4 py-10 text-primary-text">

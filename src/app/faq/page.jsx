@@ -8,6 +8,12 @@ import {
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
+export const metadata = {
+  title: "Preguntas Frecuentes - TecnoStore Argentina",
+  description:
+    "Encontrá las preguntas frecuentes ya respondidas para agilizar tu consulta.",
+};
+
 const FAQ = () => {
   return (
     <div className="flex flex-col items-center py-10 text-primary-text">
