@@ -83,26 +83,26 @@ const ProductPage = () => {
           </div>
 
           <div className="flex flex-col items-center space-y-4 md:col-span-4 md:items-start">
-            <h1 className="text-2xl font-semibold text-secondary-text">
+            <h1 className="text-lg font-semibold text-secondary-text md:text-2xl">
               {product.model}
             </h1>
-            <p className="text-3xl font-bold text-primary-text">
+            <p className="text-xl font-bold text-primary-text md:text-3xl">
               U$D {product.price}
             </p>
-            <p className="text-2xl font-bold text-emerald-300">
+            <p className="text-lg font-bold text-emerald-300 md:text-2xl">
               Valor dolar blue: {dolarBlue}
             </p>
 
             <PaymentMethodList />
 
-            <h3 className="font-medium text-primary-text">
+            <h3 className="font-medium text-primary-text lg:text-xl">
               Colores disponibles:
             </h3>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-4 pb-2 lg:justify-normal">
               {product.available_colors.map((color, index) => (
                 <p
                   key={index}
-                  className="rounded bg-tertiary-background px-3 py-1 text-primary-text"
+                  className="rounded bg-tertiary-background px-1 py-1 text-sm font-semibold text-primary-text lg:px-4 lg:py-2 lg:text-base"
                 >
                   {color}
                 </p>
