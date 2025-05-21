@@ -19,7 +19,7 @@ const FeaturedProductsSection = () => {
   }, []);
 
   return (
-    <div>
+    <div className="py-8">
       {loading && (
         <div className="flex h-full items-center justify-center">
           <LoaderCircle className="h-12 w-12 animate-spin text-white" />
@@ -44,7 +44,7 @@ const FeaturedProductsSection = () => {
             </p>
           </div>
 
-          <div className="">
+          <div className="pb-8">
             <FeaturedProductsCarousel data={data} />
           </div>
         </div>

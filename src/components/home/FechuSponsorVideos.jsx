@@ -28,7 +28,7 @@ const FechuSponsorVideos = () => {
   ];
 
   return (
-    <div className="mt-4 grid w-2/3 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+    <div className="mx-auto grid w-2/3 grid-cols-1 gap-6 py-8 sm:grid-cols-2 md:grid-cols-3">
       <p className="col-span-full mx-auto my-2 max-w-2xl text-center text-sm font-bold text-primary-text md:text-xl">
         ¡Explorá los mejores reels de Fechu!
       </p>
