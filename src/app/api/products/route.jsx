@@ -63,7 +63,7 @@ export async function GET(request) {
     if (filters.used) query = query.eq("used", true);
     if (filters.stock) query = query.eq("stock", true);
 
-    query = query.order(sortBy, { ascending: order === "asc" });
+    query = query.order(sortBy, { ascending: order === "asc" }).order('id', { ascending: true});
 
     query = query.range(start, end);
 
