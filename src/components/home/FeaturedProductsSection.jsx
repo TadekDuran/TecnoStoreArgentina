@@ -8,7 +8,7 @@ const FeaturedProductsSection = () => {
   const queries = {
     featured: true,
     page: 1,
-    limit: 10,
+    limit: 50,
     sortBy: "price",
     order: "desc",
   };
