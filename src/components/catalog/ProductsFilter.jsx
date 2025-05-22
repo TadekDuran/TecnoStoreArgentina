@@ -60,6 +60,31 @@ const ProductsFilter = ({ queries, setQueries, brandList }) => {
       {localFilters.category && (
         <>
           <div className="flex flex-col gap-3">
+            <Label htmlFor="brand" className="font-medium text-primary-text">
+              Marca
+            </Label>
+            <Select
+              value={localFilters.brand || ""}
+              onValueChange={(value) => handleFilterChange("brand", value)}
+            >
+              <SelectTrigger className="h-10 rounded-md bg-tertiary-background px-3 text-primary-text hover:bg-tertiary-background-hover">
+                <SelectValue placeholder="Selecciona una marca" />
+              </SelectTrigger>
+              <SelectContent className="text-primary-text">
+                {brandList.map((brand, index) => (
+                  <SelectItem
+                    key={index}
+                    value={brand}
+                    className="hover:bg-tertiary-background-hover"
+                  >
+                    {brand}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-3">
             <Label htmlFor="model" className="font-medium text-primary-text">
               Modelo
             </Label>
@@ -94,59 +119,6 @@ const ProductsFilter = ({ queries, setQueries, brandList }) => {
                 onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
                 className="h-10 w-1/2 rounded-md bg-tertiary-background px-3 text-base text-primary-text placeholder-gray-400"
               />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <Label htmlFor="brand" className="font-medium text-primary-text">
-              Marca
-            </Label>
-            <Select
-              value={localFilters.brand || ""}
-              onValueChange={(value) => handleFilterChange("brand", value)}
-            >
-              <SelectTrigger className="h-10 rounded-md bg-tertiary-background px-3 text-primary-text hover:bg-tertiary-background-hover">
-                <SelectValue placeholder="Selecciona una marca" />
-              </SelectTrigger>
-              <SelectContent className="text-primary-text">
-                {brandList.map((brand, index) => (
-                  <SelectItem
-                    key={index}
-                    value={brand}
-                    className="hover:bg-tertiary-background-hover"
-                  >
-                    {brand}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-3">
-              <Checkbox
-                id="used"
-                checked={localFilters.used || false}
-                onCheckedChange={(value) => handleFilterChange("used", value)}
-                className="h-5 w-5"
-              />
-              <Label htmlFor="used" className="text-primary-text">
-                Usado
-              </Label>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Checkbox
-                id="featured"
-                checked={localFilters.featured || false}
-                onCheckedChange={(value) =>
-                  handleFilterChange("featured", value)
-                }
-                className="h-5 w-5"
-              />
-              <Label htmlFor="featured" className="text-primary-text">
-                Destacado
-              </Label>
             </div>
           </div>
         </>
