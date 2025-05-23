@@ -13,9 +13,30 @@ import ProductPagination from "@/components/ProductPagination";
 import { deleteProductAction } from "@/app/admin/actions/admin-actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Admin = () => {
-  const { data, error, getProducts, totalPages } = useProducts();
+  const categoryList = [
+    "Smartphone",
+    "Tablet",
+    "Notebook",
+    "Laptop",
+    "Consola",
+    "Auriculares",
+    "Smartwatch",
+    "Cámara",
+    "Lente",
+    "Drone",
+    "Audio",
+    "Accesorio",
+  ];
+  const { data, error, getProducts, totalPages, brandList } = useProducts();
   const [queries, setQueries] = useState({
     page: 1,
     limit: 10,
@@ -50,7 +71,11 @@ const Admin = () => {
         description: message,
       });
       if (!isSingleDelete) setRowSelection({});
-      setQueries(prev => ({ ...prev, page: prev.page, forceRefresh: Date.now() }));
+      setQueries((prev) => ({
+        ...prev,
+        page: prev.page,
+        forceRefresh: Date.now(),
+      }));
     } catch (error) {
       toast({
         title: "ERROR",
@@ -117,11 +142,67 @@ const Admin = () => {
                   Escribe el nombre del modelo que deseas buscar
                 </p>
               </div>
+
+              <div className="flex flex-col gap-3 mt-4">
+                <Label
+                  htmlFor="category"
+                  className="font-medium text-primary-text"
+                >
+                  Categoría
+                </Label>
+                <Select
+                  value={queries.category || ""}
+                  onValueChange={(value) => handleChange("category", value)}
+                >
+                  <SelectTrigger className="h-10 rounded-md bg-tertiary-background px-3 text-primary-text hover:bg-tertiary-background-hover">
+                    <SelectValue placeholder="Selecciona una categoría" />
+                  </SelectTrigger>
+                  <SelectContent className="text-primary-text">
+                    {categoryList.map((category, index) => (
+                      <SelectItem
+                        key={index}
+                        value={category}
+                        className="hover:bg-tertiary-background-hover"
+                      >
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-3">
+                <Label
+                  htmlFor="brand"
+                  className="font-medium text-primary-text"
+                >
+                  Filtrar por marca
+                </Label>
+                <Select
+                  value={queries.brand || ""}
+                  onValueChange={(value) => handleChange("brand", value)}
+                >
+                  <SelectTrigger className="h-10 rounded-md bg-tertiary-background px-3 text-primary-text hover:bg-tertiary-background-hover">
+                    <SelectValue placeholder="Selecciona una marca" />
+                  </SelectTrigger>
+                  <SelectContent className="text-primary-text">
+                    {brandList.map((brand, index) => (
+                      <SelectItem
+                        key={index}
+                        value={brand}
+                        className="hover:bg-tertiary-background-hover"
+                      >
+                        {brand}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
 
           {/* Sección principal - Tabla */}
-          <div className="lg:col-span-2 flex">
+          <div className="flex lg:col-span-2">
             <div className="rounded-lg bg-secondary-background p-6 shadow-sm">
               {error && (
                 <div className="mb-4 rounded-md bg-destructive/10 p-4 text-destructive-foreground">
@@ -136,11 +217,11 @@ const Admin = () => {
                 setRowSelection={setRowSelection}
               />
 
-                <ProductPagination
-                  queries={queries}
-                  setQueries={setQueries}
-                  totalPages={totalPages}
-                />
+              <ProductPagination
+                queries={queries}
+                setQueries={setQueries}
+                totalPages={totalPages}
+              />
             </div>
           </div>
         </div>
