@@ -15,7 +15,7 @@ import {
 const PaymentMethodList = () => {
   const paymentMethods = [
     { icon: Banknote, text: "Efectivo en Pesos, Dólares y Euros" },
-    { icon: Bitcoin, text: "Criptomonedas (+1.5%)" },
+    { icon: Bitcoin, text: "Criptomonedas" },
     {
       icon: Landmark,
       text: "Transferencias en pesos (+3%) y en dólares (+5%) (solo cuentas de Estados Unidos)",
