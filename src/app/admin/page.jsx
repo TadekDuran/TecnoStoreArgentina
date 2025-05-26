@@ -201,9 +201,8 @@ const Admin = () => {
             </div>
           </div>
 
-          {/* Sección principal - Tabla */}
-          <div className="flex lg:col-span-2">
-            <div className="rounded-lg bg-secondary-background p-6 shadow-sm">
+          <div className="w-full flex lg:col-span-2">
+            <div className="w-full rounded-lg bg-secondary-background p-3 md:p-6 shadow-sm">
               {error && (
                 <div className="mb-4 rounded-md bg-destructive/10 p-4 text-destructive-foreground">
                   <p>Error al obtener productos: {error.message}</p>
@@ -215,6 +214,8 @@ const Admin = () => {
                 data={data}
                 rowSelection={rowSelection}
                 setRowSelection={setRowSelection}
+                handleDelete={handleDelete}
+                setQueries={setQueries}
               />
 
               <ProductPagination
