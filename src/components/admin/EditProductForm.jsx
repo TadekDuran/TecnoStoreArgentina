@@ -118,7 +118,7 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
         title: "Producto editado con éxito",
         description: message,
       });
-      setQueries((prev) => ({
+      setQueries?.((prev) => ({
         ...prev,
         page: prev.page,
         forceRefresh: Date.now(),
