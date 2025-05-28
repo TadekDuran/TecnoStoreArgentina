@@ -46,6 +46,7 @@ const EditProductForm = ({ product, setIsSheetOpen, setQueries }) => {
     "Xiaomi",
     "Motorola",
     "Realme",
+    "Google",
     "SONOS",
     "Sony",
     "Nintendo",

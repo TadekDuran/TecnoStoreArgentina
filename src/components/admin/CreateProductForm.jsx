@@ -46,6 +46,7 @@ const CreateProductForm = ({ setQueries }) => {
     "Xiaomi",
     "Motorola",
     "Realme",
+    "Google",
     "SONOS",
     "Sony",
     "Nintendo",
