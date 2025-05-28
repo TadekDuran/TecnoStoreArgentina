@@ -20,7 +20,7 @@ const FAQ = () => {
       <h1 className="text-center text-3xl font-bold tracking-tight">
         Preguntas Frecuentes
       </h1>
-      <Accordion type="multiple" className="mt-8 w-7/12 border-t">
+      <Accordion type="multiple" className="mt-8 w-4/5 border-t">
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-2xl font-semibold">
             ¿Realizan ventas en cualquier país?
@@ -99,6 +99,18 @@ const FAQ = () => {
           <AccordionContent className="flex flex-wrap items-baseline gap-2">
             <p className="text-xl">
               Si, todos los equipos tienen garantía según la marca. Consultar por privado la extensión.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-7">
+          <AccordionTrigger className="text-2xl font-semibold">
+            ¿Se puede retirar presencialmente?
+          </AccordionTrigger>
+          <AccordionContent className="flex flex-wrap items-baseline gap-2">
+            <p className="text-xl">
+              Si, todos los equipos se pueden retirar presencialmente por cualquiera de nuestras oficinas en Santos Lugares o Núñez.
+              Solo se puede retirar con cita previa, no recibimos clientes sin agendar.
+              Las direcciones se otorgan al hacer un pedido.
             </p>
           </AccordionContent>
         </AccordionItem>
