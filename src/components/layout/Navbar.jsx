@@ -42,7 +42,7 @@ const Navbar = () => {
 
         <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2">
           <Link href="/">
-            <Image src={logoWide} alt="Logo TS Middle" />
+            <Image src={logoWide} alt="Logo TS Middle" width={150} height={60} />
           </Link>
         </NavigationMenuItem>
 
