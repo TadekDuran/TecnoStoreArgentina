@@ -49,6 +49,18 @@ const Admin = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const { toast } = useToast();
 
+  const clearFilters = () => {
+    setQueries({
+      page: 1,
+      limit: 10,
+      sortBy: "price",
+      order: "asc",
+      model: "",
+			category: "",
+			brand: ""
+    });
+  };
+
   const selectedIds = Object.keys(rowSelection).map(
     (rowIndex) => data[rowIndex]?.id,
   );
@@ -143,7 +155,7 @@ const Admin = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 mt-4">
+              <div className="mt-4 flex flex-col gap-3">
                 <Label
                   htmlFor="category"
                   className="font-medium text-primary-text"
@@ -198,11 +210,14 @@ const Admin = () => {
                   </SelectContent>
                 </Select>
               </div>
+              <div className="place-self-center pt-5">
+                <Button variant="destructive" onClick={clearFilters}>Limpiar Filtros</Button>
+              </div>
             </div>
           </div>
 
-          <div className="w-full flex lg:col-span-2">
-            <div className="w-full rounded-lg bg-secondary-background p-3 md:p-6 shadow-sm">
+          <div className="flex w-full lg:col-span-2">
+            <div className="w-full rounded-lg bg-secondary-background p-3 shadow-sm md:p-6">
               {error && (
                 <div className="mb-4 rounded-md bg-destructive/10 p-4 text-destructive-foreground">
                   <p>Error al obtener productos: {error.message}</p>
