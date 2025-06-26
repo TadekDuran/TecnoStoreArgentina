@@ -51,3 +51,12 @@ git clone https://github.com/TadekDuran/TecnoStoreArgentina.git
 npm install
 npm run dev
 ```
+---
+## Ver sitio en acción
+[Home](https://vimeo.com/1096703588/a1bba421bd?ts=0&share=copy)
+
+[Catálogo](https://vimeo.com/1096704383/1da41f4d90?ts=0&share=copy)
+
+[FAQ y Contacto](https://vimeo.com/1096704357/7a1f1d9b11?ts=0&share=copy)
+
+[Admin](https://vimeo.com/1096704311/fdcddb9335?ts=0&share=copy)
