@@ -4,7 +4,7 @@ import Hero from "@/components/home/Hero";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import FeaturedBrands from "@/components/home/FeaturedBrands";
 import SuprapixelSponsorVideos from "@/components/home/SuprapixelSponsorVideos";
-import FechuSponsorVideos from "@/components/home/FechuSponsorVideos";
+import SponsorReels from "@/components/home/SponsorReels";
 
 export default function Home() {
   return (
@@ -26,7 +26,7 @@ export default function Home() {
       </SectionFadeWrapper>
 
       <SectionFadeWrapper>
-        <FechuSponsorVideos />
+        <SponsorReels />
       </SectionFadeWrapper>
     </div>
   );
