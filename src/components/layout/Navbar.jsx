@@ -14,105 +14,79 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import headerLogo from "@/assets/header_logo.png";
-import logoWide from "@/assets/logo_wide.png";
 
 const Navbar = () => {
   return (
     <NavigationMenu className="sticky top-0 z-50 border-b border-white/10">
-      <NavigationMenuList className="relative hidden w-screen items-center justify-between bg-secondary-background px-8 py-4 text-primary-text md:flex">
-        <div className="ml-4 flex items-center gap-8">
-          <NavigationMenuItem>
-            <Link href="/">
-              <Image src={headerLogo} alt="Logo TS Header" />
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Button
-              asChild
-              className="bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-            >
-              <Link href="/catalog">Catálogo</Link>
-            </Button>
-          </NavigationMenuItem>
-        </div>
-
-        <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2">
-          <Link href="/">
-            <Image src={logoWide} alt="Logo TS Middle" width={150} height={60} />
-          </Link>
+      {/* Desktop */}
+      <NavigationMenuList className="mx-auto hidden w-screen items-center justify-center gap-x-8 bg-secondary-background px-8 py-4 text-primary-text md:flex">
+        <NavigationMenuItem>
+          <Button
+            asChild
+            className="bg-tertiary-background px-8 py-6 text-lg text-button-text hover:bg-tertiary-background-hover"
+          >
+            <Link href="/">Inicio</Link>
+          </Button>
         </NavigationMenuItem>
-
-        <div className="flex gap-4 pr-4">
-          <NavigationMenuItem>
-            <Button
-              asChild
-              className="bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-            >
-              <Link href="/faq">Preguntas Frecuentes</Link>
-            </Button>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Button
-              asChild
-              className="bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-            >
-              <Link href="/contact">Contacto</Link>
-            </Button>
-          </NavigationMenuItem>
-        </div>
+        <NavigationMenuItem>
+          <Button
+            asChild
+            className="bg-tertiary-background px-8 py-6 text-lg text-button-text hover:bg-tertiary-background-hover"
+          >
+            <Link href="/catalog">Catálogo</Link>
+          </Button>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Button
+            asChild
+            className="bg-tertiary-background px-8 py-6 text-lg text-button-text hover:bg-tertiary-background-hover"
+          >
+            <Link href="/faq">Preguntas Frecuentes</Link>
+          </Button>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Button
+            asChild
+            className="bg-tertiary-background px-8 py-6 text-lg text-button-text hover:bg-tertiary-background-hover"
+          >
+            <Link href="/contact">Contacto</Link>
+          </Button>
+        </NavigationMenuItem>
       </NavigationMenuList>
-      <NavigationMenuList className="relative flex h-16 w-screen max-w-[100vw] items-center justify-between bg-secondary-background px-4 md:hidden">
+
+      {/* Mobile */}
+      <NavigationMenuList className="flex w-screen items-center justify-between bg-secondary-background px-4 py-4 md:hidden">
         <Sheet>
           <SheetTrigger asChild>
             <Menu
-              size={38}
+              size={36}
               className="ml-2 rounded-lg border-2 border-tertiary-background-hover"
             />
           </SheetTrigger>
           <SheetContent side="left" className="p-6">
             <SheetHeader>
               <SheetTitle>Menú</SheetTitle>
-              <SheetDescription className="hidden">
-                Menú de navegación del sitio
-              </SheetDescription>
             </SheetHeader>
-            <div className="mt-4 flex flex-col gap-4">
-              <Button
-                asChild
-                className="w-full bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-              >
-                <SheetClose asChild>
-                  <Link href="/catalog">Catálogo</Link>
-                </SheetClose>
-              </Button>
-              <Button
-                asChild
-                className="w-full bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-              >
-                <SheetClose asChild>
-                  <Link href="/faq">Preguntas Frecuentes</Link>
-                </SheetClose>
-              </Button>
-              <Button
-                asChild
-                className="w-full bg-tertiary-background text-button-text hover:bg-tertiary-background-hover"
-              >
-                <SheetClose asChild>
-                  <Link href="/contact">Contacto</Link>
-                </SheetClose>
-              </Button>
+            <div className="mt-6 flex flex-col gap-6">
+              {["/", "/catalog", "/faq", "/contact"].map((href, i) => {
+                const labels = ["Inicio", "Catálogo", "Preguntas Frecuentes", "Contacto"];
+                return (
+                  <Button
+                    key={i}
+                    asChild
+                    className="w-full text-lg bg-tertiary-background py-6 text-button-text hover:bg-tertiary-background-hover"
+                  >
+                    <SheetClose asChild>
+                      <Link href={href}>{labels[i]}</Link>
+                    </SheetClose>
+                  </Button>
+                );
+              })}
             </div>
           </SheetContent>
         </Sheet>
-        <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2">
-          <Link href="/">
-            <Image src={logoWide} alt="Logo TS Header" height={60} />
-          </Link>
-        </NavigationMenuItem>
         <div className="h-8 w-8" />
       </NavigationMenuList>
     </NavigationMenu>
