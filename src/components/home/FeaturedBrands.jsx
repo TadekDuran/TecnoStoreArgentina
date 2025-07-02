@@ -48,7 +48,7 @@ const FeaturedBrands = () => {
   ];
 
   return (
-    <section className="relative mx-auto w-4/5 px-4 py-8">
+    <section className="relative mx-auto max-w-7xl px-4 py-8">
       <h2 className="mb-2 text-center text-lg font-bold text-primary-text md:mb-10 md:text-2xl">
         Encontrá los celulares de tus marcas preferidas
       </h2>
@@ -57,7 +57,7 @@ const FeaturedBrands = () => {
           <Link
             key={brand.id}
             href={`/catalog?category=Smartphone&brand=${brand.name}`}
-            className="group flex w-64 flex-col items-center justify-between rounded-2xl bg-tertiary-background p-4 text-center transition-colors hover:bg-tertiary-background-hover"
+            className="group flex w-56 flex-col items-center justify-between rounded-2xl bg-tertiary-background p-4 text-center transition-colors hover:bg-tertiary-background-hover"
           >
             <p className="mb-1 text-lg font-semibold text-primary-text">
               {brand.name}
