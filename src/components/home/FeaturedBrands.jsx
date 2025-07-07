@@ -52,14 +52,14 @@ const FeaturedBrands = () => {
       <h2 className="mb-2 text-center text-lg font-bold text-primary-text md:mb-10 md:text-2xl">
         Encontrá los celulares de tus marcas preferidas
       </h2>
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {brandList.map((brand) => (
           <Link
             key={brand.id}
             href={`/catalog?category=Smartphone&brand=${brand.name}`}
-            className="group flex w-56 flex-col items-center justify-between rounded-2xl bg-tertiary-background p-4 text-center transition-colors hover:bg-tertiary-background-hover"
+            className="group flex h-full flex-col items-center justify-between rounded-2xl bg-tertiary-background p-4 text-center transition-colors hover:bg-tertiary-background-hover"
           >
-            <p className="mb-1 text-lg font-semibold text-primary-text">
+            <p className="mb-2 text-lg font-semibold text-primary-text">
               {brand.name}
             </p>
             <div className="flex h-36 w-full items-center justify-center overflow-hidden">
