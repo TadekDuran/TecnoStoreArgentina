@@ -1,6 +1,7 @@
 import React from "react";
 import SectionFadeWrapper from "@/components/home/SectionFadeWrapper";
 import Hero from "@/components/home/Hero";
+import OrlandoBanner from "@/components/home/OrlandoBanner";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import FeaturedBrands from "@/components/home/FeaturedBrands";
 import SuprapixelSponsorVideos from "@/components/home/SuprapixelSponsorVideos";
@@ -15,6 +16,10 @@ export default function Home() {
 
       <SectionFadeWrapper>
         <FeaturedProductsSection />
+      </SectionFadeWrapper>
+
+      <SectionFadeWrapper>
+        <OrlandoBanner />
       </SectionFadeWrapper>
 
       <SectionFadeWrapper>
