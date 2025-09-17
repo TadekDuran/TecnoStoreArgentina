@@ -1,6 +1,7 @@
 import React from "react";
 import SectionFadeWrapper from "@/components/home/SectionFadeWrapper";
 import Hero from "@/components/home/Hero";
+import IPhone17Banner from "@/components/home/IPhone17Banner";
 import OrlandoBanner from "@/components/home/OrlandoBanner";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import FeaturedBrands from "@/components/home/FeaturedBrands";
@@ -14,6 +15,8 @@ export default function Home() {
         <Hero />
       </SectionFadeWrapper>
 
+      <IPhone17Banner />
+			
       <SectionFadeWrapper>
         <FeaturedProductsSection />
       </SectionFadeWrapper>
