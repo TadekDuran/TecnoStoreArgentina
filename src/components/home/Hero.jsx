@@ -30,7 +30,7 @@ export default function Hero() {
   return (
     <section className="w-full overflow-hidden text-gray-200">
       {/* Sección de fondo con logo */}
-      <div className="mx-auto flex h-40 max-w-7xl items-center justify-center px-4 sm:h-64 md:h-80">
+      <div className="mx-auto flex h-40 max-w-7xl items-center justify-center px-4 sm:h-64 lg:h-72">
         <img
           src={centralLogo.src}
           alt="TecnoStore Logo"
@@ -39,7 +39,7 @@ export default function Hero() {
       </div>
 
       {/* Tarjetas de stats */}
-      <div className="mx-auto max-w-7xl px-4 pb-8 pt-4">
+      <div className="mx-auto max-w-7xl px-4 pb-6">
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {stats.map(({ icon: Icon, label }, idx) => (
             <div
