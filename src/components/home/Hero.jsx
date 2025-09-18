@@ -11,7 +11,7 @@ const stats = [
     icon: FaInstagram,
     label: (
       <>
-        + <CountUp start={0} end={120} duration={4.5} suffix="mil" /> seguidores
+        + <CountUp start={0} end={140} duration={4.5} suffix="mil" /> seguidores
       </>
     ),
   },
