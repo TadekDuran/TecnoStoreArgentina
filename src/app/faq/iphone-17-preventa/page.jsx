@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 
 export const metadata = {
-  title: "Preventa iPhone 17 - TecnoStore Argentina",
+  title: "Información venta iPhone 17 - TecnoStore Argentina",
   description:
     "Encontrá las preguntas frecuentes de la preventa del iPhone 17.",
 };
@@ -16,7 +16,7 @@ const FAQ = () => {
   return (
     <div className="flex flex-col items-center py-10 text-primary-text">
       <h1 className="text-center text-3xl font-bold tracking-tight">
-        Preventa iPhone 17 - 17 Pro - 17 Pro Max - iPhone Air
+        Información trade-in iPhone 17 - 17 Pro - 17 Pro Max - iPhone Air
       </h1>
       <Accordion type="multiple" className="mt-8 w-4/5 border-t">
         <AccordionItem value="item-1">
