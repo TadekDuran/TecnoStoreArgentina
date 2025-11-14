@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { FaTelegramPlane, FaInstagram } from "react-icons/fa";
+import { FaTelegramPlane, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { useScrollPosition } from "@/hooks/use-scroll-position";
 
 const NetworksButtons = () => {
@@ -30,6 +30,7 @@ const NetworksButtons = () => {
 
   const telegramUrl = "https://t.me/TecnoStoreArg";
   const instagramUrl = "https://www.instagram.com/tecnostorearg";
+  const whatsAppUrl = "https://wa.me/message/PNQ3NZQBCRVXE1";
   const buttonBaseClass =
     "fixed z-50 flex items-center justify-center rounded-full text-white shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 h-10 w-10 sm:h-12 sm:w-12 md:h-12 md:w-12 lg:h-14 lg:w-14";
 
@@ -60,6 +61,15 @@ const NetworksButtons = () => {
         aria-label="Contact us on Telegram"
       >
         <FaTelegramPlane className={iconBaseClass} />
+      </a>
+      <a
+        href={whatsAppUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${buttonBaseClass} ${verticalPosition} left-28 bg-[#25D366] hover:bg-[#1EB85A] focus:ring-[#25D366] sm:left-36 md:left-36 lg:left-44 ${hideWhenNearFooter}`}
+        aria-label="Contact us on WhatsApp"
+      >
+        <FaWhatsapp className={iconBaseClass} />
       </a>
     </>
   );

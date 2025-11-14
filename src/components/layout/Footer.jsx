@@ -18,6 +18,11 @@ const Footer = () => {
       name: "Facebook",
       link: "https://m.me/TecnoStoreFans",
     },
+		{
+      id: 4,
+      name: "WhatsApp",
+      link: "https://wa.me/message/PNQ3NZQBCRVXE1",
+    },
   ];
   return (
     <footer className="border-t border-white/10 bg-secondary-background px-8 py-3 text-primary-text">

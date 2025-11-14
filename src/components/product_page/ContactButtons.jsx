@@ -1,6 +1,10 @@
 import React from "react";
-import { FaInstagram, FaTelegramPlane, FaFacebookMessenger } from "react-icons/fa";
-
+import {
+  FaInstagram,
+  FaTelegramPlane,
+  FaFacebookMessenger,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 const ContactButtons = () => {
   return (
@@ -36,6 +40,16 @@ const ContactButtons = () => {
       >
         <FaFacebookMessenger size={24} />
         <span>Hablanos por Messenger</span>
+      </a>
+      {/* WhatsApp */}
+      <a
+        href="https://wa.me/message/PNQ3NZQBCRVXE1"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 rounded-md bg-[#1c994a] p-3 font-semibold text-white transition-colors duration-300 hover:bg-[#1EB85A] focus:ring-[#25D366]"
+      >
+        <FaWhatsapp size={24} />
+        <span>Hablanos por WhatsApp</span>
       </a>
     </div>
   );
