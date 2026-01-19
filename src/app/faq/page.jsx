@@ -40,11 +40,11 @@ const FAQ = () => {
             <ul className="list-disc pl-5 text-xl">
               <li>Efectivo en pesos, dólares y euros</li>
               <li>Criptomonedas (USDT, USDC, etc)</li>
-              <li>Transferencia en pesos (+3%)</li>
+              <li>Transferencia en pesos y dólares (cuenta de ARG) (+2%)</li>
               <li>
-                Transferencia en dólares (solo cuentas de Estados Unidos) (+5%)
+                Transferencia en dólares (cuenta de USA) (+4%)
               </li>
-              <li>AirTM / Wise (+5%)</li>
+              <li>AirTM / Wise (+4%)</li>
             </ul>
           </AccordionContent>
         </AccordionItem>

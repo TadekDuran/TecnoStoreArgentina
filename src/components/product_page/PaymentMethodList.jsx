@@ -18,9 +18,9 @@ const PaymentMethodList = () => {
     { icon: Bitcoin, text: "Criptomonedas" },
     {
       icon: Landmark,
-      text: "Transferencias en pesos (+3%) y en dólares (+5%) (solo cuentas de Estados Unidos)",
+      text: "Transferencias en pesos y dólares (cuentas de ARG) (+2%) y en dólares (cuentas de USA) (+4%)",
     },
-    { icon: Wallet, text: "AirTM / Wise (+5%)" },
+    { icon: Wallet, text: "AirTM / Wise (+4%)" },
   ];
   return (
     <Accordion
