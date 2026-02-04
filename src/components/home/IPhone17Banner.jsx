@@ -11,15 +11,14 @@ const IPhone17Banner = () => {
           <div className="flex flex-col justify-center gap-6 md:gap-8">
             <div className="">
               <h1 className="text-center text-xl font-bold text-gray-950 sm:text-2xl md:text-3xl">
-                ¡Nuevos iPhone Air - 17 - 17 Pro y Pro Max a la venta!
+                iPhone Air - 17 - 17 Pro y Pro Max a la venta
               </h1>
               <h2 className="pt-4 text-center text-sm font-semibold text-gray-950 sm:text-base md:text-lg/6">
-                Ya están a la venta los nuevos modelos de iPhone.{" "}
+                Todos los nuevos modelos de iPhone en stock{" "}
                 <span className="hidden md:inline">
                   <br />
                 </span>
-                ¡Habilitamos la opción de trade-in por primera vez en nuestra
-                historia!*{" "}<br />
+                Contamos con la opción de trade-in para que puedas entregar tu equipo Apple como parte de pago*{" "}<br />
 								*Trade-in solo disponible para la compra de celulares iPhone Air, 17, 17 Pro y Pro Max
               </h2>
             </div>
