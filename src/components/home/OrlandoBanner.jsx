@@ -10,13 +10,12 @@ const OrlandoBanner = () => {
       {/* Este div interior solo centra el contenido sobre la parte sólida del gradiente */}
       <div className="flex flex-col items-center gap-2 lg:gap-4">
         <h1 className="w-4/5 text-center font-bold text-slate-200 lg:w-full lg:text-2xl lg:font-medium">
-          ¡Conocé nuestra tienda de indumentaria y productos importados de
-          EE.UU.!
+          ¡Trae tus compras de USA con nuestro servicio de courier al mejor precio!
         </h1>
         <img src={orlando_logo.src} alt="Orlando Logo" />
-        <Link href="https://orlando-market.com/" target="_blank">
+        <Link href="https://www.instagram.com/orlando_market/" target="_blank">
           <Button className="h-8 border border-slate-300 bg-slate-600 text-xl text-slate-200 hover:bg-slate-400">
-            Ingresá a Orlando <ExternalLink />
+            Conocé Orlando Market <ExternalLink />
           </Button>
         </Link>
       </div>
