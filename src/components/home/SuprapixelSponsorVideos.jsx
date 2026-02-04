@@ -4,16 +4,16 @@ import { ExternalLink, Play } from "lucide-react";
 const SuprapixelSponsorVideos = () => {
   const youtubeSponsorVideos = [
     {
+      id: "q-CcM_76p2U",
+      title: "¿Qué hacen comprando el Pro?",
+    },
+    {
       id: "XTovBpbCyF0",
       title: "TODO sobre #NintendoSwitch2, resumido",
     },
     {
-      id: "I5rbjarQdUQ",
-      title: "Novedades en sistemas operativos Apple!",
-    },
-    {
-      id: "P4B3sxF9MFk",
-      title: "POCO X7 Pro: edición IRON MAN!",
+      id: "fawnZM6C7BY",
+      title: "¿iPhone 17 Pro y Pro Max?",
     },
   ];
 
@@ -29,7 +29,7 @@ const SuprapixelSponsorVideos = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 xl:grid-cols-3">
-        {youtubeSponsorVideos.map((video, index) => (
+        {youtubeSponsorVideos.map((video) => (
           <a
             key={video.id}
             href={`https://www.youtube.com/watch?v=${video.id}`}
