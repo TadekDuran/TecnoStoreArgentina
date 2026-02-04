@@ -53,11 +53,20 @@ const Navbar = () => {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
-            href="https://orlando-market.com/"
+            href="https://www.instagram.com/orlando_market/"
             target="_blank"
             className="flex items-center gap-2 rounded-sm border border-slate-400 bg-gray-600 px-2 py-1 duration-150 hover:bg-slate-400"
           >
-            <img src={orlando_logo.src} alt="Orlando Logotipo" />{" "}
+            <section className="flex flex-col items-center">
+              <img
+                src={orlando_logo.src}
+                alt="Orlando Logotipo"
+                className="p-1"
+              />
+              <h1 className="text-xl font-semibold text-button-text">
+                Servicio de courier
+              </h1>
+            </section>
             <ExternalLink className="text-gray-300" />
           </Link>
         </NavigationMenuItem>
@@ -99,9 +108,12 @@ const Navbar = () => {
               <Link
                 href="https://orlando-market.com/"
                 target="_blank"
-                className="flex items-center gap-2 rounded-sm border border-slate-400 bg-gray-600 py-3 duration-150 hover:bg-slate-400"
+                className="flex flex-col items-center gap-2 rounded-sm border border-slate-400 bg-gray-600 py-2 duration-150 hover:bg-slate-400"
               >
                 <img src={orlando_logo.src} alt="Orlando Logotipo" />
+                <h1 className="text-lg font-semibold text-button-text">
+                  Servicio de courier
+                </h1>
               </Link>
             </div>
           </SheetContent>
