@@ -7,7 +7,7 @@ const FeaturedBrands = () => {
       id: 1,
       name: "Apple",
       image:
-        "https://res.cloudinary.com/dyifeei20/image/upload/v1745945030/iPhone-16-Pro-Max-2_ayoy53.webp",
+        "https://res.cloudinary.com/dyifeei20/image/upload/v1759248273/iphone-17-pro-black_hhii5m.webp",
     },
     {
       id: 2,
