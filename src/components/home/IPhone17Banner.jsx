@@ -22,7 +22,7 @@ const IPhone17Banner = () => {
 								*Trade-in solo disponible para la compra de celulares iPhone Air, 17, 17 Pro y Pro Max
               </h2>
             </div>
-            <div className="flex w-full flex-col gap-2 place-self-center md:w-4/5">
+            <div className="flex w-full items-center justify-center">
               <Link
                 href="/faq/iphone-17-preventa"
                 aria-label="Preventa iPhone 17"
