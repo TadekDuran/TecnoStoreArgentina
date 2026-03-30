@@ -27,8 +27,8 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent>
             <p className="text-xl">
-              No, solamente vendemos y entregamos dentro del territorio de la república
-              Argentina.
+              No, solamente vendemos y entregamos dentro del territorio de la
+              república Argentina.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -38,12 +38,11 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent>
             <ul className="list-disc pl-5 text-xl">
-              <li>Efectivo en pesos, dólares y euros</li>
+              <li>Efectivo en pesos y dólares</li>
               <li>Criptomonedas (USDT, USDC, etc)</li>
-              <li>Transferencia en pesos y dólares (cuenta de ARG) (+2%)</li>
-              <li>
-                Transferencia en dólares (cuenta de USA) (+4%)
-              </li>
+              <li>Transferencia en pesos (+2%)</li>
+              <li>Transferencia en dólares (CUENTA DE ARG) (+3%)</li>
+              <li>Transferencia en dólares (CUENTA DE USA) (+4%)</li>
               <li>AirTM / Wise (+4%)</li>
             </ul>
           </AccordionContent>
@@ -65,9 +64,10 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent>
             <p className="text-xl">
-              Si, hacemos envíos sin cargo a todo el país a través
-              de Andreani. Además hacemos envíos en moto a la Ciudad Autónoma de Buenos Aires y barrios aledaños (consultar
-              disponibilidad).
+              Hacemos envíos a todo el país con Andreani y también en moto a
+              CABA y barrios aledaños. El envío es gratis en compras mayores a USD
+              1.000, caso contrario el costo es de $10.000 (PESOS 10.000). Las entregas con Andreani se
+              realizan de 5 a 10 días hábiles. Las entregas con moto se realizan en 24h o 48h máximo.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -77,8 +77,8 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="flex flex-wrap items-baseline gap-2">
             <p className="text-xl">
-              No, todas las compras se gestionan a través de cualquier medio
-              que se encuentre en la página de
+              No, todas las compras se gestionan a través de cualquier medio que
+              se encuentre en la página de
             </p>
             <div className="inline-flex items-center gap-1">
               <Link
@@ -98,7 +98,8 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="flex flex-wrap items-baseline gap-2">
             <p className="text-xl">
-              Si, todos los equipos tienen garantía según la marca. Consultar por privado la extensión.
+              Si, todos los equipos tienen garantía según la marca. Consultar
+              por privado la extensión.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -108,9 +109,10 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="flex flex-wrap items-baseline gap-2">
             <p className="text-xl">
-              Si, todos los equipos se pueden retirar presencialmente por cualquiera de nuestras oficinas en Santos Lugares o Núñez.
-              Solo se puede retirar con cita previa, no recibimos clientes sin agendar.
-              Las direcciones se otorgan al hacer un pedido.
+              Contamos con oficinas para retiro de compras en Núñez (CABA) y
+              Santos Lugares (Zona Oeste). Las entregas con retiro o envío en
+              moto se realizan en 24h o 48h máximo y con correo de 5 a 10 días
+              hábiles
             </p>
           </AccordionContent>
         </AccordionItem>
