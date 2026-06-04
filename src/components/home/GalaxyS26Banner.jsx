@@ -31,7 +31,7 @@ const GalaxyS26Banner = () => {
                 <h2 className="text-lg font-bold md:text-xl">WHATSAPP</h2>
               </Button>
             </Link>
-						<Link
+{/* 						<Link
               href="https://www.instagram.com/tecnostorearg"
               aria-label="Preventa Galaxy S26"
               target="_blank"
@@ -39,7 +39,7 @@ const GalaxyS26Banner = () => {
               <Button className="h-12 rounded-xl bg-[#F7F7F7] hover:bg-[#C0C0C0]">
                 <h2 className="text-lg font-bold md:text-xl">INSTAGRAM</h2>
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="flex w-full flex-shrink-0 animate-fade-in-delayed items-center justify-center opacity-0 md:w-2/5">
