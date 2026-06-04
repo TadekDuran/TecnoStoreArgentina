@@ -3,11 +3,11 @@ import { ExternalLink, MapPin } from "lucide-react";
 
 const Footer = () => {
   const networkList = [
-    {
+    /*     {
       id: 1,
       name: "Instragram",
       link: "https://www.instagram.com/tecnostorearg",
-    },
+    }, */
     {
       id: 2,
       name: "Telegram",
@@ -18,10 +18,15 @@ const Footer = () => {
       name: "Facebook",
       link: "https://m.me/TecnoStoreFans",
     },
-		{
+    {
       id: 4,
       name: "WhatsApp",
       link: "https://wa.me/message/PNQ3NZQBCRVXE1",
+    },
+    {
+      id: 5,
+      name: "TikTok",
+      link: "https://www.tiktok.com/@tecnostorearg",
     },
   ];
   return (
@@ -39,6 +44,8 @@ const Footer = () => {
                   href={network.link}
                   className="group my-1 flex items-center gap-1 text-sm font-bold text-secondary-text transition-colors hover:text-white sm:text-base"
                   aria-label={network.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span>{network.name}</span>
                   <ExternalLink
