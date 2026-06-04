@@ -1,6 +1,7 @@
 import React from "react";
 import {
   FaInstagram,
+  FaTiktok,
   FaTelegramPlane,
   FaFacebookMessenger,
   FaWhatsapp,
@@ -50,6 +51,15 @@ const ContactButtons = () => {
       >
         <FaWhatsapp size={24} />
         <span>Hablanos por WhatsApp</span>
+      </a>
+      <a
+        href="https://www.tiktok.com/@tecnostorearg"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-4 rounded-md bg-[#000000] p-3 font-semibold text-white transition-colors duration-300 hover:bg-[#2c2c2c]"
+      >
+        <FaTiktok size={24} />
+        <span>Hablanos por TikTok</span>
       </a>
     </div>
   );
