@@ -45,19 +45,10 @@ const NetworksButtons = () => {
   return (
     <>
       <a
-        href={instagramUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`${buttonBaseClass} ${verticalPosition} left-4 bg-gradient-to-r from-purple-600 to-pink-600 transition-opacity duration-300 hover:opacity-90 focus:ring-pink-600 ${hideWhenNearFooter}`}
-        aria-label="Follow us on Instagram"
-      >
-        <FaInstagram className={iconBaseClass} />
-      </a>
-      <a
         href={telegramUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${buttonBaseClass} ${verticalPosition} left-16 bg-[#0088cc] hover:bg-[#0077b3] focus:ring-[#0088cc] sm:left-20 md:left-20 lg:left-24 ${hideWhenNearFooter}`}
+        className={`${buttonBaseClass} ${verticalPosition} left-4 bg-[#0088cc] hover:bg-[#0077b3] focus:ring-[#0088cc] ${hideWhenNearFooter}`}
         aria-label="Contact us on Telegram"
       >
         <FaTelegramPlane className={iconBaseClass} />
@@ -66,11 +57,20 @@ const NetworksButtons = () => {
         href={whatsAppUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${buttonBaseClass} ${verticalPosition} left-28 bg-[#25D366] hover:bg-[#1EB85A] focus:ring-[#25D366] sm:left-36 md:left-36 lg:left-44 ${hideWhenNearFooter}`}
+        className={`${buttonBaseClass} ${verticalPosition} left-16 bg-[#25D366] hover:bg-[#1EB85A] focus:ring-[#25D366] sm:left-20 md:left-20 lg:left-24 ${hideWhenNearFooter}`}
         aria-label="Contact us on WhatsApp"
       >
         <FaWhatsapp className={iconBaseClass} />
       </a>
+      {/*       <a
+        href={instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${buttonBaseClass} ${verticalPosition} left-4 bg-gradient-to-r from-purple-600 to-pink-600 transition-opacity duration-300 hover:opacity-90 focus:ring-pink-600 ${hideWhenNearFooter}`}
+        aria-label="Follow us on Instagram"
+      >
+        <FaInstagram className={iconBaseClass} />
+      </a> */}
     </>
   );
 };
