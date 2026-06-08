@@ -3,7 +3,6 @@ import SectionFadeWrapper from "@/components/home/SectionFadeWrapper";
 import Hero from "@/components/home/Hero";
 import InstagramAlert from "@/components/home/InstagramAlert";
 import IPhone17Banner from "@/components/home/IPhone17Banner";
-import GalaxyS26Banner from "@/components/home/GalaxyS26Banner";
 import OrlandoBanner from "@/components/home/OrlandoBanner";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import FeaturedBrands from "@/components/home/FeaturedBrands";
@@ -19,10 +18,8 @@ export default function Home() {
 
       <InstagramAlert />
 
-      <GalaxyS26Banner />
-
       <IPhone17Banner />
-			
+
       <SectionFadeWrapper>
         <FeaturedProductsSection />
       </SectionFadeWrapper>
