@@ -11,15 +11,15 @@ const ContactButtons = () => {
   return (
     <div className="flex flex-col gap-4 text-button-text">
       {/* Instagram */}
-{/*       <a
-        href="https://www.instagram.com/tecnostorearg"
+      <a
+        href="https://www.instagram.com/tecno.store.arg"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 p-3 font-semibold text-white transition-opacity duration-300 hover:opacity-90"
       >
         <FaInstagram size={24} />
-        <span>Hablanos por Instagram</span>
-      </a> */}
+        <span>Instagram backup</span>
+      </a>
 
       {/* Telegram */}
       <a
